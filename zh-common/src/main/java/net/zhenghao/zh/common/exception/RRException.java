@@ -1,0 +1,51 @@
+package net.zhenghao.zh.common.exception;
+/**
+ * 自定义异常
+ *
+ * @author:zhaozhenghao
+ * @Email :736720794@qq.com
+ * @date  :2018年1月3日 下午2:13:00
+ * RRException.java
+ */
+public class RRException extends RuntimeException {
+
+	private static final long serialVersionUID = 1L;
+	
+	private String msg;
+	
+	private int code = 500;
+	
+	public RRException(String msg) {
+		super(msg);
+		this.msg = msg;
+	}
+	
+	public RRException(String msg, int code) {
+		super(msg);
+		this.msg = msg;
+		this.code = code;
+	}
+	
+	public RRException(String msg, int code, Throwable e) {
+		super(msg, e);
+		this.msg = msg;
+		this.code = code;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+	
+}

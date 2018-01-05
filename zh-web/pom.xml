@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>net.zhenghao.zh</groupId>
+    <artifactId>zh-security</artifactId>
+    <version>${zh-version}</version>
+  </parent>
+  <artifactId>zh-web</artifactId>
+  <packaging>war</packaging>
+  <name>zh-web Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <description>管理后台</description>
+  <dependencies>
+  
+  	<dependency>
+    	<groupId>net.zhenghao.zh</groupId>
+    	<artifactId>zh-common</artifactId>
+    	<version>${zh-version}</version>
+    </dependency>
+    
+    <dependency>
+    	<groupId>net.zhenghao.zh</groupId>
+    	<artifactId>zh-shiro</artifactId>
+    	<version>${zh-version}</version>
+    </dependency>
+    
+    <dependency>
+    	<groupId>net.zhenghao.zh</groupId>
+    	<artifactId>zh-orm</artifactId>
+    	<version>${zh-version}</version>
+    </dependency>
+    
+    <dependency>
+    	<groupId>net.zhenghao.zh</groupId>
+    	<artifactId>zh-base</artifactId>
+    	<version>${zh-version}</version>
+    </dependency>
+  
+  </dependencies>
+  <build>
+    <finalName>zh-security</finalName>
+  </build>
+</project>
