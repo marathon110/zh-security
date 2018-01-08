@@ -53,7 +53,6 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath*:applicationContext*.xml
-			classpath*:zh-*.xml
 		</param-value>
 	</context-param>
 	<listener>
