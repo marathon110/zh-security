@@ -89,7 +89,7 @@
 	</bean>
 	
 	<!-- 动态数据源 -->
-	<bean id="dataSource" class="net.zhenghao.zh.orm.db.DynamicDataSource">
+	<bean id="dataSource" class="net.zhenghao.zh.orm.db.MultipleDataSource">
 		<property name="targetDataSources">
 			<map key-type="java.lang.String">
 				<!-- 可配置多个数据源 -->

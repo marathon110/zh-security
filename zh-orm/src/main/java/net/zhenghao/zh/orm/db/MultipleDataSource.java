@@ -10,7 +10,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
  * @date  :2018年1月5日 上午10:55:13
  * DynamicDataSource.java
  */
-public class DynamicDataSource extends AbstractRoutingDataSource {
+public class MultipleDataSource extends AbstractRoutingDataSource {
 
 	private static final ThreadLocal<String> CONTEXT_HOLDER = new ThreadLocal<>();
 	
@@ -32,7 +32,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
 		String dataSource = CONTEXT_HOLDER.get();
 		//如果没有指定数据源，使用默认数据源
 		if (null == dataSource) {
-			DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getDefault());
+			MultipleDataSource.setDataSource(DataSourceEnum.MASTER.getDefault());
 		}
 		return CONTEXT_HOLDER.get();
 	}
