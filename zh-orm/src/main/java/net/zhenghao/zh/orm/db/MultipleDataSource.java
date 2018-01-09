@@ -4,6 +4,9 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 /**
  * 动态数据源
+ * 使用方法
+ * 配置所需数据源MultipleDataSource.setDataSource("slaveDataSource");
+ * 然后在查询之后清除所有数据源MultipleDataSource.clearDataSource();
  *
  * @author:zhaozhenghao
  * @Email :736720794@qq.com
