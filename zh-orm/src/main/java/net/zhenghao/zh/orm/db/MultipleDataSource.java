@@ -7,6 +7,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
  * 使用方法
  * 配置所需数据源MultipleDataSource.setDataSource("slaveDataSource");
  * 然后在查询之后清除所有数据源MultipleDataSource.clearDataSource();
+ * 可以考虑使用aop 切到在query*方法 设置读取数据源
  *
  * @author:zhaozhenghao
  * @Email :736720794@qq.com
