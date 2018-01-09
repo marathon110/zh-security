@@ -14,7 +14,6 @@ import net.zhenghao.zh.common.controller.AbstractController;
 import net.zhenghao.zh.common.entity.Page;
 import net.zhenghao.zh.common.entity.R;
 import net.zhenghao.zh.common.entity.SysUserEntity;
-import net.zhenghao.zh.shiro.service.SysMenuService;
 import net.zhenghao.zh.shiro.service.SysUserService;
 
 /**

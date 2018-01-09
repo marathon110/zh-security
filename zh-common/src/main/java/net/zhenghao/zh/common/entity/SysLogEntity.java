@@ -61,6 +61,21 @@ public class SysLogEntity implements Serializable{
 	private String ip;
 	
 	/**
+	 * 操作结果 1-成功 0-失败
+	 */
+	private Integer result;
+	
+	/**
+	 * 操作描述
+	 */
+	private String remark;
+	
+	/**
+	 * 日志类型 1-登录 2-访问 3-操作 4-异常 5-授权
+	 */
+	private Integer type;
+	
+	/**
 	 * 创建时间
 	 */
 	private Timestamp gmtCreate;
@@ -140,4 +155,29 @@ public class SysLogEntity implements Serializable{
 	public void setGmtCreate(Timestamp gmtCreate) {
 		this.gmtCreate = gmtCreate;
 	}
+
+	public Integer getResult() {
+		return result;
+	}
+
+	public void setResult(Integer result) {
+		this.result = result;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+	
 }

@@ -4,7 +4,7 @@
 
 <mapper namespace="net.zhenghao.zh.common.dao.SysLogMapper">
 
-	<select id="listForPage" resultType="SysLogEntity">
+	<select id="listForPage" resultType="SysLogEntity" flushCache="true">
 		SELECT
 			id,
 			user_id,
@@ -14,10 +14,19 @@
 			method,
 			params,
 			ip,
+			result,
+			remark,
+			type,
 			gmt_create
 		FROM
 			sys_log
 		<where>
+			<if test=" type != null and type != '' ">
+				type = #{type}
+			</if>
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				AND DATE_FORMAT( gmt_create, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+			</if>
 			<if test="username != null and username.trim() != ''">
 				AND username LIKE concat('%',#{username},'%')
 				OR operation LIKE concat('%',#{username},'%')
@@ -36,6 +45,9 @@
 			method,
 			params,
 			ip,
+			result,
+			remark,
+			type,
 			gmt_create
 		)
 		VALUES (
@@ -46,6 +58,9 @@
 			#{method}, 
 			#{params}, 
 			#{ip}, 
+			#{result},
+			#{remark},
+			#{type},
 			NOW()
 		)
 	</insert>

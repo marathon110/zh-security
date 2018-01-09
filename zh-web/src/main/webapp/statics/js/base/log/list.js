@@ -19,6 +19,9 @@ function getGrid() {
 		height: $(window).height()-54,
 		queryParams: function(params){
 			params.username = vm.keyword;
+			params.startDate = vm.startDate;
+            params.endDate = vm.endDate;
+            params.type = vm.type;
 			return params;
 		},
 		detailView: true,
@@ -44,16 +47,28 @@ function getGrid() {
 			title : "操作",
 			width : "150px"
 		}, {
-			field : "time",
-			title : "响应时间(ms)",
+			field : "remark",
+			title : "操作描述",
 			width : "130px"
 		}, {
 			field : "ip",
 			title : "IP地址",
 			width : "130px"
-		},  {
+		}, {
+			field : "result",
+			title : "状态",
+			width : "60px",
+			formatter : function(value, row, index) {
+				if (value == '0') {
+                    return '<span class="label label-danger">失败</span>';
+                } else if (value == '1') {
+                    return '<span class="label label-success">成功</span>';
+                }
+			}
+		}, {
 			field : "gmtCreate",
-			title : "创建时间"
+			title : "创建时间",
+			width : "200px"
 		}]
 	})
 }
@@ -61,11 +76,39 @@ function getGrid() {
 var vm = new Vue({
 	el : '#zhLTE',
 	data : {
-		keyword : null
+		keyword : null,
+		startDate : null,
+        endDate : null,
+        type : 1,
+        dateRangeText : '时间范围',
+        dateRange : null
 	},
 	methods : {
 		load : function() {
 			$('#dataGrid').bootstrapTable('refresh');
+		},
+		dateRangeSelect : function(count) {
+			if(count == 1) {
+				vm.dateRangeText = '最近一天';
+				vm.startDate = countDay(-1);
+				vm.endDate = today();
+				vm.dateRange = vm.startDate + ' - ' + vm.endDate;
+			}else if(count == 7){
+                vm.dateRangeText = '最近一周';
+                vm.startDate = countDay(-7);
+                vm.endDate = today();
+                vm.dateRange = vm.startDate + ' - ' + vm.endDate;
+            }else if(count == 30){
+                vm.dateRangeText = '最近一月';
+                vm.startDate = countDay(-30);
+                vm.endDate = today();
+                vm.dateRange = vm.startDate + ' - ' + vm.endDate;
+            }else{
+                vm.dateRangeText = '时间范围';
+                vm.startDate = '';
+                vm.endDate = '';
+                vm.dateRange = '';
+            }
 		},
 		remove : function() {
 			var ck = $('#dataGrid').bootstrapTable('getSelections'), ids = [];	
@@ -91,5 +134,21 @@ var vm = new Vue({
 		    	}
 			});
 		}
+	},
+	created : function() {
+		//日期选择
+		laydate.render({
+			elem: '#dateRange',
+            range: true,
+            theme: '#3C8DBC',
+            done: function(value, date, endDate){
+                vm.dateRangeSelect(0);
+                vm.dateRange = value;
+                //vm.startDate = date.year + '-' + date.month + '-' + date.date;
+                //vm.endDate = endDate.year + '-' + endDate.month + '-' + endDate.date;
+                vm.startDate = formatDayForZero(date);
+                vm.endDate = formatDayForZero(endDate);
+            }
+		});
 	}
 })

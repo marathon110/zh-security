@@ -19,7 +19,47 @@ public class SystemConstant {
 	 */
 	public static final String DATA_ROWS = "rows";
 
-	
+	/**
+	 * 日志类型
+	 */
+	public enum LogType {
+		
+		/**
+		 * 登录登出日志
+		 */
+		LOGIN(1),
+
+		/**
+		 * 访问日志
+		 */
+		ACCESS(2),
+
+		/**
+		 * 操作日志
+		 */
+		OPERATION(3),
+
+		/**
+		 * 异常日志
+		 */
+		ERROR(4),
+
+		/**
+		 * 授权日志
+		 */
+		AUTHORIZATION(5);
+		
+		private int value;
+		
+		private LogType(int value) {
+			this.value = value;
+		}
+		
+		public int getValue() {
+			return this.value;
+		}
+		
+	}
 	
 	/**
 	 * 通用变量,表示 可用、禁用、显示、隐藏
@@ -32,12 +72,12 @@ public class SystemConstant {
 	public enum StatusType {
 		
 		/**
-		 * 禁用,隐藏
+		 * 禁用,隐藏,失败
 		 */
 		DISABLE(0),
 		
 		/**
-		 * 可用,显示
+		 * 可用,显示,成功
 		 */
 		ENABLE(1),
 		

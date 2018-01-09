@@ -5,7 +5,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.zhenghao.zh.common.annotation.SysLog;
@@ -98,7 +97,7 @@ public class SysRoleController extends AbstractController {
 	 * @param role
 	 * @return
 	 */
-	@SysLog("分配权限")
+	@SysLog(value = "分配权限", type = "AUTHORIZATION")
 	@RequestMapping("/authorize")
 	public R updateRoleAuthorization(@RequestBody SysRoleEntity role) {
 		return sysRoleService.updateRoleAuthorization(role);

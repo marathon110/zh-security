@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 
-import net.zhenghao.zh.common.annotation.SysLog;
 import net.zhenghao.zh.common.entity.R;
 import net.zhenghao.zh.common.utils.MD5Utils;
 import net.zhenghao.zh.common.utils.ShiroUtils;
@@ -66,7 +65,6 @@ public class SysLoginController {
 	}
 	
 	
-	@SysLog("登陆")
 	@ResponseBody
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public R login(String username, String password, String captcha) {
@@ -96,7 +94,6 @@ public class SysLoginController {
 	
 	
 	
-	@SysLog("退出系统")
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout() {
 		ShiroUtils.logout();

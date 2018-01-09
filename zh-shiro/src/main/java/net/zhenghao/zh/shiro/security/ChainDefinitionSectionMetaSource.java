@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import net.zhenghao.zh.common.entity.Query;
 import net.zhenghao.zh.shiro.entity.SysMenuEntity;
 import net.zhenghao.zh.shiro.manager.SysMenuManager;
-import net.zhenghao.zh.shiro.session.UserSessionDAO;
 
 /**
  * 产生责任链,确定每个url的访问权限

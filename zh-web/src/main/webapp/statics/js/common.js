@@ -15,10 +15,26 @@ $.ajaxSetup({
 	cache: false,
 	complete:function(XMLHttpRequest,textStatus){
 		if(textStatus=="parsererror"){
-           console.log("登陆超时！请重新登陆！");
-       } else if(textStatus=="error"){
-           console.log("请求超时！请稍后再试！");
-       }  
+            top.layer.open({
+			  title: '系统提示',
+			  area: '338px',
+			  icon: 3,
+			  move: false,
+			  anim: -1,
+			  isOutAnim: false,
+			  content: '注：登录超时,请稍后重新登录.',
+			  btn: ['立即退出'],
+			  btnAlign: 'c',
+			  yes: function(){
+				  toUrl('sys/logout');
+			  }
+			});
+			setTimeout(function(){
+				toUrl("sys/logout");
+			}, 2000);
+        } else if(textStatus=="error"){
+           dialogMsg("请求超时，请稍候重试...", "error");
+        }
 	}
 })
 
@@ -92,6 +108,27 @@ formatDate = function (v, format) {
         }
     }
     return format;
+}
+
+function today() {
+	var dd = new Date();
+	return formatDate(dd, 'yyyy-MM-dd');
+}
+
+function countDay(dayCount) {
+	var dd = new Date();
+	dd.setDate(dd.getDate()+dayCount);//获取AddDayCount天后的日期
+	var y = dd.getFullYear();
+	var m = (dd.getMonth()+1)<10?"0"+(dd.getMonth()+1):(dd.getMonth()+1);//获取当前月份的日期，不足10补0
+    var d = dd.getDate()<10?"0"+dd.getDate():dd.getDate();//获取当前几号，不足10补0
+    return y+"-"+m+"-"+d;
+}
+
+function formatDayForZero(date) {
+	var y = date.year;
+	var m = (date.month)<10?"0"+(date.month):(date.month);//获取当前月份的日期，不足10补0
+    var d = date.date<10?"0"+date.date:date.date;//获取当前几号，不足10补0
+    return y+"-"+m+"-"+d;
 }
 
 //判断是空   为空true 非空false
