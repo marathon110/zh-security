@@ -20,5 +20,10 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+    	<groupId>net.zhenghao.zh</groupId>
+    	<artifactId>zh-common</artifactId>
+    	<version>${zh-version}</version>
+    </dependency>
   </dependencies>
 </project>

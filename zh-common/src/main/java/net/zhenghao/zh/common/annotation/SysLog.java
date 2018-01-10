@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 
 /**
  *系统日志注解
+ *@SysLog("里面写内容，必须赋值到value属性中")
  *
  * author:zhaozhenghao
  * Email :736720794@qq.com
@@ -21,7 +22,7 @@ public @interface SysLog {
 	
 	String value() default "";
 	
-	String type() default "OPERATION";
+	String type() default "";
 	
 }
 /**
