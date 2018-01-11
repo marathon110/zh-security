@@ -1,10 +1,6 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>新增-菜单管理</title>
-#parse("include/header.html")
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('新增-菜单管理')"></head>
 <body>
 	<div id="zhLTE" class="container-fluid" v-cloak>
 		<table class="form" id="form">
@@ -55,7 +51,7 @@
         	</tr>
 		</table>
 	</div>
-#parse("include/footer.html")
-<script src="${rc.contextPath}/statics/js/base/menu/add.js?_${date.systemTime}"></script>
+	<div th:include="include/footer_js::footer"></div>
+	<script th:src="@{/statics/js/base/menu/add.js}"></script>
 </body>
 </html>

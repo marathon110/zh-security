@@ -1,15 +1,11 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>tree-菜单管理</title>
-#parse("include/header.html")
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('tree-菜单管理')"></head>
 <body>
 	<div id="zhLTE" class="container-fluid" v-cloak>
 		<ul id="menuTree" class="ztree"></ul>
 	</div>
-#parse("include/footer.html")
+	<div th:include="include/footer_js::footer"></div>
 <script type="text/javascript">
 
 	var setting = {

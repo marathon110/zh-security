@@ -1,10 +1,6 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>角色管理</title>
-#parse("include/header.html")
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('角色管理')"></head>
 <body>
 	<div id="zhLTE" class="container-fluid" v-cloak>
 		<div class="row">
@@ -24,7 +20,7 @@
 			            <a v-if="hasPermission('sys:role:remove')" class="btn btn-default" @click="remove"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
 					</div>
 					<div class="btn-group">
-			            <a v-if="hasPermission('sys:role:authorize')" class="btn btn-default" @click="authorize"><i class="fa fa-key"></i>&nbsp;分配权限</a>
+			            <a v-if="hasPermission('sys:role:authorize')" class="btn btn-default" @click="authorize"><i class="fa fa-key"></i>&nbsp;操作授权</a>
 					</div>
 				</div>
 			</div>
@@ -33,7 +29,7 @@
 	<div class="row">
 		<table id="dataGrid"></table>
 	</div>
-#parse("include/footer.html")
-<script src="${rc.contextPath}/statics/js/base/role/list.js?_${date.systemTime}"></script>
+	<div th:include="include/footer_js::footer"></div>
+	<script th:src="@{/statics/js/base/role/list.js}"></script>
 </body>
 </html>

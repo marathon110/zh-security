@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>选取图标-菜单管理</title>
-#parse("include/header.html")
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('选取图标-菜单管理')"></head>
 <style>
 body {
 	font-family: 'Microsoft Yahei', Helvetica, Arial, sans-serif;
@@ -279,7 +276,7 @@ body {
 		</div>
 		<div>
 			<section id="web-application" class="mainParts">
-				<h2 class="page-header">网页</h2>
+				<h2 class="page-header">��ҳ</h2>
 	
 				<div class="row fontawesome-icon-list">
 	
@@ -2100,7 +2097,7 @@ body {
 		</div>
 		<div>
 			<section id="accessibility">
-				<h2 class="page-header">辅助功能</h2>
+				<h2 class="page-header">������</h2>
 
 				<div class="row fontawesome-icon-list">
 
@@ -2187,7 +2184,7 @@ body {
 		</div>
 		<div>
 			<section id="hand" class="mainParts">
-				<h2 class="page-header">手势</h2>
+				<h2 class="page-header">����</h2>
 
 				<div class="row fontawesome-icon-list">
 
@@ -2266,7 +2263,7 @@ body {
 		</div>
 		<div>
 			<section id="transportation" class="mainParts">
-				<h2 class="page-header">运输</h2>
+				<h2 class="page-header">����</h2>
 
 				<div class="row fontawesome-icon-list">
 
@@ -2349,7 +2346,7 @@ body {
 		</div>
 		<div>
 			<section id="gender" class="mainParts">
-				<h2 class="page-header">性别</h2>
+				<h2 class="page-header">�Ա�</h2>
 
 				<div class="row fontawesome-icon-list">
 
@@ -2416,7 +2413,7 @@ body {
 		</div>
 		<div>
 			<section id="file-type" class="mainParts">
-				<h2 class="page-header">文件类型</h2>
+				<h2 class="page-header">�ļ�����</h2>
 
 				<div class="row fontawesome-icon-list">
 
@@ -2499,12 +2496,12 @@ body {
 		</div>
 		<div>
 			<section id="spinner" class="mainParts">
-				<h2 class="page-header">可旋转</h2>
+				<h2 class="page-header">����ת</h2>
 
 				<div class="alert alert-success">
 					<ul class="fa-ul">
-						<li><i class="fa fa-info-circle fa-lg fa-li"></i> 这些图标在<code>fa-spin</code>类的作用下表现优异。您可以查阅
-							<a href="#spinning" class="alert-link">可旋转图标案例</a>.</li>
+						<li><i class="fa fa-info-circle fa-lg fa-li"></i> ��Щͼ����<code>fa-spin</code>��������±������졣����Բ���
+							<a href="#spinning" class="alert-link">����תͼ�갸��</a>.</li>
 					</ul>
 				</div>
 
@@ -2537,7 +2534,7 @@ body {
 		</div>
 		<div>
 			<section id="form-control" class="mainParts">
-					<h2 class="page-header">表单</h2>
+					<h2 class="page-header">�?</h2>
 
 					<div class="row fontawesome-icon-list">
 
@@ -2591,7 +2588,7 @@ body {
 				</section>
 
 				<section id="payment" class="mainParts">
-					<h2 class="page-header">支付</h2>
+					<h2 class="page-header">֧��</h2>
 
 					<div class="row fontawesome-icon-list">
 
@@ -2649,7 +2646,7 @@ body {
 				</section>
 
 				<section id="chart" class="mainParts">
-					<h2 class="page-header">图表</h2>
+					<h2 class="page-header">ͼ��</h2>
 
 					<div class="row fontawesome-icon-list">
 
@@ -2679,7 +2676,7 @@ body {
 				</section>
 
 				<section id="currency" class="mainParts">
-					<h2 class="page-header">货币</h2>
+					<h2 class="page-header">����</h2>
 
 					<div class="row fontawesome-icon-list">
 
@@ -2793,7 +2790,7 @@ body {
 				</section>
 
 				<section id="text-editor" class="mainParts">
-					<h2 class="page-header">文本编辑</h2>
+					<h2 class="page-header">�ı��༭</h2>
 
 					<div class="row fontawesome-icon-list">
 
@@ -2999,7 +2996,7 @@ body {
 				</section>
 
 				<section id="directional" class="mainParts">
-					<h2 class="page-header">指示方向</h2>
+					<h2 class="page-header">ָʾ����</h2>
 
 					<div class="row fontawesome-icon-list">
 
@@ -3221,7 +3218,7 @@ body {
 				</section>
 
 				<section id="video-player" class="mainParts">
-					<h2 class="page-header">视频播放</h2>
+					<h2 class="page-header">��Ƶ����</h2>
 
 					<div class="row fontawesome-icon-list">
 
@@ -3315,26 +3312,26 @@ body {
 				</section>
 
 				<section id="brand" class="mainParts">
-					<h2 class="page-header">标志</h2>
+					<h2 class="page-header">��־</h2>
 
 					<div class="alert alert-success">
 						<ul class="margin-bottom-none padding-left-lg">
-							<li>所有标志图标都分别是其所有者的注册商标。</li>
-							<li>使用这些商标并不代表Font Awesome拥有它们。</li>
-							<li>商标只应用在被提及相应的公司或产品时使用。</li>
+							<li>���б�־ͼ�궼�ֱ����������ߵ�ע���̱ꡣ</li>
+							<li>ʹ����Щ�̱겢�����Font Awesomeӵ�����ǡ�</li>
+							<li>�̱�ֻӦ���ڱ��ἰ��Ӧ�Ĺ�˾���Ʒʱʹ�á�</li>
 						</ul>
 
 					</div>
 
 					<div class="alert alert-warning">
 						<h4>
-							<i class="fa fa-warning"></i> 特别注意!
+							<i class="fa fa-warning"></i> �ر�ע��!
 						</h4>
-						Adblock Plus 插件会通过设置“Remove Social Media Buttons”来移除 Font Awesome
-						的这些标志图标。 然而我们并不会用一些特殊方法来强行显示。如果您认为这是一个错误，请 <a
+						Adblock Plus �����ͨ�����á�Remove Social Media Buttons�����Ƴ� Font Awesome
+						����Щ��־ͼ�ꡣ Ȼ�����ǲ�������һЩ���ⷽ����ǿ����ʾ���������Ϊ����һ�������� <a
 							href="https://adblockplus.org/en/bugs" class="alert-link"
-							target="_blank">向 Adblock Plus 报告这个问题</a>。 在Adblock
-						Plus修复这个问题之前，您需要自行修改这些图标的类名来解决这个问题。
+							target="_blank">�� Adblock Plus �����������</a>�� ��Adblock
+						Plus�޸��������֮ǰ������Ҫ�����޸���Щͼ������������������⡣
 
 					</div>
 
@@ -4102,7 +4099,7 @@ body {
 				</section>
 
 				<section id="medical" class="mainParts">
-					<h2 class="page-header">医疗</h2>
+					<h2 class="page-header">ҽ��</h2>
 
 					<div class="row fontawesome-icon-list">
 
@@ -4161,7 +4158,7 @@ body {
 		</div>
 	</div>
 </div>
-#parse("include/footer.html")
+<div th:include="include/footer_js::footer"></div>
 <script type="text/javascript">
 	$(function () {
 		$("#icons .fa-hover a").dblclick(function () {

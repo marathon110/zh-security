@@ -1,29 +1,25 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>系统菜单</title>
-#parse("include/header.html")
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('系统菜单')"></head>
 <body>
-<div id="zhLTE" class="container-fluid" v-cloak>
-	<div class="row">
-		<div class="col-md-6">
-			<div class="btm-toolbar">
-				<div class="btn-group">
-					<a class="btn btn-default" onclick="reload();"><i class="fa fa-refresh"></i>&nbsp;刷新</a>
-					<a v-if="hasPermission('sys:menu:save')" class="btn btn-default" @click="save"><i class="fa fa-plus"></i>&nbsp;新增</a>
-					<a v-if="hasPermission('sys:menu:edit')" class="btn btn-default" @click="edit"><i class="fa fa-plus"></i>&nbsp;修改</a>
-					<a v-if="hasPermission('sys:menu:remove')" class="btn btn-default" @click="remove"><i class="fa fa-plus"></i>&nbsp;删除</a>
+	<div id="zhLTE" class="container-fluid" v-cloak>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="btm-toolbar">
+					<div class="btn-group">
+						<a class="btn btn-default" onclick="reload();"><i class="fa fa-refresh"></i>&nbsp;刷新</a>
+						<a v-if="hasPermission('sys:menu:save')" class="btn btn-default" @click="save"><i class="fa fa-plus"></i>&nbsp;新增</a>
+						<a v-if="hasPermission('sys:menu:edit')" class="btn btn-default" @click="edit"><i class="fa fa-pencil-square-o"></i>&nbsp;编辑</a>
+						<a v-if="hasPermission('sys:menu:remove')" class="btn btn-default" @click="remove"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+					</div>
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<table id="dataGrid"></table>
+		</div>
 	</div>
-	<div class="row">
-		<table id="dataGrid"></table>
-	</div>
-</div>
-#parse("include/footer.html")
-<script src="${rc.contextPath}/statics/js/base/menu/list.js?_${date.systemTime}"></script>
+	<div th:include="include/footer_js::footer"></div>
+	<script th:src="@{/statics/js/base/menu/list.js}"></script>
 </body>
 </html>
