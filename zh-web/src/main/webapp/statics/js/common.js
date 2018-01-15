@@ -423,7 +423,16 @@ $.fn.SetWebControls = function (data) {
     }
 }
 
+tabiframeId = function () {
+    var iframeId = top.$(".ZH_iframe:visible").attr("id");
+    return iframeId;
+}
 
 $.currentIframe = function () {
-    return $(window.parent.document).contents().find('#main')[0].contentWindow;;
+    //return $(window.parent.document).contents().find('#main')[0].contentWindow;
+	var tabId = tabiframeId();
+	if(isNullOrEmpty(tabId)) {//单页iframe嵌套
+		return $(window.parent.document).contents().find('#main')[0].contentWindow;
+    }
+    return $(window.parent.document).contents().find('#'+tabiframeId())[0].contentWindow;//多层tab页嵌套
 }

@@ -37,6 +37,18 @@
     	<artifactId>zh-base</artifactId>
     	<version>${zh-version}</version>
     </dependency>
+    
+    <dependency>
+    	<groupId>net.zhenghao.zh</groupId>
+    	<artifactId>zh-quartz</artifactId>
+    	<version>${zh-version}</version>
+    </dependency>
+    
+    <dependency>
+    	<groupId>net.zhenghao.zh</groupId>
+    	<artifactId>zh-generator</artifactId>
+    	<version>${zh-version}</version>
+    </dependency>
   
   </dependencies>
   <build>

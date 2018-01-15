@@ -16,6 +16,7 @@ import net.zhenghao.zh.shiro.manager.SysMenuManager;
 
 /**
  * 产生责任链,确定每个url的访问权限
+ * 让每个接口访问时都进行权限判断，避免页面无权访问而直接在浏览器地址输入接口得到数据
  *
  * @author:zhaozhenghao
  * @Email :736720794@qq.com
@@ -65,7 +66,7 @@ public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section
 	@Override
 	public Class<?> getObjectType() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getClass();
 	}
 
 	@Override

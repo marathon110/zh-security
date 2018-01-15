@@ -285,10 +285,10 @@
     $.zhindex = {
         load: function () {
             $("body").removeClass("hold-transition")
-            $("#content-wrapper").find('.mainContent').height($(window).height() - 133);
+            $("#content-wrapper").find('.mainContent').height($(window).height() - 127);
             $("#sidebar-menu").height($(window).height() - 50);
             $(window).resize(function (e) {
-                $("#content-wrapper").find('.mainContent').height($(window).height() - 133);
+                $("#content-wrapper").find('.mainContent').height($(window).height() - 127);
                 $("#sidebar-menu").height($(window).height() - 50);
             });
         },
