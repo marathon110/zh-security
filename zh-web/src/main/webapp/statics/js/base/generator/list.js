@@ -52,7 +52,24 @@ var vm = new Vue({
 			$('#dataGrid').bootstrapTable('refresh');
 		},
 		generate : function() {
-			
+			var ck = $('#dataGrid').bootstrapTable('getSelections'), names = [];
+			if (checkedRow(ck)) {
+				$.each(ck, function(idx, item) {
+					names[idx] = item.tableName;
+				});
+				dialogOpen({
+					title : '生成代码',
+					url : 'base/generator/code.html?_' + $.now(),
+					width : '530px',
+					height : '500px',
+					success : function(iframeId) {
+						top.frames[iframeId].vm.generator.tables = names;
+					},
+					yes : function(iframeId) {
+						top.frames[iframeId].vm.acceptClick();
+					},
+				});
+			}
 		}
 	}
 })

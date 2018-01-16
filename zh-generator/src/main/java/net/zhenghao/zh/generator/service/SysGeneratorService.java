@@ -3,6 +3,7 @@ package net.zhenghao.zh.generator.service;
 import java.util.Map;
 
 import net.zhenghao.zh.common.entity.Page;
+import net.zhenghao.zh.generator.entity.GeneratorParamEntity;
 import net.zhenghao.zh.generator.entity.TableEntity;
 
 /**
@@ -17,4 +18,5 @@ public interface SysGeneratorService {
 
 	Page<TableEntity> listTable(Map<String, Object> params);
 	
+	byte[] generator(GeneratorParamEntity params);
 }
