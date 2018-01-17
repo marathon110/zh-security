@@ -10,10 +10,52 @@ Target Server Type    : MYSQL
 Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2018-01-15 15:08:10
+Date: 2018-01-17 17:09:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for quartz_job
+-- ----------------------------
+DROP TABLE IF EXISTS `quartz_job`;
+CREATE TABLE `quartz_job` (
+  `job_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务id',
+  `bean_name` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT 'Spring Bean名称',
+  `method_name` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '方法名',
+  `params` varchar(2000) CHARACTER SET utf8 DEFAULT NULL COMMENT '参数',
+  `cron_expression` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT 'cron表达式',
+  `status` tinyint(4) DEFAULT NULL COMMENT '任务状态，0：暂停，1：正常',
+  `remark` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '备注',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`job_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='定时任务';
+
+-- ----------------------------
+-- Records of quartz_job
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for quartz_job_log
+-- ----------------------------
+DROP TABLE IF EXISTS `quartz_job_log`;
+CREATE TABLE `quartz_job_log` (
+  `log_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务日志id',
+  `job_id` bigint(20) NOT NULL COMMENT '任务id',
+  `bean_name` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT 'spring bean名称',
+  `method_name` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '方法名',
+  `params` varchar(2000) CHARACTER SET utf8 DEFAULT NULL COMMENT '参数',
+  `status` tinyint(4) NOT NULL COMMENT '任务状态 0：失败 1：成功',
+  `error` varchar(2000) CHARACTER SET utf8 DEFAULT NULL COMMENT '失败信息',
+  `times` int(11) NOT NULL COMMENT '耗时(单位：毫秒)',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`log_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='定时任务日志';
+
+-- ----------------------------
+-- Records of quartz_job_log
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_log
@@ -33,7 +75,7 @@ CREATE TABLE `sys_log` (
   `remark` varchar(500) CHARACTER SET utf8 DEFAULT NULL COMMENT '操作描述',
   `type` tinyint(255) DEFAULT NULL COMMENT '日志类型 1-登录 2-访问 3-操作 4-异常 5-授权',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=191 DEFAULT CHARSET=latin1 COMMENT='系统日志';
+) ENGINE=InnoDB AUTO_INCREMENT=195 DEFAULT CHARSET=latin1 COMMENT='系统日志';
 
 -- ----------------------------
 -- Records of sys_log
@@ -56,6 +98,10 @@ INSERT INTO `sys_log` VALUES ('187', '1', 'admin', '登录', null, 'net.zhenghao
 INSERT INTO `sys_log` VALUES ('188', '2', 'ceshi', '退出登陆', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.logout()', null, '0:0:0:0:0:0:0:1', '2018-01-15 13:10:58', '1', '退出系统', '1');
 INSERT INTO `sys_log` VALUES ('189', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"nm5cf\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-15 13:11:03', '1', '登录成功', '1');
 INSERT INTO `sys_log` VALUES ('190', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"an2yy\",\"password\":\"123\",\"username\":\"admin\"}', '192.168.1.142', '2018-01-15 14:57:01', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('191', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"cbx6c\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-16 11:46:35', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('192', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"3acnd\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-16 12:43:10', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('193', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"77wc7\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-17 15:13:27', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('194', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"naaac\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-17 15:23:37', '1', '登录成功', '1');
 
 -- ----------------------------
 -- Table structure for sys_menu
