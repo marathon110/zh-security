@@ -141,4 +141,33 @@ public class SystemConstant {
 			return value;
 		}
 	}
+	
+	/**
+	 * 定时任务状态
+	 * 
+	 * @author:zhaozhenghao
+	 * @Email :736720794@qq.com
+	 * @date  :2017年12月6日 下午4:29:36
+	 * SystemConstant.java
+	 */
+	public enum ScheduleStatus {
+		/**
+		 * 正常
+		 */
+		NORMAL(1),
+		/**
+		 * 暂停
+		 */
+		PAUSE(0);
+		
+		private int value;
+		
+		private ScheduleStatus(int value) {
+			this.value = value;
+		}
+		
+		public int getValue() {
+			return value;
+		}
+	}
 }

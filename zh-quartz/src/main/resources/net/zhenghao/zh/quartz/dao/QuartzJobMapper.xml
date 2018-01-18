@@ -98,5 +98,16 @@
 		</foreach> 
 	</update>
 	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			quartz_job
+		WHERE
+			job_id IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
 	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
 </mapper>
