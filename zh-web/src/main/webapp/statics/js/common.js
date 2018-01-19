@@ -56,7 +56,7 @@ toUrl = function(href) {
 	window.location.href = href;
 }
 
-//不知道这个bootstrapTable为什么写到这里,当个例子?
+//公共bootstrapTable函数供其它调用
 $.fn.bootstrapTableEx = function(opt){
 	var defaults = {
 		url: '',
