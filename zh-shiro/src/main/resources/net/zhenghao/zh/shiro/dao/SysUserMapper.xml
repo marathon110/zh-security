@@ -138,4 +138,6 @@
 		WHERE
 			user_id = #{userId}
 	</update>
+	
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
 </mapper>
