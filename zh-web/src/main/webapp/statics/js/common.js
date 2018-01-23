@@ -180,6 +180,12 @@ reload = function () {
     return false;
 }
 
+isWindow = function() {
+	var sUserAgent = navigator.userAgent.toLowerCase();
+    var pc=sUserAgent.match(/windows/i) == "windows";
+    return pc;
+}
+
 /*
  * 
  * $.extend
@@ -202,11 +208,14 @@ dialogOpen = function(opt){
 		success: function(){},
 		yes: function(){}
 	}
+	if (!isWindow()){
+		opt.width = '100%';
+	}
 	var option = $.extend({}, defaults, opt), content = null;
 	if(option.scroll){
 		content = [option.url]
 	}else{
-		content = [option.url, 'no']
+		content = [option.url, 'no']//iframe的url，no代表不显示滚动条
 	}
 	top.layer.open({
 	  	type : 2,
@@ -241,6 +250,9 @@ dialogContent = function(opt){
 		success: null,
 		yes: null
 	}
+	if (!isWindow()){
+		opt.width = '100%';
+	}
 	var option = $.extend({}, defaults, opt);
 	return top.layer.open({
 	  	type : 1,
@@ -271,6 +283,9 @@ dialogAjax = function(opt){
 		btn: ['确定', '取消'],
 		success: null,
 		yes: null
+	}
+	if (!isWindow()){
+		opt.width = '100%';
 	}
 	var option = $.extend({}, defaults, opt);
 	$.post(option.url, null, function(content){

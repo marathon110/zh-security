@@ -62,6 +62,7 @@ var vm = new Vue({
 					url : 'base/generator/code.html?_' + $.now(),
 					width : '530px',
 					height : '500px',
+					scroll : true,
 					success : function(iframeId) {
 						top.frames[iframeId].vm.generator.tables = names;
 					},
