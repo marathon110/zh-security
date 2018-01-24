@@ -210,6 +210,7 @@ dialogOpen = function(opt){
 	}
 	if (!isWindow()){
 		opt.width = '100%';
+		opt.height = '80%';
 	}
 	var option = $.extend({}, defaults, opt), content = null;
 	if(option.scroll){
@@ -252,6 +253,7 @@ dialogContent = function(opt){
 	}
 	if (!isWindow()){
 		opt.width = '100%';
+		opt.height = '80%';
 	}
 	var option = $.extend({}, defaults, opt);
 	return top.layer.open({
@@ -286,6 +288,7 @@ dialogAjax = function(opt){
 	}
 	if (!isWindow()){
 		opt.width = '100%';
+		opt.height = '80%';
 	}
 	var option = $.extend({}, defaults, opt);
 	$.post(option.url, null, function(content){
