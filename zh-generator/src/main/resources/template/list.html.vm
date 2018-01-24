@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="include/header_css::header('${comments}')"></head>
-</head>
 <body>
 	<div id="zhLTE" class="container-fluid" v-cloak>
 		<div class="row">

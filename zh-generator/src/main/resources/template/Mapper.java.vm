@@ -2,7 +2,7 @@ package ${package}.${module}.dao;
 
 import org.mybatis.spring.annotation.MapperScan;
 
-import net.chenlin.dp.common.dao.BaseMapper;
+import net.zhenghao.zh.common.dao.BaseMapper;
 import ${package}.${module}.entity.${className}Entity;
 
 /**

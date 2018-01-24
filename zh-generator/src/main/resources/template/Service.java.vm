@@ -2,8 +2,8 @@ package ${package}.${module}.service;
 
 import java.util.Map;
 
-import net.chenlin.dp.common.entity.Page;
-import net.chenlin.dp.common.entity.R;
+import net.zhenghao.zh.common.entity.Page;
+import net.zhenghao.zh.common.entity.R;
 import ${package}.${module}.entity.${className}Entity;
 
 /**

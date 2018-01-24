@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import net.chenlin.dp.common.entity.Page;
-import net.chenlin.dp.common.entity.Query;
+import net.zhenghao.zh.common.entity.Page;
+import net.zhenghao.zh.common.entity.Query;
 import ${package}.${module}.dao.${className}Mapper;
 import ${package}.${module}.entity.${className}Entity;
 import ${package}.${module}.manager.${className}Manager;
