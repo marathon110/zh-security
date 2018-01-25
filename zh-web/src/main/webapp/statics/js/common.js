@@ -38,8 +38,6 @@ $.ajaxSetup({
 	}
 })
 
-
-
 //权限判断
 function hasPermission(permission) {
     if(isNullOrEmpty(window.parent.perms)) {
@@ -454,3 +452,11 @@ $.currentIframe = function () {
     }
     return $(window.parent.document).contents().find('#'+tabiframeId())[0].contentWindow;//多层tab页嵌套
 }
+
+$(document).ready(function(){  
+	NProgress.configure({ showSpinner: false }); 
+	NProgress.start();  
+});  
+$(window).load(function(){  
+	NProgress.done();  
+});  
