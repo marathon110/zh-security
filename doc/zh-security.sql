@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2018-01-22 14:27:34
+Date: 2018-01-31 16:07:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -166,7 +166,7 @@ CREATE TABLE `qrtz_scheduler_state` (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'LAPTOP-BDE3NRRF1516599955599', '1516602342119', '15000');
+INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'LAPTOP-BDE3NRRF1517379942121', '1517386063916', '15000');
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -298,6 +298,34 @@ CREATE TABLE `quartz_job_log` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for sys_file
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_file`;
+CREATE TABLE `sys_file` (
+  `file_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '文件id',
+  `doc_id` bigint(20) DEFAULT NULL COMMENT '对应文档id',
+  `file_md` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件MD5值（做秒传）',
+  `file_type` tinyint(255) DEFAULT NULL COMMENT '文件类型 1：图片，2：文档,3：视频，4：种子，5：音乐，6：其他，负数进入回收站',
+  `file_show` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件展示名（原文件名）',
+  `file_name` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件上传后名称',
+  `file_path` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件上传路径',
+  `file_size` double(200,0) DEFAULT NULL COMMENT '文件大小(单位B)',
+  `file_size_format` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件大小页面展示',
+  `file_ext` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件后缀名',
+  `file_ip` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件上传服务器ip',
+  `file_address` varchar(300) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件所在服务器磁盘位置',
+  `remark` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '描述',
+  `user_id_create` bigint(20) DEFAULT NULL COMMENT '创建人id',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`file_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='文件管理';
+
+-- ----------------------------
+-- Records of sys_file
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sys_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
@@ -315,7 +343,7 @@ CREATE TABLE `sys_log` (
   `remark` varchar(500) CHARACTER SET utf8 DEFAULT NULL COMMENT '操作描述',
   `type` tinyint(255) DEFAULT NULL COMMENT '日志类型 1-登录 2-访问 3-操作 4-异常 5-授权',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=latin1 COMMENT='系统日志';
+) ENGINE=InnoDB AUTO_INCREMENT=234 DEFAULT CHARSET=latin1 COMMENT='系统日志';
 
 -- ----------------------------
 -- Records of sys_log
@@ -348,6 +376,39 @@ INSERT INTO `sys_log` VALUES ('197', '1', 'admin', '退出登陆', null, 'net.zh
 INSERT INTO `sys_log` VALUES ('198', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"33gc6\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-22 11:24:37', '1', '登录成功', '1');
 INSERT INTO `sys_log` VALUES ('199', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"5fnyc\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-22 13:11:04', '1', '登录成功', '1');
 INSERT INTO `sys_log` VALUES ('200', '1', 'admin', '清空定时任务日志', '2', 'net.zhenghao.zh.quartz.controller.QuartzJobLogController.batchRemoveAll()', null, '0:0:0:0:0:0:0:1', '2018-01-22 14:24:51', '0', '操作失败', '3');
+INSERT INTO `sys_log` VALUES ('201', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"w7g28\",\"password\":\"123\",\"username\":\"admin\"}', '127.0.0.1', '2018-01-23 10:02:40', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('202', '1', 'admin', '登陆', '85', 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '\"admin\"', '0:0:0:0:0:0:0:1', '2018-01-23 10:16:31', null, null, null);
+INSERT INTO `sys_log` VALUES ('203', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"pcam6\",\"password\":\"123\",\"username\":\"admin\"}', '192.168.1.122', '2018-01-23 16:18:59', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('204', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"y58p2\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-23 16:20:57', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('205', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"pnem2\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-23 16:22:34', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('206', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"pnaaa\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-23 16:51:42', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('207', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"myfbn\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-23 17:02:35', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('208', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"bn7yw\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-23 17:28:50', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('209', '-1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"ndag4\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-24 08:43:13', '0', '登录失败：验证码不正确', '1');
+INSERT INTO `sys_log` VALUES ('210', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"ee2da\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-24 08:43:17', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('211', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"gn7d6\",\"password\":\"123\",\"username\":\"admin\"}', '192.168.1.131', '2018-01-24 08:46:28', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('212', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"fwnnn\",\"password\":\"123\",\"username\":\"admin\"}', '127.0.0.1', '2018-01-24 09:57:32', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('213', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"beee8\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-25 08:50:56', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('214', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"a4f3e\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-25 08:53:27', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('215', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"3pn36\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-25 08:54:28', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('216', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"55dxn\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-25 09:00:18', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('217', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"c2ymb\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-25 09:01:15', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('218', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"75y43\",\"password\":\"123\",\"username\":\"admin\"}', '192.168.1.137', '2018-01-25 09:02:36', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('219', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"6n7e5\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-25 09:05:11', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('220', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"mnne3\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-25 09:11:23', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('221', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"b87ad\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-25 09:24:19', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('222', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"3g6b8\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-25 09:33:24', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('223', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"e45g5\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-25 09:34:02', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('224', '-1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"7\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-25 09:36:55', '0', '登录失败：验证码不正确', '1');
+INSERT INTO `sys_log` VALUES ('225', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"a6c4c\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-25 09:37:00', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('226', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"x3cyn\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-25 09:41:15', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('227', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"na4f4\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-25 09:54:30', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('228', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"pw77a\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-26 16:12:54', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('229', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"nyy3g\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-26 16:13:01', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('230', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"5p86x\",\"password\":\"123\",\"username\":\"admin\"}', '192.168.1.122', '2018-01-26 16:13:48', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('231', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"fcaan\",\"password\":\"123\",\"username\":\"admin\"}', '192.168.1.122', '2018-01-26 16:14:59', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('232', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"exa7c\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-29 16:44:56', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('233', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"3gb3n\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-31 14:26:07', '1', '登录成功', '1');
 
 -- ----------------------------
 -- Table structure for sys_menu

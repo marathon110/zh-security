@@ -406,13 +406,6 @@ var vm = new Vue({
     				setScroll();
     			}
             }
-			/*if (!$("body").hasClass("sidebar-collapse")) {
-                $("body").addClass("sidebar-collapse");
-                removeScroll();
-            } else {
-                $("body").removeClass("sidebar-collapse");
-                setScroll();
-            }*/
 		},
 		fullScreen: function() {
             if (!$('#fullscreen').attr('fullscreen')) {
