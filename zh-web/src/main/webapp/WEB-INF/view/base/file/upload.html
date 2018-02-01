@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('文件上传')"></head>
+<style>
+.footer {  
+	position: absolute;
+	bottom: 24px;  
+	width: 100%;  
+	margin:0 auto; 
+	height: 68px;
+}  
+#picker {
+    display: inline-block;
+    line-height: 1.428571429;
+    vertical-align: middle;
+    margin: 0 12px 0 0;
+}
+
+#ctlBtn {
+	width: 86px; 
+	height: 40px; 
+}
+.webuploader-container {
+    position: relative;
+}
+</style>
+<body>
+	<div id="uploader" class="wu-example">
+	    <!--用来存放文件信息-->
+	    <div id="thelist" class="uploader-list"></div>
+	</div>
+	<div class="footer">  
+		<div class="alert alert-success">
+			<div class="btns">
+		        <div id="picker">选择文件</div>
+				<button id="ctlBtn" class="btn btn-default">开始上传</button>
+		    </div>
+		</div>
+	</div>  
+	<div th:include="include/footer_js::footer"></div>
+	<script th:src="@{/statics/plugins/webuploader/webuploader.min.js}"></script>
+	<script th:src="@{/statics/js/base/file/upload.js}"></script>
+</body>
+</html>

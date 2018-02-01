@@ -201,10 +201,15 @@ dialogOpen = function(opt){
 		height: '',
 		url : null,
 		scroll : false,
+		offset: false,//弹框位置
+		maxmin: false,//开启最大化最小化按钮
+		shade : 0.3,//阴影
+		shadeClose : false,//阴影关闭别处可以点击,默认关闭
 		data : {},
 		btn: ['确定', '取消'],
 		success: function(){},
-		yes: function(){}
+		yes: function(){},
+		cancel: function(){}//点击X事件
 	}
 	if (!isWindow()){
 		opt.width = '100%';
@@ -224,8 +229,11 @@ dialogOpen = function(opt){
 		anim: -1,
 		isOutAnim: false,
 		shadeClose : false,
-		shade : 0.3,
+		shade : option.shade,
+		shadeClose : option.shadeClose,
 		area : [option.width, option.height],
+		offset: option.offset,
+		maxmin: option.maxmin,
 		content : content,
 		btn: option.btn,
 		success: function(){
@@ -233,6 +241,9 @@ dialogOpen = function(opt){
 		},
 		yes: function(){
 			option.yes(option.id);
+		},
+		cancel : function() {
+			option.cancel(option.id);
 		}
     });
 }

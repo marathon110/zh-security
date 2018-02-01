@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.zhenghao.zh.file.dao.SysFileMapper">
+
+	<select id="listForPage" resultType="SysFileEntity" flushCache="true">
+		SELECT
+			`file_id`, 
+			`doc_id`, 
+			`file_md`, 
+			`file_type`, 
+			`file_show`, 
+			`file_name`, 
+			`file_path`, 
+			`file_size`, 
+			`file_size_format`, 
+			`file_ext`, 
+			`file_ip`, 
+			`file_address`, 
+			`remark`, 
+			`user_id_create`, 
+			`gmt_create`, 
+			`gmt_modified`
+		FROM
+			sys_file
+		ORDER BY
+			file_id DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO sys_file (
+			`doc_id`, 
+			`file_md`, 
+			`file_type`, 
+			`file_show`, 
+			`file_name`, 
+			`file_path`, 
+			`file_size`, 
+			`file_size_format`, 
+			`file_ext`, 
+			`file_ip`, 
+			`file_address`, 
+			`remark`, 
+			`user_id_create`, 
+			`gmt_create`, 
+			`gmt_modified`
+		)
+		VALUES (
+			#{docId}, 
+			#{fileMd}, 
+			#{fileType}, 
+			#{fileShow}, 
+			#{fileName}, 
+			#{filePath}, 
+			#{fileSize}, 
+			#{fileSizeFormat}, 
+			#{fileExt}, 
+			#{fileIp}, 
+			#{fileAddress}, 
+			#{remark}, 
+			#{userIdCreate}, 
+			#{gmtCreate}, 
+			#{gmtModified}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="SysFileEntity">
+		SELECT
+			`file_id`, 
+			`doc_id`, 
+			`file_md`, 
+			`file_type`, 
+			`file_show`, 
+			`file_name`, 
+			`file_path`, 
+			`file_size`, 
+			`file_size_format`, 
+			`file_ext`, 
+			`file_ip`, 
+			`file_address`, 
+			`remark`, 
+			`user_id_create`, 
+			`gmt_create`, 
+			`gmt_modified`
+		FROM
+			sys_file
+		WHERE
+			file_id = #{fileId}
+	</select>
+	
+	<update id="update">
+		UPDATE sys_file
+	 	<set>
+			<if test="docId != null">`doc_id` = #{docId}, </if>
+			<if test="fileMd != null">`file_md` = #{fileMd}, </if>
+			<if test="fileType != null">`file_type` = #{fileType}, </if>
+			<if test="fileShow != null">`file_show` = #{fileShow}, </if>
+			<if test="fileName != null">`file_name` = #{fileName}, </if>
+			<if test="filePath != null">`file_path` = #{filePath}, </if>
+			<if test="fileSize != null">`file_size` = #{fileSize}, </if>
+			<if test="fileSizeFormat != null">`file_size_format` = #{fileSizeFormat}, </if>
+			<if test="fileExt != null">`file_ext` = #{fileExt}, </if>
+			<if test="fileIp != null">`file_ip` = #{fileIp}, </if>
+			<if test="fileAddress != null">`file_address` = #{fileAddress}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="userIdCreate != null">`user_id_create` = #{userIdCreate}, </if>
+			<if test="gmtCreate != null">`gmt_create` = #{gmtCreate}, </if>
+			<if test="gmtModified != null">`gmt_modified` = #{gmtModified}</if>
+		</set>
+		WHERE
+			file_id = #{fileId}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			sys_file
+		WHERE
+			file_id IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+	
+</mapper>

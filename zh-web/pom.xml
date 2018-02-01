@@ -49,6 +49,12 @@
     	<artifactId>zh-generator</artifactId>
     	<version>${zh-version}</version>
     </dependency>
+    
+    <dependency>
+    	<groupId>net.zhenghao.zh</groupId>
+    	<artifactId>zh-file</artifactId>
+    	<version>${zh-version}</version>
+    </dependency>
   
   </dependencies>
   <build>
