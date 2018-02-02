@@ -108,7 +108,7 @@ public class SysFileController extends AbstractController {
 					String suffixName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 					filePath = "E:" + File.separator + "zh_work";
 					fileName = new Date().getTime() + "";
-					fileUp(file, filePath, fileName);	
+					fileUp(file, filePath, fileName + suffixName);	
 				}
 			}
 		}

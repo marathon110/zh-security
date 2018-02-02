@@ -7,7 +7,7 @@
 	width: 100%;  
 	margin:0 auto; 
 	height: 68px;
-}  
+} 
 #picker {
     display: inline-block;
     line-height: 1.428571429;
@@ -22,11 +22,70 @@
 .webuploader-container {
     position: relative;
 }
+
+.uploadInfo {
+	margin:0 auto; 
+	margin-top: 4px;
+	width: 90%; 
+	height: 68%; 
+    border: 3px dashed #e6e6e6;
+    overflow :yes;
+    overflow :auto;
+    overflow-y :yes;
+    overflow-y :auto;
+}
+
+.uploader-list-header {
+	overflow: hidden;
+    height: 35px;
+    border-bottom: 1px solid #f2f6fd;
+    line-height: 35px;
+    color: #424e67;
+    text-align:center;
+}
+
+.uploader-list-header .file-name,.uploader-list-info .file-name{
+    float: left;
+    width: 45%;
+    text-indent: 14px;
+}
+
+.uploader-list-header .file-size ,.uploader-list-info .file-size {
+    float: left;
+    width: 21%;
+    text-indent: 10px;
+    text-align:center;
+}
+
+.uploader-list-header .file-status,.uploader-list-info .file-status {
+    float: left;
+    width: 21%;
+    text-align:center;
+}
+
+.uploader-list-header .file-operate,.uploader-list-info .file-operate {
+    text-align:center;
+}
+
+.uploader-list-header div{
+    height: 35px;
+}
+
+.uploader-list-info div{
+	border-bottom: 1px solid #f2f6fd;
+    height: 40px;
+    overflow: hidden; /*防止内容超出容器或者产生自动换行*/
+    padding-top: 10px;
+}
 </style>
 <body>
 	<div id="uploader" class="wu-example">
-	    <!--用来存放文件信息-->
-	    <div id="thelist" class="uploader-list"></div>
+		<div class="uploadInfo">
+			<!--用来存放文件信息-->
+	    	<div id="thelist" class="uploader-list">
+	    		<div class="uploader-list-header"><div class="file-name">文件名</div><div class="file-size">大小</div><div class="file-status">状态</div><div class="file-operate">操作</div></div>
+	    	</div>
+		</div>
 	</div>
 	<div class="footer">  
 		<div class="alert alert-success">
