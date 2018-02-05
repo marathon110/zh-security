@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2018-01-31 16:07:55
+Date: 2018-02-05 17:14:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -166,7 +166,7 @@ CREATE TABLE `qrtz_scheduler_state` (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'LAPTOP-BDE3NRRF1517379942121', '1517386063916', '15000');
+INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'LAPTOP-BDE3NRRF1517449287467', '1517449348733', '15000');
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -314,6 +314,7 @@ CREATE TABLE `sys_file` (
   `file_ext` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件后缀名',
   `file_ip` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件上传服务器ip',
   `file_address` varchar(300) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件所在服务器磁盘位置',
+  `upload_type` tinyint(255) DEFAULT NULL COMMENT '上传类型，1：普通上传，2：MD5匹配秒传',
   `remark` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '描述',
   `user_id_create` bigint(20) DEFAULT NULL COMMENT '创建人id',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
@@ -343,7 +344,7 @@ CREATE TABLE `sys_log` (
   `remark` varchar(500) CHARACTER SET utf8 DEFAULT NULL COMMENT '操作描述',
   `type` tinyint(255) DEFAULT NULL COMMENT '日志类型 1-登录 2-访问 3-操作 4-异常 5-授权',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=234 DEFAULT CHARSET=latin1 COMMENT='系统日志';
+) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=latin1 COMMENT='系统日志';
 
 -- ----------------------------
 -- Records of sys_log
@@ -409,6 +410,8 @@ INSERT INTO `sys_log` VALUES ('230', '1', 'admin', '登录', null, 'net.zhenghao
 INSERT INTO `sys_log` VALUES ('231', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"fcaan\",\"password\":\"123\",\"username\":\"admin\"}', '192.168.1.122', '2018-01-26 16:14:59', '1', '登录成功', '1');
 INSERT INTO `sys_log` VALUES ('232', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"exa7c\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-29 16:44:56', '1', '登录成功', '1');
 INSERT INTO `sys_log` VALUES ('233', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"3gb3n\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-31 14:26:07', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('234', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"2xb7e\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-31 16:09:45', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('235', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"xd7ax\",\"password\":\"123\",\"username\":\"admin\"}', '127.0.0.1', '2018-01-31 16:25:42', '1', '登录成功', '1');
 
 -- ----------------------------
 -- Table structure for sys_menu

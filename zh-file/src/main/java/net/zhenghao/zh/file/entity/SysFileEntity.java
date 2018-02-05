@@ -77,6 +77,11 @@ public class SysFileEntity implements Serializable {
 	private String fileAddress;
 	
 	/**
+	 * 上传类型，1：普通上传，2：MD5匹配秒传
+	 */
+	private Integer uploadType;
+
+	/**
 	 * 描述
 	 */
 	private String remark;
@@ -195,6 +200,14 @@ public class SysFileEntity implements Serializable {
 	
 	public String getFileAddress() {
 		return fileAddress;
+	}
+	
+	public Integer getUploadType() {
+		return uploadType;
+	}
+
+	public void setUploadType(Integer uploadType) {
+		this.uploadType = uploadType;
 	}
 	
 	public void setRemark(String remark) {

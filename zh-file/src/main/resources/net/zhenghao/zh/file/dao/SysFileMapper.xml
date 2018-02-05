@@ -17,6 +17,7 @@
 			`file_ext`, 
 			`file_ip`, 
 			`file_address`, 
+			`upload_type`, 
 			`remark`, 
 			`user_id_create`, 
 			`gmt_create`, 
@@ -40,6 +41,7 @@
 			`file_ext`, 
 			`file_ip`, 
 			`file_address`, 
+			`upload_type`, 
 			`remark`, 
 			`user_id_create`, 
 			`gmt_create`, 
@@ -57,6 +59,7 @@
 			#{fileExt}, 
 			#{fileIp}, 
 			#{fileAddress}, 
+			#{uploadType}, 
 			#{remark}, 
 			#{userIdCreate}, 
 			#{gmtCreate}, 
@@ -78,6 +81,7 @@
 			`file_ext`, 
 			`file_ip`, 
 			`file_address`, 
+			`upload_type`, 
 			`remark`, 
 			`user_id_create`, 
 			`gmt_create`, 
@@ -102,6 +106,7 @@
 			<if test="fileExt != null">`file_ext` = #{fileExt}, </if>
 			<if test="fileIp != null">`file_ip` = #{fileIp}, </if>
 			<if test="fileAddress != null">`file_address` = #{fileAddress}, </if>
+			<if test="uploadType != null">`upload_type` = #{uploadType}, </if>
 			<if test="remark != null">`remark` = #{remark}, </if>
 			<if test="userIdCreate != null">`user_id_create` = #{userIdCreate}, </if>
 			<if test="gmtCreate != null">`gmt_create` = #{gmtCreate}, </if>

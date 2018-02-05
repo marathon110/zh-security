@@ -1,18 +1,24 @@
 package net.zhenghao.zh.file.controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.RandomAccessFile;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -37,6 +43,9 @@ import net.zhenghao.zh.file.service.SysFileService;
 @RestController
 @RequestMapping("/sys/file")
 public class SysFileController extends AbstractController {
+	
+	//atomiclong 可以理解是加了synchronized的long。用作计数
+	private static AtomicLong counter = new AtomicLong(0L);
 
 	@Autowired
 	private SysFileService sysFileService;
@@ -94,8 +103,9 @@ public class SysFileController extends AbstractController {
 		return sysFileService.batchRemove(id);
 	}
 	
-	@RequestMapping("/upload")
-	public void upload(HttpServletRequest request) {
+	@RequestMapping(method = {RequestMethod.POST}, value = {"/upload"})
+	public void upload(HttpServletRequest request) throws IOException {
+		
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
 				request.getSession().getServletContext());
 		if (multipartResolver.isMultipart(request)) {
@@ -107,7 +117,7 @@ public class SysFileController extends AbstractController {
 					String filePath = null,filePath2=null,fileName = null;
 					String suffixName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 					filePath = "E:" + File.separator + "zh_work";
-					fileName = new Date().getTime() + "";
+					fileName = DateUtils.format(new Date(), "yyyy-MM-dd-HH-mm-ss");
 					fileUp(file, filePath, fileName + suffixName);	
 				}
 			}
