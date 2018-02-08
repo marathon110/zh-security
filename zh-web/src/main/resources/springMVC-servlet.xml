@@ -94,9 +94,11 @@
 		<property name="templateLoaderPath" value="/WEB-INF/view/" />
 	</bean>
 	
+	<!-- 
+	前台用webuploader 的分片上传List<FileItem> items = upload.parseRequest(request);获取为空，所以注释掉
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="1000000000" />
-	</bean>
+	</bean> -->
 	
 </beans>

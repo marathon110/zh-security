@@ -83,8 +83,19 @@ body, button, input, select, textarea {
     color: rgb(102, 102, 102);
     font: 12px/1.5 "Microsoft YaHei", arial, SimSun, 宋体;
 }
+
+.file-process {
+    background-color : #e2eeff;
+}
+
+#stopBtn,#retryBtn {
+	float:right;
+    margin-right: 12px;
+}
 </style>
 <body>
+	<!-- 隐藏域 实时保存上传进度 --> 
+	<input id="progress" type="hidden"/> 
 	<div id="uploader" class="wu-example">
 		<div class="uploadInfo">
 			<!--用来存放文件信息-->
@@ -98,6 +109,8 @@ body, button, input, select, textarea {
 		<div class="btns">
 	        <div id="picker">选择文件</div>
 			<button id="ctlBtn" class="btn btn-default">开始上传</button>
+			<button id="stopBtn" class="btn btn-default">暂停上传</button>
+			<button id="retryBtn" class="btn btn-default">继续上传</button>
 	    </div>
 	</div>  
 	<div th:include="include/footer_js::footer"></div>

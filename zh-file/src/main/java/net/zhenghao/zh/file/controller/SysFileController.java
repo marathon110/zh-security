@@ -1,36 +1,27 @@
 package net.zhenghao.zh.file.controller;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import net.zhenghao.zh.common.annotation.SysLog;
 import net.zhenghao.zh.common.controller.AbstractController;
 import net.zhenghao.zh.common.entity.Page;
 import net.zhenghao.zh.common.entity.R;
-import net.zhenghao.zh.common.utils.DateUtils;
+import net.zhenghao.zh.common.utils.RedisUtils;
+import net.zhenghao.zh.common.utils.ShiroUtils;
 import net.zhenghao.zh.file.entity.SysFileEntity;
+import net.zhenghao.zh.file.entity.SysUploadEntity;
 import net.zhenghao.zh.file.service.SysFileService;
+import net.zhenghao.zh.file.utils.UploadUtils;
 
 /**
  * 文件管理
@@ -43,9 +34,6 @@ import net.zhenghao.zh.file.service.SysFileService;
 @RestController
 @RequestMapping("/sys/file")
 public class SysFileController extends AbstractController {
-	
-	//atomiclong 可以理解是加了synchronized的long。用作计数
-	private static AtomicLong counter = new AtomicLong(0L);
 
 	@Autowired
 	private SysFileService sysFileService;
@@ -103,80 +91,53 @@ public class SysFileController extends AbstractController {
 		return sysFileService.batchRemove(id);
 	}
 	
-	@RequestMapping(method = {RequestMethod.POST}, value = {"/upload"})
-	public void upload(HttpServletRequest request) throws IOException {
-		
-		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
-				request.getSession().getServletContext());
-		if (multipartResolver.isMultipart(request)) {
-			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-			Iterator<String> iter = multiRequest.getFileNames();
-			while (iter.hasNext()) {
-				MultipartFile file = multiRequest.getFile(iter.next());
-				if (file != null) {
-					String filePath = null,filePath2=null,fileName = null;
-					String suffixName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-					filePath = "E:" + File.separator + "zh_work";
-					fileName = DateUtils.format(new Date(), "yyyy-MM-dd-HH-mm-ss");
-					fileUp(file, filePath, fileName + suffixName);	
-				}
-			}
-		}
-	}
-	
-	/**上传文件
-	 * @param file 			//文件对象
-	 * @param filePath		//上传路径
-	 * @param fileName		//文件名
-	 * @return  文件名
-	 */
-	public static String fileUp(MultipartFile file, String filePath, String fileName){
-		/*String extName = ""; // 扩展名格式：
-		try {
-			if (file.getOriginalFilename().lastIndexOf(".") >= 0){
-				extName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-			}
-			copyFile(file.getInputStream(), filePath, fileName+extName).replaceAll("-", "");
-		} catch (IOException e) {
-			System.out.println(e);
-		}
-		return fileName+extName;*/
-		try {
-			
-			copyFile(file.getInputStream(), filePath, fileName).replaceAll("-", "");
-		} catch (IOException e) {
-			System.out.println(e);
-		}
-		return fileName;
-	}
-	
-	
 	/**
-	 * 写文件到当前目录的upload目录中
-	 * @param in
-	 * @param fileName
+	 * 保存上传分片
+	 * @param request
 	 * @throws IOException
 	 */
-	private static String copyFile(InputStream in, String dir, String realName)
-			throws IOException {
-		File file = mkdirsmy(dir,realName);
-		FileUtils.copyInputStreamToFile(in, file);
-		return realName;
+	@RequestMapping("/upload")
+	public void upload(HttpServletRequest request) throws IOException {
+		UploadUtils.uploadChunk(request);
 	}
 	
-	/**判断路径是否存在，否：创建此路径
-	 * @param dir  文件路径
-	 * @param realName  文件名
-	 * @throws IOException 
+	/**
+	 * 当有文件添加进列队时，通过文件名查看该文件是否上传过，上传进度时多少
+	 * @param fileName
+	 * @return
 	 */
-	public static File mkdirsmy(String dir, String realName) throws IOException{
-		File file = new File(dir, realName);
-		if (!file.exists()) {
-			if (!file.getParentFile().exists()) {
-				file.getParentFile().mkdirs();
-			}
-			file.createNewFile();
+	@RequestMapping("/progress")
+	public String selectProgressByFileName(String fileName) {
+		String progress = "";
+		//当前登陆用户信息
+		Long userId = ShiroUtils.getUserId();
+		if (StringUtils.isNotBlank(fileName)) {
+			progress = RedisUtils.get("progress_" + userId + "_" + fileName);
 		}
-		return file;
+		if (progress == null) {
+			progress = "";
+		}
+		return progress;
+	}
+	
+	/**
+	 * 合并分片文件
+	 * @param fileName
+	 * @return
+	 * @throws FileNotFoundException 
+	 */
+	@RequestMapping("/mergeChunks")
+	public R mergeChunks(String fileName) throws FileNotFoundException {
+		return UploadUtils.mergeChunks(fileName);
+	}
+	
+	/**
+	 * 检查当前分块是否上传成功
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/checkChunk")
+	public R checkChunk(SysUploadEntity upload) {
+        return UploadUtils.checkChunk(upload);
 	}
 }

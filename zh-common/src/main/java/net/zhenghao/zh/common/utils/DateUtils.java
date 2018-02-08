@@ -25,6 +25,22 @@ public class DateUtils {
 	public static String format(Date date) {
 		return format(date, DATE_PATTERN);
 	}
+	
+	/**
+	 * 获取时间格式yyyy-MM-dd HH:mm:ss
+	 * @return
+	 */
+	public static String formatDateTime() {
+		return format(new Date(), DATE_TIME_PATTERN);
+	}
+	
+	/**
+	 * 获取时间格式yyyy-MM-dd
+	 * @return
+	 */
+	public static String formatDate() {
+		return format(new Date(), DATE_PATTERN);
+	}
 
 	public static String format(Date date, String pattern) {
 		if (date != null) {

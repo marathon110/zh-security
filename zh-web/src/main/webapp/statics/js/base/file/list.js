@@ -24,21 +24,10 @@ function getGrid() {
 		showRefresh : true,
 		columns: [
 			{checkbox: true},
-			{field : "docId", title : "对应文档id", width : "100px"}, 
-			{field : "fileMd", title : "文件MD5值（做秒传）", width : "100px"}, 
-			{field : "fileType", title : "文件类型", width : "100px"}, 
-			{field : "fileShow", title : "文件展示名（原文件名）", width : "100px"}, 
-			{field : "fileName", title : "文件上传后名称", width : "100px"}, 
-			{field : "filePath", title : "文件上传路径", width : "100px"}, 
-			{field : "fileSize", title : "文件大小(单位B)", width : "100px"}, 
-			{field : "fileSizeFormat", title : "文件大小页面展示", width : "100px"}, 
-			{field : "fileExt", title : "文件后缀名", width : "100px"}, 
-			{field : "fileIp", title : "文件上传服务器ip", width : "100px"}, 
-			{field : "fileAddress", title : "文件所在服务器磁盘位置", width : "100px"}, 
-			{field : "remark", title : "描述", width : "100px"}, 
-			{field : "userIdCreate", title : "创建人id", width : "100px"}, 
-			{field : "gmtCreate", title : "创建时间", width : "100px"}, 
-			{field : "gmtModified", title : "修改时间", width : "100px"}
+			{field : "fileType", title : "文件类型", width : "60px"}, 
+			{field : "fileShow", title : "文件名", width : "600px"}, 
+			{field : "fileSizeFormat", title : "大小", width : "150px"}, 
+			{field : "gmtCreate", title : "创建时间", width : "200px"}
 		]
 	})
 }
