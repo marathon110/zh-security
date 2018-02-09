@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2018-02-05 17:14:23
+Date: 2018-02-09 16:44:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -309,7 +309,7 @@ CREATE TABLE `sys_file` (
   `file_show` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件展示名（原文件名）',
   `file_name` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件上传后名称',
   `file_path` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件上传路径',
-  `file_size` double(200,0) DEFAULT NULL COMMENT '文件大小(单位B)',
+  `file_size` bigint(200) DEFAULT NULL COMMENT '文件大小(单位B)',
   `file_size_format` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件大小页面展示',
   `file_ext` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件后缀名',
   `file_ip` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件上传服务器ip',

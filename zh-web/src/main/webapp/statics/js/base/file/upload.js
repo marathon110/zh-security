@@ -20,6 +20,7 @@
 	    var map={};//key存储文件id，value存储该文件上传过的进度  
 	    var mapMd5={};//key存储文件id，value存储该文件md5值
 	    var mapFileName={};//key存储文件id，value存储该文件名称 
+	    var mapRepetition={};//key存储文件MD5值，value存储该文件是否有重复
 		
 		
 		/********************** 监听分块上传过程中的三个时间点 start ******************************/  
@@ -33,35 +34,60 @@
 				fileMd5 = mapMd5[file.id];
 				fileName = mapFileName[file.id];
 				var deferred = WebUploader.Deferred();
-				deferred.resolve();
-			},
-			//时间点2：如果有分块上传，则每个分块上传之前调用此函数  
-			beforeSend : function(block) {
-				var deferred = WebUploader.Deferred();
+				
 				$.ajax({
 					type : "POST",
-					url : "../../sys/file/checkChunk",//ajax验证每一个分片 
+					url : "../../sys/file/repetition",//ajax验证该上传文件是否有过上传
 					data : {
 						fileName : fileName,
-						progress : $("#progress").val(),
-						fileMd5 : fileMd5, //文件唯一标记 
-						chunk : block.chunk,  //当前分块下标
-						chunkSize : block.end-block.start//当前分块大小
+						fileMd5 : fileMd5 //文件唯一标记 
 					},
 					cache: false,  
 	                async: false,  // 与js同步  
 	                timeout: 1000, //todo 超时的话，只能认为该分片未上传过  
 	                dataType:"json", 
 	                success:function(response){    
-	                    if(response.ifExist == 1){  
-	                        //分块存在，跳过    
-	                        deferred.reject();    
+	                    if(response.repetition == 1){ //等于1说明上传过 
+	                    	mapRepetition[fileMd5] = 1; 
 	                    }else{    
-	                        //分块不存在或不完整，重新发送该分块内容    
-	                        deferred.resolve();    
+	                    	mapRepetition[fileMd5] = 0;
 	                    }    
 	                }
 				});
+				deferred.resolve();
+			},
+			//时间点2：如果有分块上传，则每个分块上传之前调用此函数  
+			beforeSend : function(block) {
+				var deferred = WebUploader.Deferred();
+				var repetition = mapRepetition[fileMd5];
+				if(repetition == 1) {//为1说明之前重复了  就不再请求了
+					deferred.reject();  
+				} else {
+					$.ajax({
+						type : "POST",
+						url : "../../sys/file/checkChunk",//ajax验证每一个分片 
+						data : {
+							fileName : fileName,
+							progress : $("#progress").val(),
+							fileMd5 : fileMd5, //文件唯一标记 
+							chunk : block.chunk,  //当前分块下标
+							chunkSize : block.end-block.start//当前分块大小
+						},
+						cache: false,  
+		                async: false,  // 与js同步  
+		                timeout: 1000, //todo 超时的话，只能认为该分片未上传过  
+		                dataType:"json", 
+		                success:function(response){    
+		                    if(response.ifExist == 1){  
+		                        //分块存在，跳过    
+		                        deferred.reject();    
+		                    }else{    
+		                        //分块不存在或不完整，重新发送该分块内容    
+		                        deferred.resolve();    
+		                    }    
+		                }
+					});
+				}
 				this.owner.options.formData.fileMd5 = fileMd5;    
 	            deferred.resolve();    
 	            return deferred.promise(); 
@@ -73,9 +99,15 @@
 					type : "POST",
 					url : "../../sys/file/mergeChunks",//ajax将所有片段合并成整体 
 					data : {
-						fileName : file.name,  
+						fileName : file.name,
+						fileMd5 : mapMd5[file.id],
+						fileSize : file.size
 					},
 	                success:function(response){   
+	                	var $li = $( '#'+file.id ),
+	        		    $process = $li.find('.file-process');
+	                	$process.css( 'width', '100%' );
+	                	$.currentIframe().vm.load();//函数在common.js中配置,刷新当前iframe
 	                	count++; //每上传完成一个文件 count+1 
 	                    if(count <= filesArr.length - 1){  
 	                    	uploader.upload(filesArr[count].id);//上传文件列表中的下一个文 

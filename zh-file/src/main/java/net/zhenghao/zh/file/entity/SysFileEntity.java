@@ -54,7 +54,7 @@ public class SysFileEntity implements Serializable {
 	/**
 	 * 文件大小(单位B)
 	 */
-	private Double fileSize;
+	private Long fileSize;
 	
 	/**
 	 * 文件大小页面展示
@@ -162,11 +162,11 @@ public class SysFileEntity implements Serializable {
 		return filePath;
 	}
 	
-	public void setFileSize(Double fileSize) {
+	public void setFileSize(Long fileSize) {
 		this.fileSize = fileSize;
 	}
 	
-	public Double getFileSize() {
+	public Long getFileSize() {
 		return fileSize;
 	}
 	

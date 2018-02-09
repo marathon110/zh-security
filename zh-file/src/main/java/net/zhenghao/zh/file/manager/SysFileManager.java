@@ -27,4 +27,6 @@ import net.zhenghao.zh.file.entity.SysFileEntity;
 	
 	int batchRemove(Long[] id);
 	
+	SysFileEntity getSysFileByMd(String fileMd);
+	
  }

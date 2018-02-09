@@ -5,6 +5,7 @@ import java.util.Map;
 import net.zhenghao.zh.common.entity.Page;
 import net.zhenghao.zh.common.entity.R;
 import net.zhenghao.zh.file.entity.SysFileEntity;
+import net.zhenghao.zh.file.entity.SysUploadEntity;
 
 /**
  * 文件管理
@@ -25,5 +26,9 @@ public interface SysFileService {
 	R updateSysFile(SysFileEntity sysFile);
 	
 	R batchRemove(Long[] id);
+	
+	R checkRepetition(SysUploadEntity upload);
+	
+	R mergeChunks(SysUploadEntity upload);
 	
 }

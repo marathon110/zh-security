@@ -51,5 +51,11 @@ public class SysFileManagerImpl implements SysFileManager {
 		int count = sysFileMapper.batchRemove(id);
 		return count;
 	}
+
+	@Override
+	public SysFileEntity getSysFileByMd(String fileMd) {
+		SysFileEntity sysFile = sysFileMapper.getSysFileByMd(fileMd);
+		return sysFile;
+	}
 	
 }

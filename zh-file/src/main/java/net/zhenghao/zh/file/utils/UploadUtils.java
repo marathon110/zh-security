@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,11 +25,13 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
+import net.zhenghao.zh.common.constant.SystemConstant;
 import net.zhenghao.zh.common.entity.R;
 import net.zhenghao.zh.common.utils.DateUtils;
 import net.zhenghao.zh.common.utils.PropertiesUtils;
 import net.zhenghao.zh.common.utils.RedisUtils;
 import net.zhenghao.zh.common.utils.ShiroUtils;
+import net.zhenghao.zh.file.entity.SysFileEntity;
 import net.zhenghao.zh.file.entity.SysUploadEntity;
 
 /**
@@ -71,19 +75,22 @@ public class UploadUtils {
 			for (FileItem item : items) {
 				//上传文件的真实名称
 				fileName = item.getName();
-				if (item.isFormField()) {
-					String fieldName = item.getFieldName();
-					if ("chunk".equals(fieldName)) {
-						chunk = item.getString("utf-8");
+				String repetition = RedisUtils.get("repetition_" + userId + "_" + fileName);//1为重复
+				if (repetition == null || "0".equals(repetition)) {
+					if (item.isFormField()) {
+						String fieldName = item.getFieldName();
+						if ("chunk".equals(fieldName)) {
+							chunk = item.getString("utf-8");
+						}
+					} else {
+						File file = new File(tempPath + File.separator + RedisUtils.get("fileName_" + userId + "_" + fileName));
+						if (!file.exists()) {
+							file.mkdirs();
+						}
+						File chunkFile = new File(tempPath + File.separator + RedisUtils.get("fileName_" + userId + "_" + fileName)
+						 + File.separator + chunk);
+						FileUtils.copyInputStreamToFile(item.getInputStream(), chunkFile);
 					}
-				} else {
-					File file = new File(tempPath + File.separator + RedisUtils.get("fileName_" + userId + "_" + fileName));
-					if (!file.exists()) {
-						file.mkdirs();
-					}
-					File chunkFile = new File(tempPath + File.separator + RedisUtils.get("fileName_" + userId + "_" + fileName)
-					 + File.separator + chunk);
-					FileUtils.copyInputStreamToFile(item.getInputStream(), chunkFile);
 				}
 			}
 		} catch (FileUploadException e) {
@@ -142,89 +149,122 @@ public class UploadUtils {
 	 * @param fileName
 	 * @return
 	 * @throws FileNotFoundException 
+	 * @throws UnknownHostException 
 	 */
 	@SuppressWarnings("resource")
-	public static R mergeChunks(String fileName) throws FileNotFoundException {
+	public static SysFileEntity mergeChunks(SysUploadEntity upload) throws FileNotFoundException, UnknownHostException {
+		
+		SysFileEntity fileEntity = null;
+		
 		//当前登陆用户信息
 		Long userId = ShiroUtils.getUserId();
-		String commonName = userId + "_" + fileName;
+		String commonName = userId + "_" + upload.getFileName();
 		
+		String repetition = RedisUtils.get("repetition_" + commonName);//1为重复
 		//文件上传的临时文件保存在temp文件夹下 定时删除"E:/zh_work/upload/用户id/temp/"
 		String tempPath = new File(save_path) + File.separator 
 				+ userId + File.separator
 				+ "temp" + File.separator;
-		//读取目录里的所有文件
-		File f = new File(tempPath + File.separator + RedisUtils.get("fileName_" + commonName));
+		//截取文件名的后缀名
+		int pointIndex = upload.getFileName().lastIndexOf(".");
+		String suffix = "";
+		if (pointIndex >= 0) {
+			suffix = upload.getFileName().substring(pointIndex);
+		}
 		
-		File[] fileArray = f.listFiles(new FileFilter() {
-			//排除目录只要文件
-			@Override
-			public boolean accept(File pathname) {
-				if (pathname.isDirectory()) {
-					return false;
+		
+		if (repetition == null || "0".equals(repetition)) {
+			
+			//读取目录里的所有文件
+			File f = new File(tempPath + File.separator + RedisUtils.get("fileName_" + commonName));
+			
+			File[] fileArray = f.listFiles(new FileFilter() {
+				//排除目录只要文件
+				@Override
+				public boolean accept(File pathname) {
+					if (pathname.isDirectory()) {
+						return false;
+					}
+					return true;
 				}
-				return true;
-			}
-		});
-		
-		//转成集合，便于排序
-		List<File> fileList = new ArrayList<File>(Arrays.asList(fileArray));
-		Collections.sort(fileList, new Comparator<File>() {
+			});
+			
+			//转成集合，便于排序
+			List<File> fileList = new ArrayList<File>(Arrays.asList(fileArray));
+			Collections.sort(fileList, new Comparator<File>() {
 
-			@Override
-			public int compare(File o1, File o2) {
-				if(Integer.parseInt(o1.getName()) < Integer.parseInt(o2.getName())){    
-                    return -1;    
-                }    
-                return 1; 
+				@Override
+				public int compare(File o1, File o2) {
+					if(Integer.parseInt(o1.getName()) < Integer.parseInt(o2.getName())){    
+	                    return -1;    
+	                }    
+	                return 1; 
+				}
+				
+			});
+			
+			File saveFile = new File(save_path + File.separator //正式保存的文件夹
+					+ userId + File.separator + DateUtils.formatDate() + File.separator);
+			if (!saveFile.exists()) {
+				saveFile.mkdirs();
+			}
+			//合并后的文件
+			File outputFile = new File(save_path + File.separator + userId + File.separator + DateUtils.formatDate()
+				+ File.separator + RedisUtils.get("fileName_" + commonName) + suffix);
+			//创建文件
+			try {
+				outputFile.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//输出流
+			FileChannel outChannel = new FileOutputStream(outputFile).getChannel();
+			//合并
+			FileChannel inChannel;
+			for (File file : fileList) {
+				inChannel = new FileInputStream(file).getChannel();
+				try {
+					inChannel.transferTo(0, inChannel.size(), outChannel);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					inChannel.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				//删除分片
+				file.delete();
+			}
+			try {
+				outChannel.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
-		});
-		//截取文件名的后缀名
-		int pointIndex = fileName.lastIndexOf(".");
-		String suffix = fileName.substring(pointIndex);
-		File saveFile = new File(save_path + File.separator //正式保存的文件夹
-				+ userId + File.separator + DateUtils.formatDate() + File.separator);
-		if (!saveFile.exists()) {
-			saveFile.mkdirs();
+			fileEntity = new SysFileEntity();
+			fileEntity.setFileMd(upload.getFileMd5());
+			fileEntity.setFileType(FileTypeUtils.fileType(upload.getFileName()));
+			fileEntity.setFileShow(upload.getFileName());
+			fileEntity.setFileName(RedisUtils.get("fileName_" + commonName) + suffix);
+			fileEntity.setFilePath("upload" + File.separator + userId + File.separator + DateUtils.formatDate()
+				+ File.separator + RedisUtils.get("fileName_" + commonName) + suffix);
+			fileEntity.setFileSize(upload.getFileSize());
+			fileEntity.setFileSizeFormat(FileTypeUtils.getSizeFormat(upload.getFileSize()));
+			fileEntity.setFileExt(suffix.replace(".", ""));
+			InetAddress address = InetAddress.getLocalHost();
+			fileEntity.setFileIp(address.getHostAddress());
+			fileEntity.setFileAddress(save_path + File.separator + userId + File.separator + DateUtils.formatDate()
+				+ File.separator + RedisUtils.get("fileName_" + commonName) + suffix);
+			fileEntity.setUploadType(SystemConstant.UploadType.COMMON.getValue());
+			fileEntity.setUserIdCreate(userId);
 		}
-		//合并后的文件
-		File outputFile = new File(save_path + File.separator + userId + File.separator + DateUtils.formatDate()
-			+ File.separator + RedisUtils.get("fileName_" + commonName) + suffix);
-		//创建文件
-		try {
-			outputFile.createNewFile();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//输出流
-		FileChannel outChannel = new FileOutputStream(outputFile).getChannel();
-		//合并
-		FileChannel inChannel;
-		for (File file : fileList) {
-			inChannel = new FileInputStream(file).getChannel();
-			try {
-				inChannel.transferTo(0, inChannel.size(), outChannel);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				inChannel.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//删除分片
-			file.delete();
-		}
-		try {
-			outChannel.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		
 		//清除文件夹
 		File tempFile = new File(tempPath + File.separator + RedisUtils.get("fileName_" + commonName));
 		if (tempFile.isDirectory() && tempFile.exists()) {
@@ -245,6 +285,7 @@ public class UploadUtils {
 		//key：上传文件的真实名称   value：存储分片的临时文件夹名称（由上传文件的MD5值+时间戳组成） 
 		//如果下次再上传同名文件  redis中将存储新的临时文件夹名称  没有上传完成的还要保留在redis中 直到定时任务生效  
 		RedisUtils.remove("fileName_" + commonName);
-		return result;
+		RedisUtils.remove("repetition_" + commonName);
+		return fileEntity;
 	}
 }

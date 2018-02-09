@@ -36,8 +36,8 @@ public class ${className}ServiceImpl implements ${className}Service {
 	}
 
 	@Override
-	public R save${className}(${className}Entity role) {
-		int count = ${objName}Manager.save${className}(role);
+	public R save${className}(${className}Entity ${objName}) {
+		int count = ${objName}Manager.save${className}(${objName});
 		return CommonUtils.msg(count);
 	}
 

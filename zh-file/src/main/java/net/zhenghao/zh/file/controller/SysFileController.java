@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.zhenghao.zh.common.annotation.SysLog;
+import net.zhenghao.zh.common.constant.SystemConstant;
 import net.zhenghao.zh.common.controller.AbstractController;
 import net.zhenghao.zh.common.entity.Page;
 import net.zhenghao.zh.common.entity.R;
@@ -45,6 +46,9 @@ public class SysFileController extends AbstractController {
 	 */
 	@RequestMapping("/list")
 	public Page<SysFileEntity> list(@RequestBody Map<String, Object> params) {
+		if (getUserId() != SystemConstant.SUPER_ADMIN) {
+			params.put("userIdCreate", getUserId());
+		}
 		return sysFileService.listSysFile(params);
 	}
 	
@@ -127,8 +131,8 @@ public class SysFileController extends AbstractController {
 	 * @throws FileNotFoundException 
 	 */
 	@RequestMapping("/mergeChunks")
-	public R mergeChunks(String fileName) throws FileNotFoundException {
-		return UploadUtils.mergeChunks(fileName);
+	public R mergeChunks(SysUploadEntity upload) throws FileNotFoundException {
+		return sysFileService.mergeChunks(upload);
 	}
 	
 	/**
@@ -140,4 +144,15 @@ public class SysFileController extends AbstractController {
 	public R checkChunk(SysUploadEntity upload) {
         return UploadUtils.checkChunk(upload);
 	}
+	
+	/**
+	 * 检查当前上传文件是否上传过
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/repetition")
+	public R repetition(SysUploadEntity upload) {
+        return sysFileService.checkRepetition(upload);
+	}
+	
 }

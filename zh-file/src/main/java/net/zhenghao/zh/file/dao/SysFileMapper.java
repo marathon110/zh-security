@@ -16,4 +16,11 @@ import net.zhenghao.zh.file.entity.SysFileEntity;
 @MapperScan
 public interface SysFileMapper extends BaseMapper<SysFileEntity> {
 	
+	/**
+	 * 根据md5值得到SysFileEntity
+	 * @param fileMd
+	 * @return
+	 */
+	SysFileEntity getSysFileByMd(String fileMd);
+	
 }

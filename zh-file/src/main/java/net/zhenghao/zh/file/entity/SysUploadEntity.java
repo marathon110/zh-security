@@ -34,6 +34,11 @@ public class SysUploadEntity {
 	 */
 	private String progress;
 	
+	/**
+	 * 上传文件大小
+	 */
+	private Long fileSize;
+	
 	public SysUploadEntity() {
 		super();
 	}
@@ -77,6 +82,13 @@ public class SysUploadEntity {
 	public void setProgress(String progress) {
 		this.progress = progress;
 	}
-	
+
+	public Long getFileSize() {
+		return fileSize;
+	}
+
+	public void setFileSize(Long fileSize) {
+		this.fileSize = fileSize;
+	}
 	
 }

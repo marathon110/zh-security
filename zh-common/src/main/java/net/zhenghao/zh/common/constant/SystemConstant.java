@@ -170,4 +170,80 @@ public class SystemConstant {
 			return value;
 		}
 	}
+	
+	
+	/**
+	 * 上传文件类型
+	 * 
+	 * @author:zhaozhenghao
+	 * @Email :736720794@qq.com
+	 * @date  :2018年2月9日 上午11:17:36
+	 * FileType.java
+	 */
+	public enum FileType {
+		/**
+		 * 图片
+		 */
+		IMAGE(1),
+		/**
+		 * 文档
+		 */
+		DOCUMENT(2),
+		/**
+		 * 视频
+		 */
+		VIDEO(3),
+		/**
+		 * 种子
+		 */
+		SEED(4),
+		/**
+		 * 音乐
+		 */
+		MUSIC(5),
+		/**
+		 * 其他
+		 */
+		OTHER(6);
+		
+		private int value;
+		
+		private FileType(int value) {
+			this.value = value;
+		}
+		
+		public int getValue() {
+			return value;
+		}
+	}
+	
+	
+	/**
+	 * 上传方式类型
+	 * 
+	 * @author:zhaozhenghao
+	 * @Email :736720794@qq.com
+	 * @date  :2018年2月9日 上午11:17:36
+	 * FileType.java
+	 */
+	public enum UploadType {
+		/**
+		 * 普通上传
+		 */
+		COMMON(1),
+		/**
+		 * 秒传
+		 */
+		SECOND(2);
+		
+		private int value;
+		
+		private UploadType(int value) {
+			this.value = value;
+		}
+		
+		public int getValue() {
+			return value;
+		}
+	}
 }

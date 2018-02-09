@@ -24,8 +24,19 @@
 			`gmt_modified`
 		FROM
 			sys_file
+		<where>
+			<if test=" fileType != null and fileType != '' ">
+				file_type = #{fileType}
+			</if>
+			<if test="userIdCreate != null">
+				and user_id_create = #{userIdCreate} 
+			</if>
+			<if test="fileShow != null and fileShow.trim() != ''">
+				AND file_show LIKE concat('%',#{fileShow},'%') 
+			</if>
+		</where>
 		ORDER BY
-			file_id DESC
+			gmt_create DESC
 	</select>
 	
 	<insert id="save">
@@ -44,8 +55,7 @@
 			`upload_type`, 
 			`remark`, 
 			`user_id_create`, 
-			`gmt_create`, 
-			`gmt_modified`
+			`gmt_create`
 		)
 		VALUES (
 			#{docId}, 
@@ -62,8 +72,7 @@
 			#{uploadType}, 
 			#{remark}, 
 			#{userIdCreate}, 
-			#{gmtCreate}, 
-			#{gmtModified}
+			NOW()
 		)
 	</insert>
 	
@@ -92,10 +101,36 @@
 			file_id = #{fileId}
 	</select>
 	
+	<!-- 根据文件md查询是否有重复，做秒传用 -->
+	<select id="getSysFileByMd" resultType="SysFileEntity">
+		SELECT
+			`file_id`, 
+			`doc_id`, 
+			`file_md`, 
+			`file_type`, 
+			`file_show`, 
+			`file_name`, 
+			`file_path`, 
+			`file_size`,  
+			`file_size_format`, 
+			`file_ext`, 
+			`file_ip`, 
+			`file_address`, 
+			`upload_type`, 
+			`remark`, 
+			`user_id_create`, 
+			`gmt_create`, 
+			`gmt_modified`
+		FROM
+			sys_file
+		WHERE
+			file_md = #{fileMd}
+		LIMIT 0,1
+	</select>
+	
 	<update id="update">
 		UPDATE sys_file
 	 	<set>
-			<if test="docId != null">`doc_id` = #{docId}, </if>
 			<if test="fileMd != null">`file_md` = #{fileMd}, </if>
 			<if test="fileType != null">`file_type` = #{fileType}, </if>
 			<if test="fileShow != null">`file_show` = #{fileShow}, </if>
@@ -108,9 +143,7 @@
 			<if test="fileAddress != null">`file_address` = #{fileAddress}, </if>
 			<if test="uploadType != null">`upload_type` = #{uploadType}, </if>
 			<if test="remark != null">`remark` = #{remark}, </if>
-			<if test="userIdCreate != null">`user_id_create` = #{userIdCreate}, </if>
-			<if test="gmtCreate != null">`gmt_create` = #{gmtCreate}, </if>
-			<if test="gmtModified != null">`gmt_modified` = #{gmtModified}</if>
+			gmt_modified = NOW()
 		</set>
 		WHERE
 			file_id = #{fileId}
@@ -126,6 +159,17 @@
 			#{id}
 		</foreach>
 	</delete>
+	
+	<update id="updateFileStatus">
+		UPDATE sys_file
+		SET
+			file_type = #{fileType}
+		WHERE
+			file_id IN
+		<foreach item="fileId" collection="id" open="(" separator="," close=")">
+			#{fileId}
+		</foreach> 
+	</update>
 	
 	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
 	
