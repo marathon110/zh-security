@@ -24,7 +24,27 @@ function getGrid() {
 		showRefresh : true,
 		columns: [
 			{checkbox: true},
-			{field : "fileType", title : "文件类型", width : "60px"}, 
+			{
+				field : "fileType", 
+				title : "文件类型", 
+				width : "60px",
+				align : "center",
+				formatter : function(value, row, index) {
+					if (value == '1') {
+	                    return '<i class="fa fa-image"></i>';
+	                } else if (value == '2') {
+	                    return '<i class="fa fa-file-text"></i>';
+	                } else if (value == '3') {
+	                    return '<i class="fa fa-film"></i>';
+	                } else if (value == '4') {
+	                    return '<i class="fa fa-file"></i>';
+	                } else if (value == '5') {
+	                    return '<i class="fa fa-music"></i>';
+	                } else if (value == '6') {
+	                    return '<i class="fa fa-file-o"></i>';
+	                }
+				}
+			}, 
 			{field : "fileShow", title : "文件名", width : "600px"}, 
 			{field : "fileSizeFormat", title : "大小", width : "150px"}, 
 			{field : "gmtCreate", title : "创建时间", width : "200px"}
