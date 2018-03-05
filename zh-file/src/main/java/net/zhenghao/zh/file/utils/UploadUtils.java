@@ -251,7 +251,7 @@ public class UploadUtils {
 			fileEntity.setFileType(FileTypeUtils.fileType(upload.getFileName()));
 			fileEntity.setFileShow(upload.getFileName());
 			fileEntity.setFileName(RedisUtils.get("fileName_" + commonName) + suffix);
-			fileEntity.setFilePath("upload" + File.separator + userId + File.separator + DateUtils.formatDate()
+			fileEntity.setFilePath(File.separator + "upload" + File.separator + userId + File.separator + DateUtils.formatDate()
 				+ File.separator + RedisUtils.get("fileName_" + commonName) + suffix);
 			fileEntity.setFileSize(upload.getFileSize());
 			fileEntity.setFileSizeFormat(FileTypeUtils.getSizeFormat(upload.getFileSize()));

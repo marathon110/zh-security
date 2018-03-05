@@ -45,7 +45,22 @@ function getGrid() {
 	                }
 				}
 			}, 
-			{field : "fileShow", title : "文件名", width : "600px"}, 
+			{
+				field : "fileShow", 
+				title : "文件名", 
+				width : "600px",
+				formatter : function(value, row, index) {
+					var fileType = row.fileType;
+					if (fileType == '4') {
+	                    return value;
+	                } else if (fileType == '6') {
+	                    return value;
+	                } else {
+	                	var $row = JSON.stringify(row).replace(/\"/g,"'");//row的是一个对象
+	                	return '<a href="javascript:void(0)" onclick="preview(' + $row + ')" >' + value + '</a>';
+	                }
+				}
+			}, 
 			{field : "fileSizeFormat", title : "大小", width : "150px"}, 
 			{field : "gmtCreate", title : "创建时间", width : "200px"}
 		]
@@ -128,3 +143,24 @@ var vm = new Vue({
 		}
 	}
 })
+
+/**
+ * 预览
+ * @param file 文件对象
+ */
+function preview(file) {
+	var fileType = file.fileType;
+	if (fileType == '1') {
+        console.log("图片");
+    } else if (fileType == '2') {
+    	console.log("文档");
+    } else if (fileType == '3') {
+    	window.open("../../base/file/player.html?path=" + file.filePath,"_blank"); 
+    } else if (fileType == '4') {
+    	console.log("种子");
+    } else if (fileType == '5') {
+    	console.log("音乐");
+    } else if (fileType == '6') {
+    	console.log("其他");
+    }
+}

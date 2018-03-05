@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('视频播放')"></head>
+<link rel="stylesheet" th:href="@{/statics/plugins/flowplayer/skin/skin.css}"/>
+<style>
+body { font: 12px "Myriad Pro", "Lucida Grande", sans-serif; text-align: center; padding-top: 5%; }
+.flowplayer { width: 80%; }
+</style>
+<body>
+	<div class="flowplayer" data-swf="/statics/plugins/flowplayer/flowplayer.swf" data-ratio="0.4167">
+      <video autoplay="autoplay">
+         <source type="video/mp4" id="source" src="/2018-02-05-11-07-06.mp4">
+      </video>
+   	</div> 
+	<div th:include="include/footer_js::footer"></div>
+	<script th:src="@{/statics/plugins/flowplayer/flowplayer.min.js}"></script>
+	<script type="text/javascript">
+		var path = url('path');
+		if(isNotNullOrEmpty(path)) {
+			$("#source").attr("src",path);
+		}
+	</script>
+</body>
+</html>
