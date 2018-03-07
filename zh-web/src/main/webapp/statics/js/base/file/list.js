@@ -18,7 +18,7 @@ function getGrid() {
 		url: '../../sys/file/list?_' + $.now(),
 		height: $(window).height()-54,
 		queryParams: function(params){
-			params.name = vm.keyword;
+			params.fileShow = vm.keyword;
 			return params;
 		},
 		showRefresh : true,
