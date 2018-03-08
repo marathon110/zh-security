@@ -5,15 +5,20 @@ import java.text.DecimalFormat;
 import net.zhenghao.zh.common.constant.SystemConstant;
 
 /**
- * 根据文件名判断文件类型工具
+ * 文件通用工具类
  *
  * @author:zhaozhenghao
  * @Email :736720794@qq.com
  * @date  :2018年2月9日 上午11:23:25
- * FileTypeUtils.java
+ * FileCommonUtils.java
  */
-public class FileTypeUtils {
+public class FileCommonUtils {
 
+	/**
+	 * 根据文件名判断文件类型
+	 * @param fileName
+	 * @return 图片：1     文档：2     视频：3    种子：4    音乐：5   其他：6
+	 */
 	public static Integer fileType(String fileName) {
 		
 		if (fileName == null) {

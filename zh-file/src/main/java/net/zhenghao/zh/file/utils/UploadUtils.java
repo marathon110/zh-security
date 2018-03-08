@@ -248,13 +248,13 @@ public class UploadUtils {
 			
 			fileEntity = new SysFileEntity();
 			fileEntity.setFileMd(upload.getFileMd5());
-			fileEntity.setFileType(FileTypeUtils.fileType(upload.getFileName()));
+			fileEntity.setFileType(FileCommonUtils.fileType(upload.getFileName()));
 			fileEntity.setFileShow(upload.getFileName());
 			fileEntity.setFileName(RedisUtils.get("fileName_" + commonName) + suffix);
 			fileEntity.setFilePath(File.separator + "upload" + File.separator + userId + File.separator + DateUtils.formatDate()
 				+ File.separator + RedisUtils.get("fileName_" + commonName) + suffix);
 			fileEntity.setFileSize(upload.getFileSize());
-			fileEntity.setFileSizeFormat(FileTypeUtils.getSizeFormat(upload.getFileSize()));
+			fileEntity.setFileSizeFormat(FileCommonUtils.getSizeFormat(upload.getFileSize()));
 			fileEntity.setFileExt(suffix.replace(".", ""));
 			InetAddress address = InetAddress.getLocalHost();
 			fileEntity.setFileIp(address.getHostAddress());
