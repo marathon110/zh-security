@@ -2,7 +2,30 @@
  * 文件管理js
  */
  
+var viewer;
 $(function () {
+	var option = {
+			toolbar: {
+				zoomIn : true,
+				zoomOut : true,
+				reset : true,
+				rotateLeft : true,
+				rotateRight : true,
+				play: true,
+				oneToOne: true,
+				flipHorizontal : true,
+				flipVertical : true,
+				download : function() {
+						const a = document.createElement('a');
+						a.href = viewer.image.src;
+						a.download = viewer.image.alt;
+						document.body.appendChild(a);
+						a.click();
+						document.body.removeChild(a);
+					},
+		        },
+	}
+	viewer = new Viewer(document.getElementById('image'), option);
 	initialPage();
 	getGrid();
 });
@@ -151,7 +174,9 @@ var vm = new Vue({
 function preview(file) {
 	var fileType = file.fileType;
 	if (fileType == '1') {
-        console.log("图片");
+		$('#image').attr('src' , file.filePath);
+		$('#image').attr('alt' , file.fileShow);
+        viewer.show();
     } else if (fileType == '2') {
     	console.log("文档");
     } else if (fileType == '3') {

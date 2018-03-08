@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="include/header_css::header('文件管理')"></head>
+<link rel="stylesheet" href="../../statics/plugins/viewer/viewer.min.css"/>
 <body>
 	<div id="zhLTE" class="container-fluid" v-cloak>
 		<div class="row">
@@ -30,7 +31,11 @@
 			<table id="dataGrid"></table>
 		</div>
 	</div>
+	<div style="display: none;">
+	  <img id="image" src="" alt="">
+	</div>
 	<div th:include="include/footer_js::footer"></div>
 	<script th:src="@{/statics/js/base/file/list.js}"></script>
+	<script th:src="@{/statics/plugins/viewer/viewer.min.js}"></script>
 </body>
 </html>
