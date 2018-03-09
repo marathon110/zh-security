@@ -201,7 +201,7 @@ dialogOpen = function(opt){
 		height: '',
 		url : null,
 		scroll : false,
-		offset: false,//弹框位置
+		offset: 'auto',//弹框位置 默认坐标，即垂直水平居中
 		maxmin: false,//开启最大化最小化按钮
 		shade : 0.3,//阴影
 		shadeClose : false,//阴影关闭别处可以点击,默认关闭
