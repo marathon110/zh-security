@@ -8,7 +8,6 @@ $(function () {
 			toolbar: {
 				zoomIn : true,
 				zoomOut : true,
-				reset : true,
 				rotateLeft : true,
 				rotateRight : true,
 				play: true,
@@ -176,7 +175,7 @@ function preview(file) {
 	if (fileType == '1') {
 		$('#image').attr('src' , file.filePath);
 		$('#image').attr('alt' , file.fileShow);
-        viewer.show();
+		viewer.show();
     } else if (fileType == '2') {
     	console.log("文档");
     } else if (fileType == '3') {
