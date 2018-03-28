@@ -126,10 +126,11 @@ public class SysFileController extends AbstractController {
 	
 	/**
 	 * 合并分片文件
-	 * @param fileName
+	 * @param upload
 	 * @return
 	 * @throws FileNotFoundException 
 	 */
+	@SysLog("上传文件")
 	@RequestMapping("/mergeChunks")
 	public R mergeChunks(SysUploadEntity upload) throws FileNotFoundException {
 		return sysFileService.mergeChunks(upload);
@@ -137,7 +138,7 @@ public class SysFileController extends AbstractController {
 	
 	/**
 	 * 检查当前分块是否上传成功
-	 * @param request
+	 * @param upload
 	 * @return
 	 */
 	@RequestMapping("/checkChunk")
@@ -147,7 +148,7 @@ public class SysFileController extends AbstractController {
 	
 	/**
 	 * 检查当前上传文件是否上传过
-	 * @param request
+	 * @param upload
 	 * @return
 	 */
 	@RequestMapping("/repetition")

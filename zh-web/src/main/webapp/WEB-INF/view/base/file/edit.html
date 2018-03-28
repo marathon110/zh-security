@@ -4,94 +4,16 @@
 <body>
 	<div id="zhLTE" class="container-fluid" v-cloak>
 		<table class="form" id="form">
-			<tr>
+			<!--<tr>
 	            <td class="formTitle">对应文档id<font face="宋体">*</font></td>
 	            <td class="formValue">
 					<input type="text" class="form-control" placeholder="对应文档id" v-model="sysFile.docId" isvalid="yes" checkexpession="NotNull">
 	            </td>
-        	</tr>
+        	</tr>-->
 			<tr>
-	            <td class="formTitle">文件MD5值（做秒传）<font face="宋体">*</font></td>
-	            <td class="formValue">
-					<input type="text" class="form-control" placeholder="文件MD5值（做秒传）" v-model="sysFile.fileMd" isvalid="yes" checkexpession="NotNull">
-	            </td>
-        	</tr>
-			<tr>
-	            <td class="formTitle">文件类型 1：图片，2：文档,3：视频，4：种子，5：音乐，6：其他，负数进入回收站<font face="宋体">*</font></td>
-	            <td class="formValue">
-					<input type="text" class="form-control" placeholder="文件类型 1：图片，2：文档,3：视频，4：种子，5：音乐，6：其他，负数进入回收站" v-model="sysFile.fileType" isvalid="yes" checkexpession="NotNull">
-	            </td>
-        	</tr>
-			<tr>
-	            <td class="formTitle">文件展示名（原文件名）<font face="宋体">*</font></td>
+	            <td class="formTitle">修改文件名<font face="宋体">*</font></td>
 	            <td class="formValue">
 					<input type="text" class="form-control" placeholder="文件展示名（原文件名）" v-model="sysFile.fileShow" isvalid="yes" checkexpession="NotNull">
-	            </td>
-        	</tr>
-			<tr>
-	            <td class="formTitle">文件上传后名称<font face="宋体">*</font></td>
-	            <td class="formValue">
-					<input type="text" class="form-control" placeholder="文件上传后名称" v-model="sysFile.fileName" isvalid="yes" checkexpession="NotNull">
-	            </td>
-        	</tr>
-			<tr>
-	            <td class="formTitle">文件上传路径<font face="宋体">*</font></td>
-	            <td class="formValue">
-					<input type="text" class="form-control" placeholder="文件上传路径" v-model="sysFile.filePath" isvalid="yes" checkexpession="NotNull">
-	            </td>
-        	</tr>
-			<tr>
-	            <td class="formTitle">文件大小(单位B)<font face="宋体">*</font></td>
-	            <td class="formValue">
-					<input type="text" class="form-control" placeholder="文件大小(单位B)" v-model="sysFile.fileSize" isvalid="yes" checkexpession="NotNull">
-	            </td>
-        	</tr>
-			<tr>
-	            <td class="formTitle">文件大小页面展示<font face="宋体">*</font></td>
-	            <td class="formValue">
-					<input type="text" class="form-control" placeholder="文件大小页面展示" v-model="sysFile.fileSizeFormat" isvalid="yes" checkexpession="NotNull">
-	            </td>
-        	</tr>
-			<tr>
-	            <td class="formTitle">文件后缀名<font face="宋体">*</font></td>
-	            <td class="formValue">
-					<input type="text" class="form-control" placeholder="文件后缀名" v-model="sysFile.fileExt" isvalid="yes" checkexpession="NotNull">
-	            </td>
-        	</tr>
-			<tr>
-	            <td class="formTitle">文件上传服务器ip<font face="宋体">*</font></td>
-	            <td class="formValue">
-					<input type="text" class="form-control" placeholder="文件上传服务器ip" v-model="sysFile.fileIp" isvalid="yes" checkexpession="NotNull">
-	            </td>
-        	</tr>
-			<tr>
-	            <td class="formTitle">文件所在服务器磁盘位置<font face="宋体">*</font></td>
-	            <td class="formValue">
-					<input type="text" class="form-control" placeholder="文件所在服务器磁盘位置" v-model="sysFile.fileAddress" isvalid="yes" checkexpession="NotNull">
-	            </td>
-        	</tr>
-			<tr>
-	            <td class="formTitle">描述<font face="宋体">*</font></td>
-	            <td class="formValue">
-					<input type="text" class="form-control" placeholder="描述" v-model="sysFile.remark" isvalid="yes" checkexpession="NotNull">
-	            </td>
-        	</tr>
-			<tr>
-	            <td class="formTitle">创建人id<font face="宋体">*</font></td>
-	            <td class="formValue">
-					<input type="text" class="form-control" placeholder="创建人id" v-model="sysFile.userIdCreate" isvalid="yes" checkexpession="NotNull">
-	            </td>
-        	</tr>
-			<tr>
-	            <td class="formTitle">创建时间<font face="宋体">*</font></td>
-	            <td class="formValue">
-					<input type="text" class="form-control" placeholder="创建时间" v-model="sysFile.gmtCreate" isvalid="yes" checkexpession="NotNull">
-	            </td>
-        	</tr>
-			<tr>
-	            <td class="formTitle">修改时间<font face="宋体">*</font></td>
-	            <td class="formValue">
-					<input type="text" class="form-control" placeholder="修改时间" v-model="sysFile.gmtModified" isvalid="yes" checkexpession="NotNull">
 	            </td>
         	</tr>
 		</table>

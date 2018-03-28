@@ -243,7 +243,7 @@ dialogOpen = function(opt){
 			option.yes(option.id);
 		},
 		cancel : function() {
-			option.cancel(option.id);
+			return option.cancel(option.id);
 		}
     });
 }

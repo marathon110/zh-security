@@ -154,14 +154,25 @@ var vm = new Vue({
 				scroll : true,//滚动条
 				shade : false,//阴影
 				shadeClose : true,//弹框后别处可以点击
-				btn: false,
-				cancel : function(iframeId){
-					alert("haha ");
-				}
+				btn : false,
+                cancel : function(iframeId){//叉号，return true or false
+                    if(confirm('若文件正在上传，关闭可能导致上传失败')){ //只有当点击confirm框的确定时，该层才会关闭
+                        return true;
+                    }
+                    return false;
+                }
 			})
 		},
 		download : function() {
-			alert("下载文件");
+            var ck = $('#dataGrid').bootstrapTable('getSelections');
+            if(checkedRow(ck)){
+                const a = document.createElement('a');
+                a.href = ck[0].filePath;
+                a.download = ck[0].fileShow;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+			}
 		}
 	}
 })
