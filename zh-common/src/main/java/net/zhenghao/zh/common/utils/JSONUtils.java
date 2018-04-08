@@ -78,11 +78,30 @@ public class JSONUtils {
 	 * @param json
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public static Map<String, Object> jsonToMap(String json) {
 		if (StringUtils.isEmpty(json)) {
 			return null;
 		}
 		return JSON.parseObject(json, Map.class);
 	}
+
+	/**
+	 *Map转name1=value1&name2=value2
+	 * @param params Map类型的参数
+	 * @return
+	 */
+	public static String mapToParams(Map<String, Object> params) {
+		StringBuffer sb = new StringBuffer();
+		if (params == null) {
+			return sb.toString();
+		}
+		for (Map.Entry<String, Object> entry : params.entrySet()) {
+			sb.append(entry.getKey());
+			sb.append("=");
+			sb.append(entry.getValue());
+			sb.append("&");
+		}
+		return sb.substring(0, sb.length()-1);
+	}
+
 }

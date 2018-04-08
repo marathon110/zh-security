@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('接口测试')"></head>
+<body>
+	<div id="zhLTE" class="container-fluid" v-cloak>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">请求信息</div>
+					<div class="panel-heading">
+						<div class="input-group">
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 70px;">{{api.method}}<span class="caret"></span></button>
+								<ul class="dropdown-menu">
+									<li><a @click="methodSelect('GET')" href="javascript:;">GET</a></li>
+									<li><a @click="methodSelect('POST')" href="javascript:;">POST</a></li>
+								</ul>
+							</div>
+							<input v-model="api.url" class="form-control" placeholder="请输入请求路径" />
+							<div class="input-group-btn">
+								<a class="btn btn-primary" @click="request">&nbsp;请求</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">响应信息</div>
+					<h3 class="card-title">Special title treatment</h3>
+					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+					<a href="#" class="btn btn-primary">Go somewhere</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include/footer_js::footer"></div>
+	<script th:src="@{/statics/js/base/tools/api.js}"></script>
+</body>
+</html>
