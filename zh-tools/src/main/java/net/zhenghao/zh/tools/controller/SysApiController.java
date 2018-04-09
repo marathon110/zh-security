@@ -6,7 +6,10 @@ import net.zhenghao.zh.tools.service.SysApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 /**
  * 🙃
@@ -31,6 +34,8 @@ public class SysApiController {
      * @return
      */
     @RequestMapping("/request")
-    public R requestApi(@RequestBody SysApiEntity api) {return sysApiService.requestApi(api);}
+    public R requestApi(@RequestBody SysApiEntity api) {
+        return sysApiService.requestApi(api);
+    }
 
 }

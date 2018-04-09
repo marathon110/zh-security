@@ -8,6 +8,25 @@ var url = function(name) {
 	if(r!=null)return  unescape(r[2]); return null;
 }
 
+//根据url地址获取url后面的参数，转成json对象
+urlToJson = function(url) {
+    var obj = {};
+    url.substring(url.indexOf('?') + 1)
+        .replace(/[^\/]+/g, function(objstr) {
+            var empty = false;
+            objstr.replace(/([^\/&=]+)(=([^\/&=]+)?)?/g, function(s, a, b, c) {
+                if(a && b && c){
+                    obj[a] = c;
+                }else if(a && !c){
+                    obj[a] = '';
+                }else{
+                    empty = true;
+                }
+            });
+        });
+    return obj;
+}
+
 
 //全局配置,函数用于设置AJAX的全局默认设置
 $.ajaxSetup({

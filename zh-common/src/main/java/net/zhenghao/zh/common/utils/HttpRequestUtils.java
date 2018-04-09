@@ -1,5 +1,7 @@
 package net.zhenghao.zh.common.utils;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -141,8 +143,11 @@ public class HttpRequestUtils {
 	public static String sendGet(String url, String param) {
 		StringBuffer sb = new StringBuffer();
 		BufferedReader in = null;
+		String urlNameString = url;
 		try {
-			String urlNameString = url + "?" + param;
+			if (StringUtils.isNotBlank(param)) {
+				urlNameString = url + "?" + param;
+			}
 			URL realUrl = new URL(urlNameString);
 			//打开和URL之间的连接
 			URLConnection connection = realUrl.openConnection();
@@ -167,6 +172,7 @@ public class HttpRequestUtils {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("发送GET请求出现异常！" + e.getStackTrace());
+			sb.append("发送GET请求出现异常！" + e.getMessage());
 		} finally {
 			try {
 				if (in != null) {
@@ -231,7 +237,8 @@ public class HttpRequestUtils {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("发送 POST 请求出现异常！"+e);
-            e.printStackTrace();
+			sb.append("发送POST请求出现异常！" + e.getMessage());
+            //e.printStackTrace();
 		} finally {
 			try{
                 if(out!=null){
