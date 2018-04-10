@@ -96,7 +96,6 @@ $.SetForm = function(options) {
 		success : null
 	};
 	var options = $.extend(defaults, options);
-	console.log(JSON.stringify(options.param));
 	$.ajax({
 		url : options.url,
 		data : JSON.stringify(options.param),

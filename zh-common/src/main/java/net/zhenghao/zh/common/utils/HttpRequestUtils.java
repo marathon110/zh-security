@@ -190,7 +190,7 @@ public class HttpRequestUtils {
 	/**
 	 * 向指定 URL 发送POST方法的请求
 	 * @param url 发送请求的 URL
-	 * @param param 请求参数，json串。
+	 * @param param 请求参数，name1=value1&name2=value2。
 	 * @param isproxy 是否使用代理模式,没有代理服务器填入false!
 	 * @return 响应结果
 	 */

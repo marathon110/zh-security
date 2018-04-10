@@ -10,8 +10,12 @@ var vm = new Vue({
 		api : {
             method : 'GET',
             url : '',
-            params : null
-		}
+            params : {
+                zhaozhenghao : ''
+            },
+		},
+        date : '',
+        time : '',
 	},
 	methods : {
         request : function() {
@@ -23,12 +27,18 @@ var vm = new Vue({
                 dialogMsg('路径缺少http或https', '7');
                 return false;
             }
+            //每次请求都先初始化参数
+            vm.api.params = {
+                zhaozhenghao : ''
+            };
             if(vm.urlPath.indexOf('?') > -1) {
                 vm.api.params = urlToJson(vm.urlPath);
                 vm.api.url = vm.urlPath.substring(0, vm.urlPath.indexOf('?'));
 			} else {
                 vm.api.url = vm.urlPath;
 			}
+			//去空格
+            vm.api.url = vm.api.url.trimAll();
 			//获取参数信息
             var param = {};
             var param_key = $("input[name='param_key']");
@@ -46,7 +56,14 @@ var vm = new Vue({
                 url: '../../sys/api/request?_' + $.now(),
                 param: vm.api,
                 success: function(data) {
-                    console.log(data);
+                    vm.date = data.date;
+                    vm.time = data.time;
+                    if (isJSON(data.body)) {
+                        $('#result').html(syntaxHighlight(JSON.parse(data.body)));
+                    } else {
+                        $('#result').text(data.body);
+                    }
+
                 }
             });
 		},
@@ -167,3 +184,25 @@ $(function() {
         'data' : []
     });
 });
+
+function syntaxHighlight(json) {
+    if (typeof json != 'string') {
+        json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}

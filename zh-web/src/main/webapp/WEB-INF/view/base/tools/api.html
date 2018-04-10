@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="include/header_css::header('接口测试')"></head>
+<style>
+	pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; height: 400px; }
+	.string { color: green; }
+	.number { color: darkorange; }
+	.boolean { color: blue; }
+	.null { color: magenta; }
+	.key { color: red; }
+</style>
 <body>
 	<div id="zhLTE" class="container-fluid" v-cloak>
 		<div class="row">
@@ -32,9 +40,12 @@
 			<div class="col-sm-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">响应信息</div>
-					<h3 class="card-title">Special title treatment</h3>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
+					<div class="panel-heading">
+						响应耗时{{time}}ms,时间{{date}}
+					</div>
+					<pre id="result" >
+
+					</pre>
 				</div>
 			</div>
 		</div>

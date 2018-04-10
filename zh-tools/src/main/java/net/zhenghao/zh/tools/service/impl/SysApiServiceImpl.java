@@ -28,11 +28,10 @@ public class SysApiServiceImpl implements SysApiService {
         String params = "";
         String body = "";
         long start = System.currentTimeMillis();
+        params = JSONUtils.mapToParams(api.getParams());
         if ("GET".equals(api.getMethod())) {
-            params = JSONUtils.mapToParams(api.getParams());
             body = HttpRequestUtils.sendGet(api.getUrl(), params);
         } else if ("POST".equals(api.getMethod())) {
-            params = JSONUtils.beanToJson(api.getParams());
             body = HttpRequestUtils.sendPost(api.getUrl(), params, false);
         } else {
             r.put("code", 500);

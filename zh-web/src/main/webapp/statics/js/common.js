@@ -166,7 +166,52 @@ isNotNullOrEmpty = function (obj) {
     }
 }
 
+//判断字符串是否为json
+isJSON = function (str) {
+    if (typeof str == 'string') {
+        try {
+            var obj=JSON.parse(str);
+            if(typeof obj == 'object' && obj ){
+                return true;
+            }else{
+                return false;
+            }
 
+        } catch(e) {
+            console.log('error：!!!'+e);
+            return false;
+        }
+    }
+    console.log('It is not a string!')
+}
+
+/*---------------------------------------
+ * 清除字符串两端空格，包含换行符、制表符
+ *---------------------------------------*/
+String.prototype.trim = function () {
+    return this.triml().trimr();
+}
+
+/*----------------------------------------
+ * 清除字符串左侧空格，包含换行符、制表符
+ * ---------------------------------------*/
+String.prototype.triml = function () {
+    return this.replace(/^[\s\n\t]+/g, "");
+}
+
+/*----------------------------------------
+ * 清除字符串右侧空格，包含换行符、制表符
+ *----------------------------------------*/
+String.prototype.trimr = function () {
+    return this.replace(/[\s\n\t]+$/g, "");
+}
+
+/*----------------------------------------
+ * 清除字符串所有空格
+ *----------------------------------------*/
+String.prototype.trimAll = function () {
+    return this.replace(/\s+/g, "");
+}
 
 checkedArray = function (id) {
     var isOK = true;
