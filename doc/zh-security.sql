@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2018-02-09 16:44:07
+Date: 2018-04-10 16:31:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -429,13 +429,13 @@ CREATE TABLE `sys_menu` (
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1 COMMENT='系统菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1 COMMENT='系统菜单';
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES ('1', '0', '基础管理', null, null, '0', 'fa fa-coffee', '0', '2017-12-20 14:22:08', null);
-INSERT INTO `sys_menu` VALUES ('2', '0', '系统管理', null, null, '0', 'fa fa-desktop', '1', '2017-12-20 14:41:56', null);
+INSERT INTO `sys_menu` VALUES ('1', '0', '基础管理', null, null, '0', 'fa fa-coffee', '1', '2017-12-20 14:22:08', null);
+INSERT INTO `sys_menu` VALUES ('2', '0', '系统管理', null, null, '0', 'fa fa-desktop', '2', '2017-12-20 14:41:56', null);
 INSERT INTO `sys_menu` VALUES ('3', '2', '用户管理', 'base/user/list.html', null, '1', 'fa fa-user', '0', '2017-12-20 14:47:55', null);
 INSERT INTO `sys_menu` VALUES ('4', '2', '角色管理', 'base/role/list.html', null, '1', 'fa fa-paw', '1', '2017-12-20 14:48:31', null);
 INSERT INTO `sys_menu` VALUES ('5', '2', '菜单管理', 'base/menu/list.html', null, '1', 'fa fa-th-list', '2', '2017-12-20 14:49:24', null);
@@ -476,6 +476,14 @@ INSERT INTO `sys_menu` VALUES ('39', '34', '刷新', '/quartz/job/log/list', 'qu
 INSERT INTO `sys_menu` VALUES ('40', '34', '删除', '/quartz/job/log/remove', 'quartz:log:remove', '2', null, '0', '2018-01-22 11:19:45', null);
 INSERT INTO `sys_menu` VALUES ('41', '34', '清空', '/quartz/job/log/clear', 'quartz:log:clear', '2', null, '0', '2018-01-22 11:20:11', null);
 INSERT INTO `sys_menu` VALUES ('42', '1', '系统监控', 'druid/index.html', null, '1', 'fa fa-bug', '3', '2018-01-22 11:21:26', null);
+INSERT INTO `sys_menu` VALUES ('43', '1', '文件管理', 'base/file/list.html', null, '1', 'fa fa-file', '4', '2018-02-01 10:05:08', null);
+INSERT INTO `sys_menu` VALUES ('44', '43', '刷新', '/sys/file/list', 'sys:file:list', '2', null, '0', '2018-02-01 10:19:20', null);
+INSERT INTO `sys_menu` VALUES ('45', '43', '新增', '/sys/file/save', 'sys:file:save', '2', null, '0', '2018-02-01 10:20:16', null);
+INSERT INTO `sys_menu` VALUES ('46', '43', '编辑', 'sys/file/edit', 'sys:file:edit', '2', null, '0', '2018-02-01 10:20:54', null);
+INSERT INTO `sys_menu` VALUES ('47', '43', '删除', 'sys/file/remove', 'sys:file:remove', '2', null, '0', '2018-02-01 10:21:42', null);
+INSERT INTO `sys_menu` VALUES ('48', '0', '开发者工具', null, null, '0', 'fa fa-wrench', '0', '2018-04-10 16:28:32', null);
+INSERT INTO `sys_menu` VALUES ('49', '48', '接口测试', 'base/tools/api.html', null, '1', 'fa fa-rocket', '0', '2018-04-10 16:29:22', null);
+INSERT INTO `sys_menu` VALUES ('50', '49', '发送', '/sys/api/request', 'sys:api:request', '2', null, '0', '2018-04-10 16:29:57', null);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -506,7 +514,7 @@ CREATE TABLE `sys_role_menu` (
   `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
   `menu_id` bigint(20) DEFAULT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1 COMMENT='角色菜单关系';
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1 COMMENT='角色菜单关系';
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -553,6 +561,14 @@ INSERT INTO `sys_role_menu` VALUES ('39', '1', '39');
 INSERT INTO `sys_role_menu` VALUES ('40', '1', '40');
 INSERT INTO `sys_role_menu` VALUES ('41', '1', '41');
 INSERT INTO `sys_role_menu` VALUES ('42', '1', '42');
+INSERT INTO `sys_role_menu` VALUES ('43', '1', '43');
+INSERT INTO `sys_role_menu` VALUES ('44', '1', '44');
+INSERT INTO `sys_role_menu` VALUES ('45', '1', '45');
+INSERT INTO `sys_role_menu` VALUES ('46', '1', '46');
+INSERT INTO `sys_role_menu` VALUES ('47', '1', '47');
+INSERT INTO `sys_role_menu` VALUES ('48', '1', '48');
+INSERT INTO `sys_role_menu` VALUES ('49', '1', '49');
+INSERT INTO `sys_role_menu` VALUES ('50', '1', '50');
 
 -- ----------------------------
 -- Table structure for sys_user
