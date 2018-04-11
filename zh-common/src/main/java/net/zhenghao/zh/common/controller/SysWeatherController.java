@@ -1,10 +1,13 @@
 package net.zhenghao.zh.common.controller;
 
 
+import net.zhenghao.zh.common.utils.HttpClientUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.zhenghao.zh.common.utils.HttpRequestUtils;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 获取天气api
@@ -19,9 +22,11 @@ import net.zhenghao.zh.common.utils.HttpRequestUtils;
 public class SysWeatherController extends AbstractController {
 
 	@RequestMapping("/info")
-	public String getWeather(String city) {
+	public String getWeather(String city) throws IOException {
 		String url = "https://way.jd.com/he/freeweather";
-		String param = "city=" + city + "&appkey=48859a77003b3dd43bf92f86b467ac22";
-		return HttpRequestUtils.sendPost(url, param, false);
+		Map<String, Object> params = new HashMap<>();
+		params.put("city", city);
+		params.put("appkey", "48859a77003b3dd43bf92f86b467ac22");
+		return HttpClientUtils.sendPost(url, params);
 	}
 }

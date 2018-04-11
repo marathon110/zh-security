@@ -61,6 +61,7 @@
 		<thymeleaf-version>3.0.9.RELEASE</thymeleaf-version>
         <jedis-version>2.9.0</jedis-version>
         <jsoup-version>1.8.3</jsoup-version>
+        <httpclient-version>4.5.5</httpclient-version>
   </properties>
   
   <!-- 阿里云maven仓库 -->
@@ -320,6 +321,14 @@
 		    <artifactId>jsoup</artifactId>  
 		    <version>${jsoup-version}</version>  
 		</dependency>
+
+		<!-- http连接修改为httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient-version}</version>
+		</dependency>
+
 	</dependencies>
 	
 	<build>
