@@ -12,6 +12,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
@@ -40,9 +41,9 @@ public class HttpClientUtils {
     //HttpClient相当于一个浏览器，不停的发送get post请求，线程安全，所以运用单例
     private static CloseableHttpClient getHttpClient() {
         if (null == client) {
-            RequestConfig config = RequestConfig.custom()
-                    .setConnectTimeout(5000).setSocketTimeout(3000).build();
-            client = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+            //RequestConfig config = RequestConfig.custom()
+            //       .setConnectTimeout(5000).setSocketTimeout(3000).build();
+            client = HttpClients.createDefault();
         }
         return client;
     }
