@@ -104,6 +104,7 @@ public class HttpClientUtils {
         if (pairs != null && pairs.size() > 0) {
             httpPost.setEntity(new UrlEncodedFormEntity(pairs, CHARSET));
         }
+        client = getHttpClient();
         CloseableHttpResponse response = client.execute(httpPost);
         int statusCode = response.getStatusLine().getStatusCode();
         if (statusCode != HttpStatus.SC_OK) {
@@ -130,6 +131,7 @@ public class HttpClientUtils {
         StringEntity entity = new StringEntity(params, charSet);
         httpPost.setEntity(entity);
         CloseableHttpResponse response = null;
+        client = getHttpClient();
         try {
             response = client.execute(httpPost);
             int statusCode = response.getStatusLine().getStatusCode();
