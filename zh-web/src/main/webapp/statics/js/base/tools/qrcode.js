@@ -34,6 +34,7 @@ var vm = new Vue({
             + '&width='+ vm.qrcode.width
             + '&format='+ vm.qrcode.format
             +'" class="img-responsive" alt="qrcode image"></img>';
+            $('#result').html(vm.img);
 		},
         formatSelect : function(format) {
 			if(format == 'png') {
