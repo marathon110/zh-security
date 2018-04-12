@@ -31,7 +31,7 @@
 							<input type="number" v-model="qrcode.height" class="form-control" placeholder="请输入宽高" />
 							<div class="input-group-addon">px</div>
 							<div class="input-group-btn">
-								<a v-if="hasPermission('sys:menu:save')" class="btn btn-primary" @click="request">&nbsp;生成</a>
+								<a v-if="hasPermission('sys:code:qrcode')" class="btn btn-primary" @click="request">&nbsp;生成</a>
 							</div>
 						</div>
 					</div>

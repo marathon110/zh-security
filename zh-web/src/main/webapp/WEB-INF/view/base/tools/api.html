@@ -26,7 +26,7 @@
 							</div>
 							<input v-model="urlPath" class="form-control" placeholder="请输入请求路径" />
 							<div class="input-group-btn">
-								<a v-if="hasPermission('sys:menu:save')" class="btn btn-primary" @click="request">&nbsp;请求</a>
+								<a v-if="hasPermission('sys:api:request')" class="btn btn-primary" @click="request">&nbsp;请求</a>
 							</div>
 						</div>
 					</div>
