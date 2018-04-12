@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('二维码')"></head>
+<style>
+	pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; height: 400px; }
+	.img-responsive{
+		left:0;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		margin: auto;
+	}
+</style>
+<body>
+	<div id="zhLTE" class="container-fluid" v-cloak>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">二维码信息</div>
+					<div class="panel-heading">
+						<div class="input-group">
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+									{{qrcode.format}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span></button>
+								<ul class="dropdown-menu">
+									<li><a @click="formatSelect('png')" href="javascript:;">png</a></li>
+									<li><a @click="formatSelect('jpg')" href="javascript:;">jpg</a></li>
+								</ul>
+							</div>
+							<div class="input-group-addon">宽高</div>
+							<input type="number" v-model="qrcode.height" class="form-control" placeholder="请输入宽高" />
+							<div class="input-group-addon">px</div>
+							<div class="input-group-btn">
+								<a v-if="hasPermission('sys:menu:save')" class="btn btn-primary" @click="request">&nbsp;生成</a>
+							</div>
+						</div>
+					</div>
+					<div class="panel-heading">
+						<h5>文本信息</h5>
+						<div class="input-group-add">
+							<textarea class="form-control" rows="4" v-model="qrcode.content"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">二维码</div>
+					<pre id="result" >
+					{{img}}
+					</pre>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include/footer_js::footer"></div>
+	<script th:src="@{/statics/js/base/tools/qrcode.js}"></script>
+</body>
+</html>

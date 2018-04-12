@@ -62,6 +62,7 @@
         <jedis-version>2.9.0</jedis-version>
         <jsoup-version>1.8.3</jsoup-version>
         <httpclient-version>4.5.5</httpclient-version>
+        <zxing-version>3.3.0</zxing-version>
   </properties>
   
   <!-- 阿里云maven仓库 -->
@@ -327,6 +328,24 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>${httpclient-version}</version>
+		</dependency>
+
+		<!-- google二维码生成包 -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>${zxing-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>zxing-parent</artifactId>
+			<version>${zxing-version}</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>${zxing-version}</version>
 		</dependency>
 
 	</dependencies>

@@ -2,7 +2,6 @@ package net.zhenghao.zh.tools.service.impl;
 
 import net.zhenghao.zh.common.entity.R;
 import net.zhenghao.zh.common.utils.HttpClientUtils;
-import net.zhenghao.zh.common.utils.HttpRequestUtils;
 import net.zhenghao.zh.common.utils.JSONUtils;
 import net.zhenghao.zh.tools.entity.SysApiEntity;
 import net.zhenghao.zh.tools.service.SysApiService;
