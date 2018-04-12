@@ -535,10 +535,15 @@ function removeScroll() {
 
 //右侧栏目
 $(function() {
+    var screenRatio = 0.3; // 占屏幕百分比
+    if (!isWindow()){
+        screenRatio = 0.8;
+    }
     // from right to left
     $('#leftMenu').PopupLayer({ 
     	content: "<iframe src='weather.html' style='height:100%;width:100%;' frameborder='no' border='0' marginwidth='0' marginheight='0' scrolling='no' allowtransparency='yes'></iframe>", // 内容，可以传入纯文本或类名或htm
         to: 'left',
         blur: true,
+        screenRatio : screenRatio,
     });
 });
