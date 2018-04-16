@@ -16,6 +16,7 @@
     <module>zh-generator</module>
     <module>zh-file</module>
 	<module>zh-tools</module>
+	<module>zh-wechat</module>
   </modules>
   
   <!-- 版本 -->

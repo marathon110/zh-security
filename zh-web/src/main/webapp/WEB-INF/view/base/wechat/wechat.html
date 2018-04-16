@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('我的公众号')"></head>
+<link rel="stylesheet" th:href="@{/statics/css/desktop-panel.css}"/>
+<style>
+	.panel-body{
+		padding:15px;
+	}
+</style>
+<body>
+	<div id="zhLTE" class="container-fluid" v-cloak>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12" >
+				<div class="desktop-panel">
+					<div class="desktop-panel-head">
+						<h3 class="desktop-panel-title">基本信息</h3>
+						<div v-if="error" class="alert alert-danger alert-dismissible">
+							<i class="fa fa-exclamation-triangle"></i> {{errorMsg}}
+						</div>
+					</div>
+					<div class="desktop-panel-body">
+						<ul class="desktop-data-list">
+							<li class="desktop-data-overview"><span class="desktop-panel-title"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5.882 15.931A8.366 8.366 0 0 0 10 17c4.418 0 8-3.358 8-7.5C18 5.358 14.418 2 10 2S2 5.358 2 9.5c0 2.028.859 3.869 2.254 5.219l-.274 1.35a.5.5 0 0 0 .74.533l1.162-.67zm.074 2.26L2.664 19.48a.8.8 0 0 1-1.077-.896l.603-3.15C.82 13.807 0 11.743 0 9.5 0 4.253 4.477 0 10 0s10 4.253 10 9.5S15.523 19 10 19c-1.44 0-2.807-.289-4.044-.809z"></path></svg>                      新消息                    </span> <em class="
+							desktop-data-overview-desc"><a href="/cgi-bin/message?t=message/list&amp;count=20&amp;day=7&amp;token=1375681054&amp;lang=zh_CN">0</a></em></li>
+							<li class="desktop-data-overview"><span class="desktop-panel-title"><svg width="23" height="15" viewBox="0 0 23 15" xmlns="http://www.w3.org/2000/svg"><path d="M19.405 2.667L14 8.845l-5-3-9 8 1 1 8-7 5 3 6.505-7.318 2.279 1.78L22.488 0l-5.22.997 2.137 1.67z"></path></svg>                      新增人数                    </span> <em class="desktop-data-overview-desc"><a href="/cgi-bin/contactmanage?t=user/index&amp;pagesize=10&amp;pageidx=0&amp;type=0&amp;groupid=0&amp;token=1375681054&amp;lang=zh_CN">0</a></em></li>
+							<li class="desktop-data-overview"><span class="desktop-panel-title"><svg width="21" height="20" viewBox="0 0 21 20" xmlns="http://www.w3.org/2000/svg"><path d="M6.221 10.526c-.81-.905-1.08-2.952-1.08-3.526V4.21C5.14 1.915 7.82 0 10.445 0s5.304 2.105 5.304 4.21V7c0 2.297-.749 3-1.08 3.526L13.393 12c-.174.352.23.915 1.276 1.684 1.22.562 2.105 1 2.655 1.316 1.008.579 1.959.947 2.949 2 .99 1.053.982 3-.105 3H.722c-.779 0-1.088-2-.105-3 .983-1 1.586-1.183 2.948-2 .448-.268 1.334-.707 2.656-1.316 1.046-.77 1.45-1.333 1.276-1.684L6.22 10.526zM8 10c.63.632.963.912 1 .842.092.199.092 1.251 0 3.158-5.176 2.667-7.56 4-7.151 4H18l-6-4c-.091-1.906-.091-2.959 0-3.158.128.035.475-.263 1.041-.895.36-.402.73-1.105.85-1.947.162-1.142 0-2.505 0-3.421C13.89 2.989 12 2 10 2S7 4 7 5c0 .845-.156 1.91 0 3a3.362 3.362 0 0 0 1 2z"></path></svg>                      总用户数                    </span> <em class="desktop-data-overview-desc"><a href="/cgi-bin/contactmanage?t=user/index&amp;pagesize=10&amp;pageidx=0&amp;type=0&amp;groupid=0&amp;token=1375681054&amp;lang=zh_CN">12</a></em></li>
+						</ul>
+					</div>
+				</div>
+				<div class="desktop-panel">
+					<div class="desktop-home-notice">
+						<div class="desktop-home-notice-title">
+							<a href="/cgi-bin/announce?action=getannouncement&amp;announce_id=11518228081c7A0o&amp;version=&amp;lang=zh_CN" target="_blank" class="desktop-home-notice-title">公众号注册数量调整</a>
+						</div>
+						<div class="desktop-home-notice-extra">
+							<em class="desktop-home-notice-date">2018-02-10</em>
+							<a href="/cgi-bin/announcement?t=home/notice&amp;token=610219612&amp;lang=zh_CN" target="_blank" class="desktop-home-notice-readmore">更多</a>
+						</div>
+					</div>
+				</div>
+				<div class="desktop-panel">
+					<div class="desktop-panel-head">
+						<h3 class="desktop-panel-title">配置管理</h3>
+					</div>
+					<div class="desktop-panel-body">
+						<div class="panel panel-default" id="wechat_info">
+							<div class="panel-heading">配置信息<a href="javascript:void(0);" @click="wechatInfoEdit" style="text-decoration: none;color: #459ae9;">修改</a></div>
+							<div class="panel-body">
+								<div class="frm_control_group show_value info_item">
+									<label class="frm_label">appID</label>
+									<div class="frm_controls">
+										<span class="frm_input_box">{{wechatConfig.appId}}</span>
+									</div>
+								</div>
+								<div class="frm_control_group show_value info_item">
+									<label class="frm_label">appsecret</label>
+									<div class="frm_controls">
+										<span class="frm_input_box">{{wechatConfig.appsecret}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default" id="wechat_info_edit" style="display: none;">
+							<div class="panel-heading">配置信息</div>
+							<div class="panel-body">
+								<div class="frm_control_group show_value info_item">
+									<label class="frm_label">appID</label>
+									<div class="frm_controls">
+										<span class="frm_input_box">
+											<input type="text" v-model="wechatConfig.appId" class="form-control" placeholder="请输入appID" style="width: 300px;" isvalid="yes" checkexpession="NotNull"/>
+										</span>
+									</div>
+								</div>
+								<div class="frm_control_group show_value info_item">
+									<label class="frm_label">appsecret</label>
+									<div class="frm_controls">
+										<span class="frm_input_box">
+											<input type="text" v-model="wechatConfig.appsecret" class="form-control" placeholder="请输入appsecret" style="width: 300px;" isvalid="yes" checkexpession="NotNull"/>
+										</span>
+									</div>
+								</div>
+							</div>
+							<div class="panel-footer">
+								<a v-if="hasPermission('wechat:config:submit')" class="btn btn-primary" @click="wechatInfoSubmit">&nbsp;提交</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include/footer_js::footer"></div>
+	<script th:src="@{/statics/js/base/wechat/wechat.js}"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+/**
+ * 页面镶嵌模块
+ * @author zhaozhenghao
+ */
+
+/**
+ * 整个页面背景色
+ */
+body {
+    background: #f2f2f2;
+}
+
+/**
+ * 每个镶嵌板
+ */
+.desktop-panel {
+    background-color: #fff;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.05);
+    padding: 24px 40px;
+    margin-bottom: 30px;
+    -webkit-border-radius: 3px;
+}
+.desktop-panel-head {
+    padding: 16px 0;
+    border-bottom: 1px solid #d3d3d3;
+}
+.desktop-panel-title {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+}
+.desktop-panel-body {
+    padding-bottom: 0;
+    padding-top: 0;
+    padding: 16px 0;
+    margin: 0;
+}
+.desktop-data-list {
+    padding: 0 20px;
+    font-size: 0;
+}
+.desktop-data-overview {
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    font-size: 14px;
+    width: 33%;
+}
+.desktop-data-overview-desc {
+    font-size: 42px;
+    padding-top: 16px;
+    display: block;
+    font-style: normal;
+    line-height: 1.2;
+}
+.desktop-home-notice {
+    position: relative;
+    padding-right: 200px;
+}
+.desktop-home-notice-title {
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: 400;
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    max-width: 100%;
+    color: #353535;
+}
+.desktop-home-notice-extra {
+    position: absolute;
+    top: 0;
+    right: 0;
+    white-space: nowrap;
+}
+.desktop-home-notice-date {
+    color: #9A9A9A;
+    font-style: normal;
+    vertical-align: middle;
+    margin-left: 14px;
+}
+.desktop-home-notice-readmore {
+    margin-left: 2em;
+    position: relative;
+    color: #9A9A9A;
+}
+
+.frm_control_group.info_item:first-child {
+    border-top-width: 0;
+}
+.frm_control_group.info_item {
+    padding: 5px 0;
+    border-top: 1px solid #e6e6e6;
+}
+.frm_label {
+    float: left;
+    width: 5em;
+    margin-top: .3em;
+    margin-right: 1em;
+}
+label {
+    cursor: default;
+}
+.frm_controls {
+    overflow: hidden;
+}
+.frm_control_group.show_value .frm_input_box {
+    width: auto;
+    height: auto;
+}
+
+.frm_control_group.show_value .frm_input_box {
+    padding: 0;
+    border-width: 0;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    background: 0;
+}
+.frm_input_box {
+    display: inline-block;
+    position: relative;
+    height: 30px;
+    line-height: 30px;
+    vertical-align: middle;
+    width: 300px;
+    font-size: 14px;
+    padding: 0 .8em;
+    border: 1px solid #b3b3b3;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.15);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.15);
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background-color: #fff;
+}

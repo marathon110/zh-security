@@ -63,7 +63,6 @@ var vm = new Vue({
                     } else {
                         $('#result').text(data.body);
                     }
-
                 }
             });
 		},
