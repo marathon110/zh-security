@@ -30,6 +30,16 @@ public class WechatConfigEntity implements Serializable {
 	 * 微信appsecret
 	 */
 	private String appsecret;
+
+	/**
+	 * 微信令牌(Token)
+	 */
+	private String token;
+
+	/**
+	 * 消息加解密密钥(EncodingAESKey)
+	 */
+	private String encodingAesKey;
 	
 	/**
 	 * 创建用户id
@@ -74,7 +84,23 @@ public class WechatConfigEntity implements Serializable {
 	public String getAppsecret() {
 		return appsecret;
 	}
-	
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public String getEncodingAesKey() {
+		return encodingAesKey;
+	}
+
+	public void setEncodingAesKey(String encodingAesKey) {
+		this.encodingAesKey = encodingAesKey;
+	}
+
 	public void setUserIdCreate(Long userIdCreate) {
 		this.userIdCreate = userIdCreate;
 	}

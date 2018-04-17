@@ -7,6 +7,8 @@ var vm = new Vue({
 	    wechatConfig : {
             appId : '',
             appsecret : '',
+            token : '',
+            encodingAesKey : '',
         },
         error : false,
         errorMsg : '',
@@ -44,7 +46,10 @@ function getConfig() {
     $.SetForm({
         url : '../../wechat/config/getConfig?_' + $.now(),
         success : function(data) {
-            if(isNotNullOrEmpty(data) && isNotNullOrEmpty(data.appId) && isNotNullOrEmpty(data.appsecret)) {
+            if(isNotNullOrEmpty(data)
+                && isNotNullOrEmpty(data.appId)
+                && isNotNullOrEmpty(data.appsecret)
+                && isNotNullOrEmpty(data.token)) {
                 vm.wechatConfig = data;
                 vm.error = false;
                 vm.errorMsg = '';

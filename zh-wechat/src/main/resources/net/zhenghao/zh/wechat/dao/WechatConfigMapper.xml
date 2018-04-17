@@ -9,6 +9,8 @@
 		`id`,
 		`app_id`,
 		`appsecret`,
+		`token`,
+		`encoding_aes_key`,
 		`user_id_create`,
 		`gmt_create`
 		)
@@ -16,6 +18,8 @@
 		1,
 		#{appId},
 		#{appsecret},
+		#{token},
+		#{encodingAesKey},
 		#{userIdCreate},
 		NOW()
 		)
@@ -23,6 +27,8 @@
         `id` = 1,
 		<if test="appId != null">`app_id` = #{appId}, </if>
 		<if test="appsecret != null">`appsecret` = #{appsecret}, </if>
+		<if test="token != null">`token` = #{token}, </if>
+		<if test="encodingAesKey != null">`encoding_aes_key` = #{encodingAesKey}, </if>
         `gmt_modified` = NOW()
 	</insert>
 
@@ -31,6 +37,8 @@
 		`id`,
 		`app_id`,
 		`appsecret`,
+		`token`,
+		`encoding_aes_key`,
 		`user_id_create`,
 		`gmt_create`,
 		`gmt_modified`

@@ -57,6 +57,16 @@
 									<div class="frm_controls">
 										<span class="frm_input_box">{{wechatConfig.appsecret}}</span>
 									</div>
+								</div><div class="frm_control_group show_value info_item">
+									<label class="frm_label">Token</label>
+									<div class="frm_controls">
+										<span class="frm_input_box">{{wechatConfig.token}}</span>
+									</div>
+								</div><div class="frm_control_group show_value info_item">
+									<label class="frm_label">EncodingAESKey</label>
+									<div class="frm_controls">
+										<span class="frm_input_box">{{wechatConfig.encodingAesKey}}</span>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -76,6 +86,20 @@
 									<div class="frm_controls">
 										<span class="frm_input_box">
 											<input type="text" v-model="wechatConfig.appsecret" class="form-control" placeholder="请输入appsecret" style="width: 300px;" isvalid="yes" checkexpession="NotNull"/>
+										</span>
+									</div>
+								</div><div class="frm_control_group show_value info_item">
+									<label class="frm_label">Token</label>
+									<div class="frm_controls">
+										<span class="frm_input_box">
+											<input type="text" v-model="wechatConfig.token" class="form-control" placeholder="Token" style="width: 300px;" isvalid="yes" checkexpession="NotNull"/>
+										</span>
+									</div>
+								</div><div class="frm_control_group show_value info_item">
+									<label class="frm_label">EncodingAESKey</label>
+									<div class="frm_controls">
+										<span class="frm_input_box">
+											<input type="text" v-model="wechatConfig.encodingAesKey" class="form-control" placeholder="EncodingAESKey" style="width: 300px;"/>
 										</span>
 									</div>
 								</div>
