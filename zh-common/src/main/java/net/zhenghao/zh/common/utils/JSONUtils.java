@@ -21,7 +21,7 @@ public class JSONUtils {
 	/**
 	 * Bean对象转JSON
 	 * @param object
-	 * @param dataFormatString
+	 * @param dateFormatString
 	 * @return
 	 */
 	public static String beanToJson(Object object, String dateFormatString) {
