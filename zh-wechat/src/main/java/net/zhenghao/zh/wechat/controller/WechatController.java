@@ -1,8 +1,10 @@
 package net.zhenghao.zh.wechat.controller;
 
 import net.zhenghao.zh.common.constant.SystemConstant;
+import net.zhenghao.zh.wechat.entity.AccessTokenEntity;
 import net.zhenghao.zh.wechat.entity.WechatConfigEntity;
 import net.zhenghao.zh.wechat.service.WechatConfigService;
+import net.zhenghao.zh.wechat.utils.AccessTokenUtil;
 import net.zhenghao.zh.wechat.utils.SignUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,5 +59,12 @@ public class WechatController {
                 e.printStackTrace();
             }
         }
+    }
+
+    @RequestMapping("/test")
+    public AccessTokenEntity test(){
+        System.out.println("hhah");
+        AccessTokenEntity accessTokenEntity = AccessTokenUtil.getAccessToken();
+        return accessTokenEntity;
     }
 }

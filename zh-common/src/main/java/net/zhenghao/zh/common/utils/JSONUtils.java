@@ -63,7 +63,7 @@ public class JSONUtils {
 	/**
 	 * 将json字符串转换成对象
 	 * @param json
-	 * @param clazz
+	 * @param clazz new 个对象进去
 	 * @return
 	 */
 	public static Object jsonToBean(String json, Object clazz) {
