@@ -106,7 +106,6 @@ public class AccessTokenUtil {
         AccessTokenEntity accessToken = null;
         try {
             response = HttpClientUtils.sendGet(access_token_url, null);
-            System.out.println(response);
             accessToken = (AccessTokenEntity) JSONUtils.jsonToBean(response, new AccessTokenEntity());
         } catch (IOException e) {
             LOGGER.error("http connection error :" + e.getMessage(), e);
