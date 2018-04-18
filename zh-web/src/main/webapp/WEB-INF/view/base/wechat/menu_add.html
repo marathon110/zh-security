@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('新增-微信菜单')"></head>
+<body>
+	<div id="zhLTE" class="container-fluid" v-cloak>
+		<div class="alert alert-danger" role="alert" style="margin-top: 10px;">
+			特别注意：以下信息务必按照微信开发手册填写
+		</div>
+		<table class="form" id="form">
+			<tr>
+				<td class="formTitle">菜单级别</td>
+				<td class="formValue">
+					<label class="radio-inline"><input type="radio" name="buttonType" value="1" v-model="menu.buttonType" /> 一级</label>
+					<label class="radio-inline"><input type="radio" name="buttonType" value="2" v-model="menu.buttonType" /> 二级</label>
+				</td>
+			</tr>
+			<tr>
+				<td class="formTitle">类型</td>
+				<td class="formValue">
+					<input type="text" class="form-control" v-model="menu.type" placeholder="菜单类型"/>
+				</td>
+			</tr>
+			<tr>
+	            <td class="formTitle">名称<font face="宋体">*</font></td>
+	            <td class="formValue">
+					<input type="text" class="form-control" v-model="menu.name" placeholder="菜单名称" isvalid="yes" checkexpession="NotNull"/>
+				</td>
+        	</tr>
+			<tr>
+				<td class="formTitle">菜单KEY值</td>
+				<td class="formValue">
+					<input type="text" class="form-control" v-model="menu.key" placeholder="菜单KEY值"/>
+				</td>
+			</tr>
+        	<tr>
+	            <td class="formTitle">上级菜单</td>
+	            <td class="formValue">
+					<input type="text" class="form-control pointer" v-model="menu.parentName" @click="menuTree" readonly="readonly" placeholder="一级菜单"/>
+				</td>
+        	</tr>
+        	<tr>
+	            <td class="formTitle">菜单URL</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" v-model="menu.url" placeholder="菜单URL"/>
+				</td>
+        	</tr>
+			<tr>
+	            <td class="formTitle">appid</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" v-model="menu.appid" placeholder="小程序的appid"/>
+				</td>
+        	</tr>
+			<tr>
+				<td class="formTitle">pagepath</td>
+				<td class="formValue">
+					<input type="text" class="form-control" v-model="menu.pagepath" placeholder="小程序的页面路径"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="formTitle">排序</td>
+				<td class="formValue">
+					<input type="text" class="form-control" v-model="menu.orderNum" placeholder="排序号"/>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div th:include="include/footer_js::footer"></div>
+	<script th:src="@{/statics/js/base/wechat/menu_add.js}"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.zhenghao.zh.wechat.dao.WechatMenuMapper">
+
+	<select id="list" resultType="WechatMenuEntity">
+		SELECT
+			m.id,
+			m.parent_id,
+			(
+				SELECT
+					p.name
+				FROM
+					wechat_menu p
+				WHERE
+					p.id = m.parent_id
+			) AS parentName,
+			m.name,
+			m.url,
+			m.key,
+			m.type,
+			m.appid,
+			m.pagepath,
+			m.button_type,
+			m.order_num
+		FROM
+			wechat_menu m
+		ORDER BY
+			m.order_num ASC
+	</select>
+	
+	<select id="listButton" resultType="WechatMenuEntity" flushCache="true">
+		SELECT
+			id,
+			parent_id,
+			`name`,
+			button_type
+		FROM
+			wechat_menu
+		WHERE
+			button_type != 2
+		ORDER BY
+			order_num ASC
+	</select>
+
+	<insert id="save">
+		INSERT INTO wechat_menu (
+			parent_id,
+			`type`,
+			`name`,
+			`key`,
+			url,
+			appid,
+			pagepath,
+			button_type,
+			order_num,
+			gmt_create
+		)
+		VALUES (
+			#{parentId},
+			#{type},
+			#{name},
+			#{key},
+			#{url},
+			#{appid},
+			#{pagepath},
+			#{buttonType},
+			#{orderNum},
+			NOW()
+		)
+	</insert>
+
+	<select id="getObjectById" resultType="WechatMenuEntity">
+		SELECT
+			m.id,
+			m.parent_id,
+			(
+				SELECT
+					p.name
+				FROM
+					wechat_menu p
+				WHERE
+					p.id = m.parent_id
+			) AS parentName,
+			m.name,
+			m.url,
+			m.key,
+			m.type,
+			m.appid,
+			m.pagepath,
+			m.button_type,
+			m.order_num
+		FROM
+			wechat_menu m
+		WHERE
+			id = #{value}
+	</select>
+	
+	<update id="update">
+		UPDATE wechat_menu
+		<set> 
+			<if test="parentId != null">parent_id = #{parentId}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="url != null">url = #{url}, </if>
+			<if test="key != null">`key` = #{key}, </if>
+			<if test="appid != null">appid = #{appid}, </if>
+			<if test="pagepath != null">pagepath = #{pagepath}, </if>
+			<if test="buttonType != null">button_type = #{buttonType}, </if>
+			<if test="orderNum != null">order_num = #{orderNum}, </if>
+			gmt_modified = NOW()
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			wechat_menu
+		WHERE
+			id IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+	
+</mapper>
