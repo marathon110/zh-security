@@ -86,6 +86,8 @@ public class WechatMenuServiceImpl implements WechatMenuService {
 			WechatButtonEntity button = new WechatButtonEntity();
 			button.setButton(menuList);
 			error = MenuUtils.update(button);
+		} else {
+			return R.error("提交失败，未配置菜单信息!");
 		}
 		if (error.getErrcode() == 0) {
 			return R.ok("提交成功");
