@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2018-04-12 14:03:14
+Date: 2018-04-19 15:43:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -342,7 +342,7 @@ CREATE TABLE `sys_log` (
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `result` tinyint(255) DEFAULT NULL COMMENT '操作结果 1-成功 0-失败',
   `remark` varchar(500) CHARACTER SET utf8 DEFAULT NULL COMMENT '操作描述',
-  `type` tinyint(255) DEFAULT NULL COMMENT '日志类型 1-登录 2-访问 3-操作 4-异常 5-授权',
+  `type` tinyint(255) DEFAULT NULL COMMENT '日志类型 1-登录 2-访问 3-操作 4-异常 5-授权 6-微信',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=latin1 COMMENT='系统日志';
 
@@ -429,13 +429,13 @@ CREATE TABLE `sys_menu` (
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1 COMMENT='系统菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1 COMMENT='系统菜单';
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES ('1', '0', '基础管理', null, null, '0', 'fa fa-coffee', '1', '2017-12-20 14:22:08', null);
-INSERT INTO `sys_menu` VALUES ('2', '0', '系统管理', null, null, '0', 'fa fa-desktop', '2', '2017-12-20 14:41:56', null);
+INSERT INTO `sys_menu` VALUES ('1', '0', '基础管理', null, null, '0', 'fa fa-coffee', '2', '2017-12-20 14:22:08', null);
+INSERT INTO `sys_menu` VALUES ('2', '0', '系统管理', null, null, '0', 'fa fa-desktop', '3', '2017-12-20 14:41:56', null);
 INSERT INTO `sys_menu` VALUES ('3', '2', '用户管理', 'base/user/list.html', null, '1', 'fa fa-user', '0', '2017-12-20 14:47:55', null);
 INSERT INTO `sys_menu` VALUES ('4', '2', '角色管理', 'base/role/list.html', null, '1', 'fa fa-paw', '1', '2017-12-20 14:48:31', null);
 INSERT INTO `sys_menu` VALUES ('5', '2', '菜单管理', 'base/menu/list.html', null, '1', 'fa fa-th-list', '2', '2017-12-20 14:49:24', null);
@@ -486,6 +486,17 @@ INSERT INTO `sys_menu` VALUES ('49', '48', '接口测试', 'base/tools/api.html'
 INSERT INTO `sys_menu` VALUES ('50', '49', '发送', '/sys/api/request', 'sys:api:request', '2', null, '0', '2018-04-10 16:29:57', null);
 INSERT INTO `sys_menu` VALUES ('51', '48', '二维码', 'base/tools/qrcode.html', null, '1', 'fa fa-qrcode', '1', '2018-04-12 14:02:07', null);
 INSERT INTO `sys_menu` VALUES ('52', '51', '生成', '/sys/code/qrcode', 'sys:code:qrcode', '2', null, '0', '2018-04-12 14:02:45', null);
+INSERT INTO `sys_menu` VALUES ('53', '0', '微信管理', null, null, '0', 'fa fa-wechat', '0', '2018-04-19 15:31:24', null);
+INSERT INTO `sys_menu` VALUES ('54', '53', '我的公众号', 'base/wechat/wechat.html', null, '1', 'fa fa-user-circle', '0', '2018-04-19 15:33:13', null);
+INSERT INTO `sys_menu` VALUES ('55', '54', '配置信息', '/wechat/config/info', 'wechat:config:info', '2', null, '0', '2018-04-19 15:33:53', null);
+INSERT INTO `sys_menu` VALUES ('56', '54', '保存配置信息', '/wechat/config/save', 'wechat:config:save', '2', null, '0', '2018-04-19 15:34:36', null);
+INSERT INTO `sys_menu` VALUES ('57', '53', '微信菜单', 'base/wechat/menu_list.html', null, '1', 'fa fa-list-ul', '1', '2018-04-19 15:35:17', null);
+INSERT INTO `sys_menu` VALUES ('58', '57', '刷新', '/wechat/menu/list', 'wechat:menu:list', '2', null, '0', '2018-04-19 15:37:56', null);
+INSERT INTO `sys_menu` VALUES ('59', '57', '新增', '/wechat/menu/save', 'wechat:menu:save', '2', null, '0', '2018-04-19 15:38:28', null);
+INSERT INTO `sys_menu` VALUES ('60', '57', '编辑', '/wechat/menu/update', 'wechat:menu:edit', '2', null, '0', '2018-04-19 15:38:52', null);
+INSERT INTO `sys_menu` VALUES ('61', '57', '删除', '/wechat/menu/remove', 'wechat:menu:remove', '2', null, '0', '2018-04-19 15:39:21', null);
+INSERT INTO `sys_menu` VALUES ('62', '57', '提交微信菜单', '/wechat/menu/submit', 'wechat:menu:submit', '2', null, '0', '2018-04-19 15:39:51', null);
+INSERT INTO `sys_menu` VALUES ('63', '57', '删除微信菜单', '/wechat/menu/delete', 'wechat:menu:delete', '2', null, '0', '2018-04-19 15:40:15', null);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -516,7 +527,7 @@ CREATE TABLE `sys_role_menu` (
   `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
   `menu_id` bigint(20) DEFAULT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1 COMMENT='角色菜单关系';
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1 COMMENT='角色菜单关系';
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -573,6 +584,17 @@ INSERT INTO `sys_role_menu` VALUES ('49', '1', '49');
 INSERT INTO `sys_role_menu` VALUES ('50', '1', '50');
 INSERT INTO `sys_role_menu` VALUES ('51', '1', '51');
 INSERT INTO `sys_role_menu` VALUES ('52', '1', '52');
+INSERT INTO `sys_role_menu` VALUES ('53', '1', '53');
+INSERT INTO `sys_role_menu` VALUES ('54', '1', '54');
+INSERT INTO `sys_role_menu` VALUES ('55', '1', '55');
+INSERT INTO `sys_role_menu` VALUES ('56', '1', '56');
+INSERT INTO `sys_role_menu` VALUES ('57', '1', '57');
+INSERT INTO `sys_role_menu` VALUES ('58', '1', '58');
+INSERT INTO `sys_role_menu` VALUES ('59', '1', '59');
+INSERT INTO `sys_role_menu` VALUES ('60', '1', '60');
+INSERT INTO `sys_role_menu` VALUES ('61', '1', '61');
+INSERT INTO `sys_role_menu` VALUES ('62', '1', '62');
+INSERT INTO `sys_role_menu` VALUES ('63', '1', '63');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -611,3 +633,47 @@ CREATE TABLE `sys_user_role` (
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES ('1', '1', '1');
+
+-- ----------------------------
+-- Table structure for wechat_config
+-- ----------------------------
+DROP TABLE IF EXISTS `wechat_config`;
+CREATE TABLE `wechat_config` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `app_id` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '微信appid',
+  `appsecret` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '微信appsecret',
+  `token` varchar(40) CHARACTER SET utf8 DEFAULT NULL COMMENT '令牌(Token)',
+  `encoding_aes_key` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '消息加解密密钥(EncodingAESKey)',
+  `user_id_create` bigint(20) DEFAULT NULL COMMENT '创建用户id',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='微信基本配置表';
+
+-- ----------------------------
+-- Records of wechat_config
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for wechat_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `wechat_menu`;
+CREATE TABLE `wechat_menu` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `parent_id` bigint(20) DEFAULT NULL COMMENT '父菜单ID，最外层菜单为0',
+  `type` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '菜单的响应动作类型，view表示网页类型，click表示点击类型，miniprogram表示小程序类型',
+  `name` varchar(70) CHARACTER SET utf8 DEFAULT NULL COMMENT '菜单标题，不超过16个字节，子菜单不超过60个字节',
+  `key` varchar(130) CHARACTER SET utf8 DEFAULT NULL COMMENT 'click等点击类型必须,菜单KEY值，用于消息接口推送，不超过128字节',
+  `url` varchar(2000) CHARACTER SET utf8 DEFAULT NULL COMMENT '网页 链接，用户点击菜单可打开链接，不超过1024字节。',
+  `appid` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '小程序的appid（仅认证公众号可配置）',
+  `pagepath` varchar(2000) CHARACTER SET utf8 DEFAULT NULL COMMENT '小程序的页面路径',
+  `button_type` int(11) DEFAULT NULL COMMENT '菜单级别1：一级菜单 2：二级菜单',
+  `order_num` int(11) DEFAULT NULL COMMENT '排序',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COMMENT='微信菜单';
+
+-- ----------------------------
+-- Records of wechat_menu
+-- ----------------------------
