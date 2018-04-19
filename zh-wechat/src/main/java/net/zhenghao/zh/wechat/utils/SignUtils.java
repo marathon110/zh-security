@@ -16,11 +16,11 @@ import java.util.Arrays;
  * @author:zhaozhenghao
  * @Email :736720794@qq.com
  * @date :2018/4/17 11:29
- * SignUtil.java
+ * SignUtils.java
  */
-public class SignUtil {
+public class SignUtils {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SignUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SignUtils.class);
 
     private static char[] digit = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 

@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * @author:zhaozhenghao
  * @Email :736720794@qq.com
- * @date  :2017年12月7日 上午10:43:52
+ * @date  :2018年4月18日 上午10:43:52
  * SysMenuService.java
  */
 public interface WechatMenuService {

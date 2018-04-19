@@ -4,8 +4,8 @@ import net.zhenghao.zh.common.constant.SystemConstant;
 import net.zhenghao.zh.wechat.entity.AccessTokenEntity;
 import net.zhenghao.zh.wechat.entity.WechatConfigEntity;
 import net.zhenghao.zh.wechat.service.WechatConfigService;
-import net.zhenghao.zh.wechat.utils.AccessTokenUtil;
-import net.zhenghao.zh.wechat.utils.SignUtil;
+import net.zhenghao.zh.wechat.utils.AccessTokenUtils;
+import net.zhenghao.zh.wechat.utils.SignUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,7 +48,7 @@ public class WechatController {
                         @RequestParam(value = "echostr") String echostr,
                         HttpServletResponse response) {
         WechatConfigEntity config = (WechatConfigEntity) wechatConfigService.getWechatConfig().get(SystemConstant.DATA_ROWS);
-        if (SignUtil.checkSignature(config.getToken(), signature, timestamp, nonce)) {
+        if (SignUtils.checkSignature(config.getToken(), signature, timestamp, nonce)) {
             OutputStream os = null;
             try {
                 os = response.getOutputStream();
@@ -64,7 +64,7 @@ public class WechatController {
     @RequestMapping("/test")
     public AccessTokenEntity test(){
         System.out.println("hhah");
-        AccessTokenEntity accessTokenEntity = AccessTokenUtil.getAccessToken();
+        AccessTokenEntity accessTokenEntity = AccessTokenUtils.getAccessToken();
         return accessTokenEntity;
     }
 }

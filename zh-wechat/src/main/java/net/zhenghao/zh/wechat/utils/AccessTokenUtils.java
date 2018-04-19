@@ -21,11 +21,11 @@ import java.io.IOException;
  * @author:zhaozhenghao
  * @Email :736720794@qq.com
  * @date :2018/4/17 14:55
- * AccessTokenUtil.java
+ * AccessTokenUtils.java
  */
-public class AccessTokenUtil {
+public class AccessTokenUtils {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AccessTokenUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AccessTokenUtils.class);
 
     private static AccessTokenEntity ACCESS_TOKEN = null;
 
