@@ -28,6 +28,9 @@ public class WechatConfigServiceImpl implements WechatConfigService {
 	@Override
 	public R getWechatConfig() {
 		WechatConfigEntity wechatConfig = wechatConfigManager.getWechatConfig();
+		if (wechatConfig == null) {
+			wechatConfig = new WechatConfigEntity();
+		}
 		return CommonUtils.msgNotNull(wechatConfig);
 	}
 
