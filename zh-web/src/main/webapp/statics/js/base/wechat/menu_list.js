@@ -79,12 +79,12 @@ var vm = new Vue({
 			if(checkedRow(ck)) {
 				dialogOpen({
 					title : '编辑菜单',
-					url : 'base/menu/edit.html?_' + $.now(),
+					url : 'base/wechat/menu_edit.html?_' + $.now(),
 					width : '600px',
-					height : '420px',
+					height : '560px',
 					scroll : true,
 					success : function(iframeId){
-						top.frames[iframeId].vm.menu.menuId = ck[0].id;
+						top.frames[iframeId].vm.menu.id = ck[0].id;
 						top.frames[iframeId].vm.setForm();
 					},
 					yes : function(iframeId) {
@@ -100,7 +100,7 @@ var vm = new Vue({
 					ids[idx] = item.id;
 				});
 				$.RemoveForm({
-					url: '../../sys/menu/remove?_' + $.now(),
+					url: '../../wechat/menu/remove?_' + $.now(),
 			    	param: ids,
 			    	success: function(data) {
 			    		vm.load();

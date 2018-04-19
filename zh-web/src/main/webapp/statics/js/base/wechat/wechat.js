@@ -23,7 +23,7 @@ var vm = new Vue({
                 return false;
             }
             $.SetForm({
-                url: '../../wechat/config/saveOrUpdate?_' + $.now(),
+                url: '../../wechat/config/save?_' + $.now(),
                 param: vm.wechatConfig,
                 success: function(data) {
                     getConfig();
@@ -44,7 +44,7 @@ var vm = new Vue({
 
 function getConfig() {
     $.SetForm({
-        url : '../../wechat/config/getConfig?_' + $.now(),
+        url : '../../wechat/config/info?_' + $.now(),
         success : function(data) {
             if(isNotNullOrEmpty(data)
                 && isNotNullOrEmpty(data.appId)

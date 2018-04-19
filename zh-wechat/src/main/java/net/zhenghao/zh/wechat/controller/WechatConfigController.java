@@ -1,6 +1,7 @@
 package net.zhenghao.zh.wechat.controller;
 
 import net.zhenghao.zh.common.annotation.SysLog;
+import net.zhenghao.zh.common.constant.SystemConstant;
 import net.zhenghao.zh.common.controller.AbstractController;
 import net.zhenghao.zh.common.entity.R;
 import net.zhenghao.zh.wechat.entity.WechatConfigEntity;
@@ -32,8 +33,8 @@ public class WechatConfigController extends AbstractController {
 	 * @param wechatConfig
 	 * @return
 	 */
-	@SysLog("新增或更新微信基本配置")
-	@RequestMapping("/saveOrUpdate")
+	@SysLog(value = "新增或更新微信基本配置", type = "WECHAT")
+	@RequestMapping("/save")
 	public R saveOrUpdate(@RequestBody WechatConfigEntity wechatConfig) {
 		return wechatConfigService.saveOrUpdate(wechatConfig);
 	}
@@ -43,7 +44,7 @@ public class WechatConfigController extends AbstractController {
 	 * @param
 	 * @return
 	 */
-	@RequestMapping("/getConfig")
+	@RequestMapping("/info")
 	public R getWechatConfig() {
 		return wechatConfigService.getWechatConfig();
 	}

@@ -54,7 +54,7 @@ public class WechatMenuController extends AbstractController {
 	 * @param menu
 	 * @return
 	 */
-	@SysLog("新增菜单")
+	@SysLog(value = "新增菜单", type = "WECHAT")
 	@RequestMapping("/save")
 	public R save(@RequestBody WechatMenuEntity menu) {
 		return wechatMenuService.saveMenu(menu);
@@ -75,7 +75,7 @@ public class WechatMenuController extends AbstractController {
 	 * @param menu
 	 * @return
 	 */
-	@SysLog("修改菜单")
+	@SysLog(value = "修改菜单", type = "WECHAT")
 	@RequestMapping("/update")
 	public R update(@RequestBody WechatMenuEntity menu) {
 		return wechatMenuService.updateMenu(menu);
@@ -86,7 +86,7 @@ public class WechatMenuController extends AbstractController {
 	 * @param id
 	 * @return
 	 */
-	@SysLog("删除菜单")
+	@SysLog(value = "删除菜单", type = "WECHAT")
 	@RequestMapping("/remove")
 	public R remove(@RequestBody Long[] id) {
 		return wechatMenuService.batchRemove(id);
