@@ -28,6 +28,15 @@ public class WechatMenuController extends AbstractController {
 
 	@Resource
 	private WechatMenuService wechatMenuService;
+
+	/**
+	 * 测试递归
+	 * @return
+	 */
+	@RequestMapping("/test")
+	public List<WechatMenuEntity> findAllRecursion() {
+		return wechatMenuService.findAllRecursion();
+	}
 	
 	/**
 	 * 菜单列表
@@ -90,5 +99,25 @@ public class WechatMenuController extends AbstractController {
 	@RequestMapping("/remove")
 	public R remove(@RequestBody Long[] id) {
 		return wechatMenuService.batchRemove(id);
+	}
+
+	/**
+	 * 菜单提交微信
+	 * @return
+	 */
+	@SysLog(value = "菜单提交微信", type = "WECHAT")
+	@RequestMapping("/submit")
+	public R submit() {
+		return wechatMenuService.submit();
+	}
+
+	/**
+	 * 删除微信菜单
+	 * @return
+	 */
+	@SysLog(value = "删除微信菜单", type = "WECHAT")
+	@RequestMapping("/delete")
+	public R delete() {
+		return wechatMenuService.delete();
 	}
 }

@@ -3,9 +3,13 @@ package net.zhenghao.zh.wechat.service.impl;
 import net.zhenghao.zh.common.entity.Query;
 import net.zhenghao.zh.common.entity.R;
 import net.zhenghao.zh.common.utils.CommonUtils;
+import net.zhenghao.zh.common.utils.JSONUtils;
+import net.zhenghao.zh.wechat.entity.WechatButtonEntity;
+import net.zhenghao.zh.wechat.entity.WechatErrorEntity;
 import net.zhenghao.zh.wechat.entity.WechatMenuEntity;
 import net.zhenghao.zh.wechat.manager.WechatMenuManager;
 import net.zhenghao.zh.wechat.service.WechatMenuService;
+import net.zhenghao.zh.wechat.utils.MenuUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +29,11 @@ public class WechatMenuServiceImpl implements WechatMenuService {
 	
 	@Autowired
 	private WechatMenuManager wechatMenuManager;
+
+	@Override
+	public List<WechatMenuEntity> findAllRecursion() {
+		return wechatMenuManager.findAllRecursion();
+	}
 
 	@Override
 	public List<WechatMenuEntity> listMenu(Map<String, Object> params) {
@@ -67,6 +76,32 @@ public class WechatMenuServiceImpl implements WechatMenuService {
 	public R batchRemove(Long[] id) {
 		int count = wechatMenuManager.batchRemove(id);
 		return CommonUtils.msg(id, count);
+	}
+
+	@Override
+	public R submit() {
+		List<WechatMenuEntity> menuList = wechatMenuManager.findAllRecursion();
+		WechatErrorEntity error = new WechatErrorEntity();
+		if (menuList.size() > 0) {
+			WechatButtonEntity button = new WechatButtonEntity();
+			button.setButton(menuList);
+			error = MenuUtils.update(button);
+		}
+		if (error.getErrcode() == 0) {
+			return R.ok("提交成功");
+		} else {
+			return R.error("提交失败，错误代码" + error.getErrcode() + ",错误信息" + error.getErrmsg());
+		}
+	}
+
+	@Override
+	public R delete() {
+		WechatErrorEntity error = MenuUtils.delete();
+		if (error.getErrcode() == 0) {
+			return R.ok("删除成功");
+		} else {
+			return R.error("删除失败，错误代码" + error.getErrcode() + ",错误信息" + error.getErrmsg());
+		}
 	}
 
 }

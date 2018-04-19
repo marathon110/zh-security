@@ -26,6 +26,11 @@ public class WechatMenuManagerImpl implements WechatMenuManager {
 	private WechatMenuMapper wechatMenuMapper;
 
 	@Override
+	public List<WechatMenuEntity> findAllRecursion() {
+		return wechatMenuMapper.findAllRecursion();
+	}
+
+	@Override
 	public List<WechatMenuEntity> listMenu(Query search) {
 		return wechatMenuMapper.list(search);
 	}

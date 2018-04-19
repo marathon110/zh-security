@@ -15,6 +15,8 @@ import java.util.Map;
  * SysMenuService.java
  */
 public interface WechatMenuService {
+
+	List<WechatMenuEntity> findAllRecursion();
 	
 	List<WechatMenuEntity> listMenu(Map<String, Object> params);
 	
@@ -27,5 +29,8 @@ public interface WechatMenuService {
 	R updateMenu(WechatMenuEntity menu);
 	
 	R batchRemove(Long[] id);
-	
+
+	R submit();
+
+	R delete();
 }

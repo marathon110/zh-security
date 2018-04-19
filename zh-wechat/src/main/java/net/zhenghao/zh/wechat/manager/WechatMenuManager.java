@@ -15,6 +15,8 @@ import java.util.List;
  */
 
 public interface WechatMenuManager {
+
+	List<WechatMenuEntity> findAllRecursion();
 	
 	List<WechatMenuEntity> listMenu(Query search);
 	

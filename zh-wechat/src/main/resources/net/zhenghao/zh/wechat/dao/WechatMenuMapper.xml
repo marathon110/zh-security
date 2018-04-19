@@ -3,6 +3,54 @@
 
 <mapper namespace="net.zhenghao.zh.wechat.dao.WechatMenuMapper">
 
+	<resultMap type="WechatMenuEntity" id="recursionMenuMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<collection property="sub_button" ofType="WechatMenuEntity" column="id" select="findMenuByParentId"/>
+	</resultMap>
+
+	<select id="findAllRecursion" resultMap="recursionMenuMap">
+		SELECT
+			id,
+			parent_id,
+			`type`,
+			`name`,
+			`key`,
+			url,
+			appid,
+			pagepath,
+			button_type,
+			order_num,
+			gmt_create
+		FROM
+			wechat_menu
+		WHERE
+			parent_id = 0 or parent_id is NULL
+		ORDER BY
+			`order_num` ASC
+	</select>
+
+	<select id="findMenuByParentId" resultType="WechatMenuEntity">
+		SELECT
+			id,
+			parent_id,
+			`type`,
+			`name`,
+			`key`,
+			url,
+			appid,
+			pagepath,
+			button_type,
+			order_num,
+			gmt_create
+		FROM
+			wechat_menu
+		WHERE
+			parent_id = #{id}
+		ORDER BY
+			`order_num` ASC
+	</select>
+
 	<select id="list" resultType="WechatMenuEntity">
 		SELECT
 			m.id,

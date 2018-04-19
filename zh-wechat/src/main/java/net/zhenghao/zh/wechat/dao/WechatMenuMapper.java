@@ -16,6 +16,13 @@ import java.util.List;
  */
 @MapperScan
 public interface WechatMenuMapper extends BaseMapper<WechatMenuEntity>{
+
+	/**
+	 * 递归查找所有菜单
+	 *
+	 * @return
+	 */
+	public List<WechatMenuEntity> findAllRecursion();
 	
 	/**
 	 * 得到一级的菜单

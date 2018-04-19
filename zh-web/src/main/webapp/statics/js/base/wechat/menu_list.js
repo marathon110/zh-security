@@ -108,5 +108,21 @@ var vm = new Vue({
 				});
 			}
 		},
+        submitMenu: function() {
+            $.ConfirmForm({
+                msg : '您确定要将菜单提交至微信吗？',
+                url: '../../wechat/menu/submit?_' + $.now(),
+                success: function(data) {
+                }
+            });
+        },
+        deleteMenu: function() {
+            $.ConfirmForm({
+                msg : '您确定要删除微信菜单吗？请谨慎操作！',
+                url: '../../wechat/menu/delete?_' + $.now(),
+                success: function(data) {
+                }
+            });
+        },
 	}
 })

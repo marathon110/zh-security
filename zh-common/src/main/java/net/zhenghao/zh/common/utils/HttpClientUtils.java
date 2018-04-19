@@ -124,7 +124,14 @@ public class HttpClientUtils {
         }
     }
 
-    public static String doPost(String url, String params) throws Exception {
+    /**
+     * HTTP Post 传json串 获取内容
+     * @param url
+     * @param params json串
+     * @return
+     * @throws Exception
+     */
+    public static String sendPost(String url, String params) throws Exception {
         HttpPost httpPost = new HttpPost(url);// 创建httpPost
         httpPost.setHeader("Accept", "application/json");
         httpPost.setHeader("Content-Type", "application/json");
