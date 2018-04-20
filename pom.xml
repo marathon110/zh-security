@@ -64,6 +64,7 @@
         <jsoup-version>1.8.3</jsoup-version>
         <httpclient-version>4.5.5</httpclient-version>
         <zxing-version>3.3.0</zxing-version>
+	  	<dom4j-version>1.6.1</dom4j-version>
   </properties>
   
   <!-- 阿里云maven仓库 -->
@@ -347,6 +348,13 @@
 			<groupId>com.google.zxing</groupId>
 			<artifactId>javase</artifactId>
 			<version>${zxing-version}</version>
+		</dependency>
+
+		<!--解析xml工具 dom4j-->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>${dom4j-version}</version>
 		</dependency>
 
 	</dependencies>

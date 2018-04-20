@@ -2,16 +2,21 @@ package net.zhenghao.zh.wechat.controller;
 
 import net.zhenghao.zh.common.constant.SystemConstant;
 import net.zhenghao.zh.wechat.entity.AccessTokenEntity;
+import net.zhenghao.zh.wechat.entity.ReceiveXmlEntity;
 import net.zhenghao.zh.wechat.entity.WechatConfigEntity;
+import net.zhenghao.zh.wechat.process.ReceiveXmlProcess;
 import net.zhenghao.zh.wechat.service.WechatConfigService;
 import net.zhenghao.zh.wechat.utils.AccessTokenUtils;
 import net.zhenghao.zh.wechat.utils.SignUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -39,7 +44,6 @@ public class WechatController {
      * @param timestamp 时间戳
      * @param nonce     随机数
      * @param echostr   随机字符串
-     * @return
      */
     @RequestMapping(method = RequestMethod.GET)
     public void doGet(@RequestParam(value = "signature") String signature,
@@ -61,10 +65,18 @@ public class WechatController {
         }
     }
 
-    @RequestMapping("/test")
-    public AccessTokenEntity test(){
-        System.out.println("hhah");
-        AccessTokenEntity accessTokenEntity = AccessTokenUtils.getAccessToken();
-        return accessTokenEntity;
+    /**
+     * 接收微信服务器的post请求并响应
+     */
+    @RequestMapping(method = RequestMethod.POST, produces = "text/xml;charset=utf-8")
+    public void doPost(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            ServletInputStream inputStream = request.getInputStream();
+            String xml = IOUtils.toString(inputStream, "UTF-8");
+            /** 解析xml数据 */
+            ReceiveXmlEntity xmlEntity = ReceiveXmlProcess.getEntity(xml);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
