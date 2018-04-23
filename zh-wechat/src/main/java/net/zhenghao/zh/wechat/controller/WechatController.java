@@ -6,9 +6,11 @@ import net.zhenghao.zh.wechat.entity.AccessTokenEntity;
 import net.zhenghao.zh.wechat.entity.ReceiveXmlEntity;
 import net.zhenghao.zh.wechat.entity.WechatConfigEntity;
 import net.zhenghao.zh.wechat.handler.MessageHandler;
+import net.zhenghao.zh.wechat.message.response.BaseResponseMessage;
 import net.zhenghao.zh.wechat.process.ReceiveXmlProcess;
 import net.zhenghao.zh.wechat.service.WechatConfigService;
 import net.zhenghao.zh.wechat.utils.AccessTokenUtils;
+import net.zhenghao.zh.wechat.utils.MessageUtils;
 import net.zhenghao.zh.wechat.utils.SignUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +83,13 @@ public class WechatController {
             /** 解析xml数据 */
             ReceiveXmlEntity xmlEntity = ReceiveXmlProcess.getEntity(xml);
             MessageHandler messageHandler = messageHandlerAdapter.findMessageHandler(xmlEntity);
-            messageHandler.dealMessage(xmlEntity);
+            BaseResponseMessage responseMessage = messageHandler.dealMessage(xmlEntity);
+            //构造给用户的响应消息
+            String responseXml = MessageUtils.messageToXml(responseMessage);
+            OutputStream os = response.getOutputStream();
+            os.write(responseXml.getBytes("UTF-8"));
+            os.flush();
+            os.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

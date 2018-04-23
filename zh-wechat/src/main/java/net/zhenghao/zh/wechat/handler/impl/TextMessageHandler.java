@@ -4,6 +4,9 @@ import net.zhenghao.zh.wechat.annotation.Message;
 import net.zhenghao.zh.wechat.entity.ReceiveXmlEntity;
 import net.zhenghao.zh.wechat.enums.MessageType;
 import net.zhenghao.zh.wechat.handler.MessageHandler;
+import net.zhenghao.zh.wechat.message.response.BaseResponseMessage;
+import net.zhenghao.zh.wechat.message.response.TextResponseMessage;
+import net.zhenghao.zh.wechat.utils.MessageUtils;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,8 +24,8 @@ import org.springframework.stereotype.Component;
 public class TextMessageHandler implements MessageHandler {
 
     @Override
-    public void dealMessage(ReceiveXmlEntity receiveXmlEntity) {
-        System.out.println("接收普通消息类型");
-        System.out.println(receiveXmlEntity.toString());
+    public BaseResponseMessage dealMessage(ReceiveXmlEntity receiveXmlEntity) {
+        //这里实现业务逻辑
+        return MessageUtils.buildTextResponseMessage(receiveXmlEntity, receiveXmlEntity.getContent());
     }
 }

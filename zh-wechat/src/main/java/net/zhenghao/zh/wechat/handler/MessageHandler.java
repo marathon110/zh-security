@@ -1,6 +1,7 @@
 package net.zhenghao.zh.wechat.handler;
 
 import net.zhenghao.zh.wechat.entity.ReceiveXmlEntity;
+import net.zhenghao.zh.wechat.message.response.BaseResponseMessage;
 
 /**
  * 🙃
@@ -14,6 +15,6 @@ import net.zhenghao.zh.wechat.entity.ReceiveXmlEntity;
  */
 public interface MessageHandler {
 
-    void dealMessage(ReceiveXmlEntity receiveXmlEntity);
+    BaseResponseMessage dealMessage(ReceiveXmlEntity receiveXmlEntity);
 
 }

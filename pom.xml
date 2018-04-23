@@ -65,6 +65,7 @@
         <httpclient-version>4.5.5</httpclient-version>
         <zxing-version>3.3.0</zxing-version>
 	  	<dom4j-version>1.6.1</dom4j-version>
+	  	<xstream-version>1.4.10</xstream-version>
   </properties>
   
   <!-- 阿里云maven仓库 -->
@@ -357,6 +358,12 @@
 			<version>${dom4j-version}</version>
 		</dependency>
 
+		<!-- 服务器响应微信时将内容转为xml格式数据需要使用到xstream -->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>${xstream-version}</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
