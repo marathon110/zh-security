@@ -27,10 +27,10 @@ public class XMLUtils {
     /**
      * xml转bean实体类
      * @param xml xml格式字符串
-     * @param clazz 该实体类的元类型
+     * @param clazz 该实体类对象
      * @return 该实体类对象
      */
-    public static <T> T xmlToBean(String xml, Class<T> clazz) {
+    public static <T> T xmlToBean(String xml, Object clazz) {
         if (xml.length() <= 0 || xml == null) {
             return null;
         }
@@ -41,13 +41,15 @@ public class XMLUtils {
             Element root = document.getRootElement();
             //遍历根节点下所有子节点
             Iterator<?> iterator = root.elementIterator();
+            //获取该实体类的元类型
+            Class<?> c = clazz.getClass();
             //利用反射机制，调用set方法
             while (iterator.hasNext()) {
                 Element element = (Element) iterator.next();
                 //获取set方法中的参数字段(实体类的属性)
-                Field field = clazz.getDeclaredField(element.getName());
+                Field field = c.getDeclaredField(element.getName());
                 //获取set方法，field.getType()获取他的参数数据类型
-                Method method = clazz.getDeclaredMethod("set"+element.getName(), field.getType());
+                Method method = c.getDeclaredMethod("set"+element.getName(), field.getType());
                 //调用set方法
                 method.invoke(clazz, element.getText());
             }
