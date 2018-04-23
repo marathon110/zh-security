@@ -410,4 +410,38 @@ public class ReceiveXmlEntity {
     public void setRecognition(String recognition) {
         Recognition = recognition;
     }
+
+    @Override
+    public String toString() {
+        return "ReceiveXmlEntity{" +
+                "ToUserName='" + ToUserName + '\'' +
+                ", FromUserName='" + FromUserName + '\'' +
+                ", CreateTime='" + CreateTime + '\'' +
+                ", MsgType='" + MsgType + '\'' +
+                ", MsgId='" + MsgId + '\'' +
+                ", Event='" + Event + '\'' +
+                ", EventKey='" + EventKey + '\'' +
+                ", Ticket='" + Ticket + '\'' +
+                ", Latitude='" + Latitude + '\'' +
+                ", Longitude='" + Longitude + '\'' +
+                ", Precision='" + Precision + '\'' +
+                ", PicUrl='" + PicUrl + '\'' +
+                ", MediaId='" + MediaId + '\'' +
+                ", Title='" + Title + '\'' +
+                ", Description='" + Description + '\'' +
+                ", Url='" + Url + '\'' +
+                ", ArticleCount='" + ArticleCount + '\'' +
+                ", Articles='" + Articles + '\'' +
+                ", MusicURL='" + MusicURL + '\'' +
+                ", HQMusicUrl='" + HQMusicUrl + '\'' +
+                ", ThumbMediaId='" + ThumbMediaId + '\'' +
+                ", Location_X='" + Location_X + '\'' +
+                ", Location_Y='" + Location_Y + '\'' +
+                ", Scale='" + Scale + '\'' +
+                ", Label='" + Label + '\'' +
+                ", Content='" + Content + '\'' +
+                ", Format='" + Format + '\'' +
+                ", Recognition='" + Recognition + '\'' +
+                '}';
+    }
 }

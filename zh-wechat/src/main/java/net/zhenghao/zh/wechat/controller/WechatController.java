@@ -1,9 +1,11 @@
 package net.zhenghao.zh.wechat.controller;
 
 import net.zhenghao.zh.common.constant.SystemConstant;
+import net.zhenghao.zh.wechat.core.MessageHandlerAdapter;
 import net.zhenghao.zh.wechat.entity.AccessTokenEntity;
 import net.zhenghao.zh.wechat.entity.ReceiveXmlEntity;
 import net.zhenghao.zh.wechat.entity.WechatConfigEntity;
+import net.zhenghao.zh.wechat.handler.MessageHandler;
 import net.zhenghao.zh.wechat.process.ReceiveXmlProcess;
 import net.zhenghao.zh.wechat.service.WechatConfigService;
 import net.zhenghao.zh.wechat.utils.AccessTokenUtils;
@@ -37,6 +39,9 @@ public class WechatController {
 
     @Autowired
     private WechatConfigService wechatConfigService;
+
+    @Autowired
+    private MessageHandlerAdapter messageHandlerAdapter;
 
     /**
      * 接收微信服务器的get请求
@@ -75,6 +80,8 @@ public class WechatController {
             String xml = IOUtils.toString(inputStream, "UTF-8");
             /** 解析xml数据 */
             ReceiveXmlEntity xmlEntity = ReceiveXmlProcess.getEntity(xml);
+            MessageHandler messageHandler = messageHandlerAdapter.findMessageHandler(xmlEntity);
+            messageHandler.dealMessage(xmlEntity);
         } catch (IOException e) {
             e.printStackTrace();
         }
