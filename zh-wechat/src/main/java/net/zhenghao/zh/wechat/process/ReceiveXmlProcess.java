@@ -21,6 +21,6 @@ public class ReceiveXmlProcess {
      * @return
      */
     public static ReceiveXmlEntity getEntity(String xml) {
-        return XMLUtils.xmlToBean(xml, new ReceiveXmlEntity());
+        return XMLUtils.xmlToBean(xml, ReceiveXmlEntity.class);
     }
 }
