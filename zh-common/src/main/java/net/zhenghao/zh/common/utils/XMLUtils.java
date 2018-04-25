@@ -1,18 +1,26 @@
 package net.zhenghao.zh.common.utils;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.core.util.QuickWriter;
+import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
+import com.thoughtworks.xstream.io.xml.XppDriver;
+import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Writer;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * 🙃
- * 🙃 xml格式工具类
+ * 🙃 xml解析工具类
  * 🙃 使用dom4j转换
  *
  * @author:zhaozhenghao
@@ -25,38 +33,59 @@ public class XMLUtils {
     private static Logger LOGGER = LoggerFactory.getLogger(XMLUtils.class);
 
     /**
+     * 扩展xstream，使其支持CDATA块
+     */
+    private static XStream newXStreamInstance() {
+        return new XStream(new XppDriver() {
+            @Override
+            public HierarchicalStreamWriter createWriter(Writer out) {
+                return new PrettyPrintWriter(out) {
+                    // 对所有xml节点的转换都增加CDATA标记
+                    boolean cdata = true;
+
+                    @Override
+                    protected void writeText(QuickWriter writer, String text) {
+                        if (this.cdata) {
+                            writer.write("<![CDATA[");
+                            writer.write(text);
+                            writer.write("]]>");
+                        } else {
+                            writer.write(text);
+                        }
+                    }
+                };
+            }
+        });
+    }
+
+    /**
      * xml转bean实体类
      * @param xml xml格式字符串
-     * @param clazz 该实体类对象
+     * @param clazz
      * @return 该实体类对象
      */
-    public static <T> T xmlToBean(String xml, Object clazz) {
-        if (xml.length() <= 0 || xml == null) {
-            return null;
+    public static <T> T xmlToBean(String xml, Class<T> clazz) {
+        if (StringUtils.isNotBlank(xml)) {
+            XStream xstream = newXStreamInstance();
+            xstream.processAnnotations(clazz);
+            return (T) xstream.fromXML(xml);
         }
-        try {
-            //将字符串转换为xml文档对象
-            Document document = DocumentHelper.parseText(xml);
-            //获取文档的根节点
-            Element root = document.getRootElement();
-            //遍历根节点下所有子节点
-            Iterator<?> iterator = root.elementIterator();
-            //获取该实体类的元类型
-            Class<?> c = clazz.getClass();
-            //利用反射机制，调用set方法
-            while (iterator.hasNext()) {
-                Element element = (Element) iterator.next();
-                //获取set方法中的参数字段(实体类的属性)
-                Field field = c.getDeclaredField(element.getName());
-                //获取set方法，field.getType()获取他的参数数据类型
-                Method method = c.getDeclaredMethod("set"+element.getName(), field.getType());
-                //调用set方法
-                method.invoke(clazz, element.getText());
-            }
-        } catch (Exception e) {
-            LOGGER.error("xml转换bean异常", e.getMessage());
-            e.printStackTrace();
-        }
-        return (T) clazz;
+        return null;
     }
+
+    /**
+     * bean实体类转xml
+     *
+     * @param object
+     * @return
+     */
+    public static String beanToXml(Object object) {
+        if(object != null) {
+            XStream xStream = newXStreamInstance();
+            xStream.processAnnotations(object.getClass());
+            return xStream.toXML(object);
+        }
+        return "";
+    }
+
 }
