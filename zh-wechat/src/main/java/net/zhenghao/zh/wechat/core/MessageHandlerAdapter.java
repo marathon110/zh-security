@@ -1,10 +1,11 @@
 package net.zhenghao.zh.wechat.core;
 
 import net.zhenghao.zh.wechat.annotation.Message;
-import net.zhenghao.zh.wechat.entity.ReceiveXmlEntity;
+import net.zhenghao.zh.wechat.entity.MessageTypeEntity;
 import net.zhenghao.zh.wechat.enums.EventType;
 import net.zhenghao.zh.wechat.enums.MessageType;
 import net.zhenghao.zh.wechat.handler.MessageHandler;
+import net.zhenghao.zh.wechat.message.request.BaseRequestMessage;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -28,12 +29,12 @@ public class MessageHandlerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
-    public MessageHandler findMessageHandler(ReceiveXmlEntity receiveXmlEntity) {
+    public MessageHandler findMessageHandler(MessageTypeEntity MessageTypeEntity) {
 
-        MessageType messageType = MessageType.valueBy(receiveXmlEntity.getMsgType());
+        MessageType messageType = MessageType.valueBy(MessageTypeEntity.getMessageType());
         EventType eventType = null;
-        if (StringUtils.isNotBlank(receiveXmlEntity.getEvent())) {
-            eventType = EventType.valueBy(receiveXmlEntity.getEvent());
+        if (StringUtils.isNotBlank(MessageTypeEntity.getEventType())) {
+            eventType = EventType.valueBy(MessageTypeEntity.getEventType());
         }
 
         Map<String, Object> beansWithAnnotation = this.applicationContext.getBeansWithAnnotation(Message.class);

@@ -26,4 +26,9 @@ public class WechatConstant {
      * 删除菜单
      */
     public static final String MENU_DELETE_FETCH_URL = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN";
+
+    /**
+     * 获取用户信息
+     */
+    public static final String USER_INFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=LANG";
 }

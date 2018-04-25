@@ -1,15 +1,15 @@
 package net.zhenghao.zh.wechat.controller;
 
 import net.zhenghao.zh.common.constant.SystemConstant;
+import net.zhenghao.zh.common.utils.XMLUtils;
+import net.zhenghao.zh.wechat.converter.MessageConvert;
 import net.zhenghao.zh.wechat.core.MessageHandlerAdapter;
-import net.zhenghao.zh.wechat.entity.AccessTokenEntity;
-import net.zhenghao.zh.wechat.entity.ReceiveXmlEntity;
+import net.zhenghao.zh.wechat.entity.MessageTypeEntity;
 import net.zhenghao.zh.wechat.entity.WechatConfigEntity;
 import net.zhenghao.zh.wechat.handler.MessageHandler;
+import net.zhenghao.zh.wechat.message.request.BaseRequestMessage;
 import net.zhenghao.zh.wechat.message.response.BaseResponseMessage;
-import net.zhenghao.zh.wechat.process.ReceiveXmlProcess;
 import net.zhenghao.zh.wechat.service.WechatConfigService;
-import net.zhenghao.zh.wechat.utils.AccessTokenUtils;
 import net.zhenghao.zh.wechat.utils.MessageUtils;
 import net.zhenghao.zh.wechat.utils.SignUtils;
 import org.apache.commons.io.IOUtils;
@@ -41,6 +41,9 @@ public class WechatController {
 
     @Autowired
     private WechatConfigService wechatConfigService;
+
+    @Autowired
+    private MessageConvert messageConvert;
 
     @Autowired
     private MessageHandlerAdapter messageHandlerAdapter;
@@ -81,11 +84,14 @@ public class WechatController {
             ServletInputStream inputStream = request.getInputStream();
             String xml = IOUtils.toString(inputStream, "UTF-8");
             /** 解析xml数据 */
-            ReceiveXmlEntity xmlEntity = ReceiveXmlProcess.getEntity(xml);
-            MessageHandler messageHandler = messageHandlerAdapter.findMessageHandler(xmlEntity);
-            BaseResponseMessage responseMessage = messageHandler.dealMessage(xmlEntity);
+            String msgType = MessageUtils.getMessageType(xml);
+            String eventType = MessageUtils.getEventType(xml);
+            MessageTypeEntity messageTypeEntity = new MessageTypeEntity(msgType, eventType);
+            BaseRequestMessage requestMessage = messageConvert.doConvert(xml);
+            MessageHandler messageHandler = messageHandlerAdapter.findMessageHandler(messageTypeEntity);
+            BaseResponseMessage responseMessage = messageHandler.dealMessage(requestMessage);
             //构造给用户的响应消息
-            String responseXml = MessageUtils.messageToXml(responseMessage);
+            String responseXml = XMLUtils.beanToXml(responseMessage);
             OutputStream os = response.getOutputStream();
             os.write(responseXml.getBytes("UTF-8"));
             os.flush();

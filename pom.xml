@@ -64,7 +64,6 @@
         <jsoup-version>1.8.3</jsoup-version>
         <httpclient-version>4.5.5</httpclient-version>
         <zxing-version>3.3.0</zxing-version>
-	  	<dom4j-version>1.6.1</dom4j-version>
 	  	<xstream-version>1.4.10</xstream-version>
   </properties>
   
@@ -351,14 +350,7 @@
 			<version>${zxing-version}</version>
 		</dependency>
 
-		<!--解析xml工具 dom4j-->
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>${dom4j-version}</version>
-		</dependency>
-
-		<!-- 服务器响应微信时将内容转为xml格式数据需要使用到xstream -->
+		<!-- 解析xml工具xstream -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>

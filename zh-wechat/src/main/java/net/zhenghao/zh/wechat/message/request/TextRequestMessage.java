@@ -1,23 +1,22 @@
-package net.zhenghao.zh.wechat.message.response;
+package net.zhenghao.zh.wechat.message.request;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import net.zhenghao.zh.wechat.enums.MessageType;
 
 /**
  * 🙃
- * 🙃 回复文本消息封装类
+ * 🙃 文本消息
  * 🙃
  *
  * @author:zhaozhenghao
  * @Email :736720794@qq.com
- * @date :2018/4/23 17:05
- * TextResponseMessage.java
+ * @date :2018/4/25 11:00
+ * TextRequestMessage.java
  */
 @XStreamAlias("xml")
-public class TextResponseMessage extends BaseResponseMessage{
+public class TextRequestMessage extends CommonRequestMessage {
 
     /**
-     * 回复的消息内容（换行：在content中能够换行，微信客户端就支持换行显示）
+     * 消息内容
      */
     @XStreamAlias("Content")
     private String content;
