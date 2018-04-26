@@ -156,7 +156,7 @@ public class HttpClientUtils {
      * @param params 请求的参数
      * @return 返回内容
      */
-    public String sendGet(String url, Map<String, Object> params) throws IOException {
+    public static String sendGet(String url, Map<String, Object> params) throws IOException {
         return sendGet(url, params, null);
     }
 
@@ -201,7 +201,7 @@ public class HttpClientUtils {
      * @return
      * @throws IOException
      */
-    public String sendPost(String url, Map<String, Object> params) throws IOException {
+    public static String sendPost(String url, Map<String, Object> params) throws IOException {
         return sendPost(url, params, null);
     }
 
