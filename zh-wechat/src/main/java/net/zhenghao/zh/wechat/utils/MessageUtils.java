@@ -10,6 +10,7 @@ import net.zhenghao.zh.wechat.message.request.BaseRequestMessage;
 import net.zhenghao.zh.wechat.message.response.*;
 
 import java.io.Writer;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -121,5 +122,23 @@ public class MessageUtils {
         videoResponseMessage.setMsgType(MessageType.VIDEO.getType());
         videoResponseMessage.setVideo(video);
         return videoResponseMessage;
+    }
+
+    /**
+     * 根据参数构建<strong>图文消息</strong>
+     *
+     * @param baseRequestMessage 请求实体类
+     * @param articles 图文消息集合类
+     * @return
+     */
+    public static NewsResponseMessage buildNewsResponseMessage(BaseRequestMessage baseRequestMessage, List<Article> articles) {
+        NewsResponseMessage newsResponseMessage = new NewsResponseMessage();
+        newsResponseMessage.setCreateTime(System.currentTimeMillis());
+        newsResponseMessage.setToUserName(baseRequestMessage.getFromUserName());
+        newsResponseMessage.setFromUserName(baseRequestMessage.getToUserName());
+        newsResponseMessage.setMsgType(MessageType.NEWS.getType());
+        newsResponseMessage.setArticleCount(articles == null ? 0 : articles.size());
+        newsResponseMessage.setArticles(articles);
+        return newsResponseMessage;
     }
 }

@@ -83,11 +83,14 @@ public class WechatController {
         try {
             ServletInputStream inputStream = request.getInputStream();
             String xml = IOUtils.toString(inputStream, "UTF-8");
+            System.out.println(xml);
             /** 解析xml数据 */
             String msgType = MessageUtils.getMessageType(xml);
             String eventType = MessageUtils.getEventType(xml);
+            System.out.println(msgType);
+            System.out.println(eventType);
             MessageTypeEntity messageTypeEntity = new MessageTypeEntity(msgType, eventType);
-            BaseRequestMessage requestMessage = messageConvert.doConvert(xml);
+            BaseRequestMessage requestMessage = messageConvert.doConvert(xml, messageTypeEntity);
             MessageHandler messageHandler = messageHandlerAdapter.findMessageHandler(messageTypeEntity);
             BaseResponseMessage responseMessage = messageHandler.dealMessage(requestMessage);
             //构造给用户的响应消息

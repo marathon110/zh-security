@@ -2,6 +2,8 @@ package net.zhenghao.zh.wechat.converter.impl;
 
 import net.zhenghao.zh.common.utils.XMLUtils;
 import net.zhenghao.zh.wechat.converter.MessageConvert;
+import net.zhenghao.zh.wechat.entity.MessageTypeEntity;
+import net.zhenghao.zh.wechat.enums.EventType;
 import net.zhenghao.zh.wechat.enums.MessageType;
 import net.zhenghao.zh.wechat.message.request.*;
 import net.zhenghao.zh.wechat.utils.MessageUtils;
@@ -25,13 +27,12 @@ public class DefaultMessageConverter implements MessageConvert {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultMessageConverter.class);
 
     @Override
-    public BaseRequestMessage doConvert(String xml) {
-        String messageTypeStr = MessageUtils.getMessageType(xml);
-        if (messageTypeStr == null) {
-            LOGGER.error("通过正则表达式没有找到<msgType>");
+    public BaseRequestMessage doConvert(String xml, MessageTypeEntity messageTypeEntity) {
+        if (messageTypeEntity.getMessageType() == null) {
+            LOGGER.error("通过正则表达式没有找到<MsgType>");
             return null;
         }
-        MessageType messageType = MessageType.valueBy(messageTypeStr);
+        MessageType messageType = MessageType.valueBy(messageTypeEntity.getMessageType());
         switch (messageType) {
             //文本消息
             case TEXT:
@@ -51,8 +52,25 @@ public class DefaultMessageConverter implements MessageConvert {
             //视频消息
             case VIDEO:
                 return XMLUtils.xmlToBean(xml, VideoRequestMessage.class);
+            //地理位置消息
+            case LOCATION:
+                return XMLUtils.xmlToBean(xml, LocationRequestMessage.class);
+            case EVENT:
+                if (messageTypeEntity.getEventType() == null) {
+                    LOGGER.error("通过正则表达式没有找到<Event>");
+                    return null;
+                }
+                EventType eventType = EventType.valueBy(messageTypeEntity.getEventType());
+                switch (eventType) {
+                    //关注订阅
+                    case SUBSCRIBE:
+                        return XMLUtils.xmlToBean(xml, SubscribeEventRequestMessage.class);
+                    //取消关注订阅
+                    case UNSUBSCRIBE:
+                        return XMLUtils.xmlToBean(xml, UnsubscribeEventRequestMessage.class);
+                }
             default:
-                LOGGER.warn("未知消息类型:{}", messageTypeStr);
+                LOGGER.warn("未知消息类型:{}", messageTypeEntity.getMessageType());
                 return null;
         }
     }

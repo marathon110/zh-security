@@ -1,6 +1,5 @@
 package net.zhenghao.zh.wechat.handler;
 
-import net.zhenghao.zh.wechat.entity.ReceiveXmlEntity;
 import net.zhenghao.zh.wechat.message.request.BaseRequestMessage;
 import net.zhenghao.zh.wechat.message.response.BaseResponseMessage;
 

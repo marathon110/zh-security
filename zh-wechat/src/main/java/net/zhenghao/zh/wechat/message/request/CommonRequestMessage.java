@@ -4,7 +4,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
  * 🙃
- * 🙃 普通类型消息基础类
+ * 🙃 普通类型消息基类
  * 🙃
  *
  * @author:zhaozhenghao
