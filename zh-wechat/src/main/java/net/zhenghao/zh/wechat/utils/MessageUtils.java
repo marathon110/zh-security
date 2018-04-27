@@ -141,4 +141,21 @@ public class MessageUtils {
         newsResponseMessage.setArticles(articles);
         return newsResponseMessage;
     }
+
+    /**
+     * 根据参数构建<strong>音乐</strong>回复消息
+     *
+     * @param baseRequestMessage 请求实体类
+     * @param music 音乐封装类
+     * @return
+     */
+    public static MusicResponseMessage buildMusicResponseMessage(BaseRequestMessage baseRequestMessage, Music music) {
+        MusicResponseMessage musicResponseMessage = new MusicResponseMessage();
+        musicResponseMessage.setCreateTime(System.currentTimeMillis());
+        musicResponseMessage.setFromUserName(baseRequestMessage.getToUserName());
+        musicResponseMessage.setMsgType(MessageType.MUSIC.getType());
+        musicResponseMessage.setToUserName(baseRequestMessage.getFromUserName());
+        musicResponseMessage.setMusic(music);
+        return musicResponseMessage;
+    }
 }

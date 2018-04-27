@@ -21,7 +21,9 @@ public class EventRequestMessage extends BaseRequestMessage {
     private String event;
 
     /**
-     * 事件类型
+     * 事件KEY值
+     * (用户未关注时)事件KEY值，qrscene_为前缀，后面为二维码的参数值 <br/>
+     * (用户已关注时)事件KEY值，是一个32位无符号整数，即创建二维码时的二维码scene_id
      */
     @XStreamAlias("EventKey")
     private String eventKey;

@@ -68,6 +68,37 @@ public class DefaultMessageConverter implements MessageConvert {
                     //取消关注订阅
                     case UNSUBSCRIBE:
                         return XMLUtils.xmlToBean(xml, UnsubscribeEventRequestMessage.class);
+                    //扫描二维码时未关注公众号消息
+                    case SCAN_SUBSCRIBE:
+                        return XMLUtils.xmlToBean(xml, ScanQrSubscribeEventRequestMessage.class);
+                    //扫描二维码时已关注公众号消息
+                    case SCAN:
+                        return XMLUtils.xmlToBean(xml, ScanQrSubscribeEventRequestMessage.class);
+                    //扫码带提示
+                    case SCAN_CODE_WAIT_MSG:
+                        return XMLUtils.xmlToBean(xml, ScanCodeEventRequestMessage.class);
+                    //扫码推事件
+                    case SCAN_CODE_PUSH:
+                        return XMLUtils.xmlToBean(xml, ScanCodePushEventRequestMessage.class);
+                    //上报地理位置
+                    case LOCATION:
+                        return XMLUtils.xmlToBean(xml, LocationEventRequestMessage.class);
+                    //菜单选择上报地理位置
+                    case LOCATION_SELECT:
+                        return XMLUtils.xmlToBean(xml, LocationSelectMenuEventRequestMessage.class);
+                    //菜单自定义点击事件
+                    case CUSTOM_MENU_CLICK:
+                        return XMLUtils.xmlToBean(xml, CustomMenuClickEventRequestMessage.class);
+                    //菜单自定义跳转事件
+                    case CUSTOM_MENU_VIEW:
+                        return XMLUtils.xmlToBean(xml, CustomMenuViewEventRequestMessage.class);
+                    //系统拍照发图事件推送
+                    case PIC_SYS_PHOTO:
+                    //拍照或相册发图事件推送
+                    case PIC_PHOTO_OR_ALBUM:
+                    //微信相册发图事件推送
+                    case PIC_WEIXIN:
+                        return XMLUtils.xmlToBean(xml, PictureMenuEventRequestMessage.class);
                 }
             default:
                 LOGGER.warn("未知消息类型:{}", messageTypeEntity.getMessageType());
