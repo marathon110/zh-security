@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('微信首页')"></head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>微信首页</title>
+</head>
+<body>
+    <div id="zh-wechat" v-cloak>
+        <h1>微信首页</h1>
+        <hr>
+        <p>{{code}}</p>
+        <p>{{state}}</p>
+        <p>{{token}}</p>
+        <p>{{oauth2Url}}</p>
+    </div>
+    <div th:include="include/footer_js::footer"></div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el:'#zh-wechat',
+            data:{
+                code : '',
+                state : '',
+                token : '',
+                oauth2Url : '',
+            },
+            beforeCreate: function(){
+            },
+            methods: {
+                redirectUrl : function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "../wechat/web/redirectUrl",
+                        dataType: "json",
+                        success: function(result){
+                            vm.oauth2Url = result;
+                            vm.$options.methods.auth();
+                        }
+                    });
+                },
+                auth : function() {
+                    window.location.href=vm.oauth2Url;
+                }
+
+            },
+            created : function() {
+                this.redirectUrl();
+            }
+        });
+    </script>
+</body>
+</html>

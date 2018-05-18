@@ -31,4 +31,34 @@ public class WechatConstant {
      * 获取用户信息
      */
     public static final String USER_INFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=LANG";
+
+    /**
+     * 网页授权
+     * appid
+     *      公众号的唯一标识
+     * redirect_uri
+     *      授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
+     * response_type
+     *      返回类型，请填写code
+     * scope
+     *      snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid）
+     *      snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且， 即使在未关注的情况下，只要用户授权，也能获取其信息 ）
+     * state
+     *      重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
+     * #wechat_redirect
+     *      无论直接打开还是做页面302重定向时候，必须带此参数
+     *
+     */
+    public static final String AUTHORIZE_URL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
+
+    /**
+     * 通过code换取网页授权access_token
+     */
+    public static final String AUTHORIZE_ACCESS_TOKEN = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+
+    /**
+     * 拉取用户信息(需scope为 snsapi_userinfo)
+     * 如果网页授权作用域为snsapi_userinfo，则此时开发者可以通过access_token和openid拉取用户信息了。
+     */
+    public static final String AUTHORIZE_USER_INFO = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
 }
