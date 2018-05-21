@@ -59,6 +59,7 @@
 	        	/sys/captcha.jpg=anon
 				/wechat/web/**=anon
 				/wechat/core=anon
+				/wechat_web/**=anon
 			</value>
 		</property>
 	</bean>

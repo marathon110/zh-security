@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.zhenghao.zh.wechat.dao.WechatUserMapper">
+
+	<select id="listForPage" resultType="WechatUserEntity" flushCache="true">
+		SELECT
+			`id`, 
+			`openid`, 
+			`mobile`, 
+			`realname`, 
+			`nickname`, 
+			`sex`, 
+			`city`, 
+			`country`, 
+			`province`, 
+			`headimgurl`, 
+			`unionid`, 
+			`language`, 
+			`gmt_create`, 
+			`gmt_modified`
+		FROM
+			wechat_user
+		ORDER BY
+			id DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO wechat_user (
+			`id`, 
+			`openid`, 
+			`mobile`, 
+			`realname`, 
+			`nickname`, 
+			`sex`, 
+			`city`, 
+			`country`, 
+			`province`, 
+			`headimgurl`, 
+			`unionid`, 
+			`language`, 
+			`gmt_create`, 
+			`gmt_modified`
+		)
+		VALUES (
+			#{id}, 
+			#{openid}, 
+			#{mobile}, 
+			#{realname}, 
+			#{nickname}, 
+			#{sex}, 
+			#{city}, 
+			#{country}, 
+			#{province}, 
+			#{headimgurl}, 
+			#{unionid}, 
+			#{language}, 
+			#{gmtCreate}, 
+			#{gmtModified}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="WechatUserEntity">
+		SELECT
+			`id`, 
+			`openid`, 
+			`mobile`, 
+			`realname`, 
+			`nickname`, 
+			`sex`, 
+			`city`, 
+			`country`, 
+			`province`, 
+			`headimgurl`, 
+			`unionid`, 
+			`language`, 
+			`gmt_create`, 
+			`gmt_modified`
+		FROM
+			wechat_user
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE wechat_user
+	 	<set>
+			<if test="openid != null">`openid` = #{openid}, </if>
+			<if test="mobile != null">`mobile` = #{mobile}, </if>
+			<if test="realname != null">`realname` = #{realname}, </if>
+			<if test="nickname != null">`nickname` = #{nickname}, </if>
+			<if test="sex != null">`sex` = #{sex}, </if>
+			<if test="city != null">`city` = #{city}, </if>
+			<if test="country != null">`country` = #{country}, </if>
+			<if test="province != null">`province` = #{province}, </if>
+			<if test="headimgurl != null">`headimgurl` = #{headimgurl}, </if>
+			<if test="unionid != null">`unionid` = #{unionid}, </if>
+			<if test="language != null">`language` = #{language}, </if>
+			<if test="gmtCreate != null">`gmt_create` = #{gmtCreate}, </if>
+			<if test="gmtModified != null">`gmt_modified` = #{gmtModified}</if>
+		</set>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			wechat_user
+		WHERE
+			id IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+	
+</mapper>

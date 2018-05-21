@@ -40,6 +40,8 @@ public class WechatConfigEntity implements Serializable {
 	 * 消息加解密密钥(EncodingAESKey)
 	 */
 	private String encodingAesKey;
+
+	private String redirectUri;
 	
 	/**
 	 * 创建用户id
@@ -99,6 +101,14 @@ public class WechatConfigEntity implements Serializable {
 
 	public void setEncodingAesKey(String encodingAesKey) {
 		this.encodingAesKey = encodingAesKey;
+	}
+
+	public String getRedirectUri() {
+		return redirectUri;
+	}
+
+	public void setRedirectUri(String redirectUri) {
+		this.redirectUri = redirectUri;
 	}
 
 	public void setUserIdCreate(Long userIdCreate) {

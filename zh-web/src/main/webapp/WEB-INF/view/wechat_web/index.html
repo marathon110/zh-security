@@ -17,6 +17,13 @@
     </div>
     <div th:include="include/footer_js::footer"></div>
     <script type="text/javascript">
+        import {addCookie, getCookie, delCookie} from '../../../statics/js/cookie.js';
+        Vue.prototype.$cookieStore = {
+            addCookie,
+            getCookie,
+            delCookie
+        }
+
         var vm = new Vue({
             el:'#zh-wechat',
             data:{
@@ -40,7 +47,6 @@
                     });
                 },
                 auth : function() {
-                    window.location.href=vm.oauth2Url;
                 }
 
             },

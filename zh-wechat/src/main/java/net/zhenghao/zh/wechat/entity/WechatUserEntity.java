@@ -1,5 +1,7 @@
 package net.zhenghao.zh.wechat.entity;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Arrays;
 
 /**
@@ -12,7 +14,31 @@ import java.util.Arrays;
  * @date :2018/4/24 10:48
  * WechatUserEntity.java
  */
-public class WechatUserEntity {
+public class WechatUserEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private Long id;
+
+    /**
+     * 真实姓名
+     */
+    private String realname;
+
+    /**
+     * 电话号码
+     */
+    private String mobile;
+
+    /**
+     * 创建时间
+     */
+    private Timestamp gmtCreate;
+
+    /**
+     * 修改时间
+     */
+    private Timestamp gmtModified;
 
     /**
      * 用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。
@@ -84,6 +110,51 @@ public class WechatUserEntity {
      * 用户被打上的标签ID列表
      */
     private int[] tagid_list;
+
+    /**
+     * 用户特权信息，json 数组，如微信沃卡用户为（chinaunicom）
+     */
+    private String[] privilege;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public Timestamp getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Timestamp gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Timestamp getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Timestamp gmtModified) {
+        this.gmtModified = gmtModified;
+    }
 
     public byte getSubscribe() {
         return subscribe;
@@ -199,6 +270,14 @@ public class WechatUserEntity {
 
     public void setTagid_list(int[] tagid_list) {
         this.tagid_list = tagid_list;
+    }
+
+    public String[] getPrivilege() {
+        return privilege;
+    }
+
+    public void setPrivilege(String[] privilege) {
+        this.privilege = privilege;
     }
 
     @Override

@@ -9,6 +9,7 @@ var vm = new Vue({
             appsecret : '',
             token : '',
             encodingAesKey : '',
+            redirectUri : '',
         },
         error : false,
         errorMsg : '',

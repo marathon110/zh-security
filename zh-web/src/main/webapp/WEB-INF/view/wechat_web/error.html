@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('微信首页')"></head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>微信错误页面</title>
+</head>
+<body>
+    <div id="zh-wechat" v-cloak>
+        <h1>微信错误页面</h1>
+        <hr>
+        <p>{{code}}</p>
+        <p>{{msg}}</p>
+    </div>
+    <div th:include="include/footer_js::footer"></div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el:'#zh-wechat',
+            data:{
+                code : '',
+                msg : '',
+            },
+            beforeCreate: function(){
+            },
+            methods: {
+            },
+            created : function() {
+                vm.code = url('code');
+                vm.msg = url('msg');
+            }
+        });
+    </script>
+</body>
+</html>

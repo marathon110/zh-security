@@ -11,6 +11,7 @@
 		`appsecret`,
 		`token`,
 		`encoding_aes_key`,
+		`redirect_uri`,
 		`user_id_create`,
 		`gmt_create`
 		)
@@ -20,6 +21,7 @@
 		#{appsecret},
 		#{token},
 		#{encodingAesKey},
+		#{redirectUri},
 		#{userIdCreate},
 		NOW()
 		)
@@ -29,6 +31,7 @@
 		<if test="appsecret != null">`appsecret` = #{appsecret}, </if>
 		<if test="token != null">`token` = #{token}, </if>
 		<if test="encodingAesKey != null">`encoding_aes_key` = #{encodingAesKey}, </if>
+		<if test="redirectUri != null">`redirect_uri` = #{redirectUri}, </if>
         `gmt_modified` = NOW()
 	</insert>
 
@@ -39,6 +42,7 @@
 		`appsecret`,
 		`token`,
 		`encoding_aes_key`,
+		`redirect_uri`,
 		`user_id_create`,
 		`gmt_create`,
 		`gmt_modified`

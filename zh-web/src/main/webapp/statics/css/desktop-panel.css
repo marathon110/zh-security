@@ -92,6 +92,7 @@ body {
 .frm_control_group.info_item {
     padding: 5px 0;
     border-top: 1px solid #e6e6e6;
+    height: 41px;
 }
 .frm_label {
     float: left;
