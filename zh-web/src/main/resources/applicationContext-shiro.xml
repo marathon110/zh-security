@@ -57,8 +57,8 @@
 	        	/login.html=anon
 	        	/sys/login=anon
 	        	/sys/captcha.jpg=anon
-				/wechat=anon
-				/wechat/**=anon
+				/wechat/web/**=anon
+				/wechat/core=anon
 			</value>
 		</property>
 	</bean>

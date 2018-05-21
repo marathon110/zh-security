@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -36,16 +38,15 @@ public class WechatAutoWebController {
     @Autowired
     private WechatConfigService wechatConfigService;
 
-    @ResponseBody
     @RequestMapping("/redirectUrl")
-    public String authorizedLoginUrl(){
+    public void authorizedLoginUrl(HttpServletResponse response) throws IOException {
 
         WechatConfigEntity wechatConfig = (WechatConfigEntity) wechatConfigService.getWechatConfig().get("rows");
 
         String redirect_uri = "";
 
         try {
-            String backUrl ="http://tony.3w.dkys.org/zh-security/wechat/web/userInfo";  //拼接微信回调地址
+            String backUrl ="http://zhenghao.free.ngrok.cc/zh-security/wechat/web/userInfo";  //拼接微信回调地址
             redirect_uri = java.net.URLEncoder.encode(backUrl, "utf-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -55,7 +56,7 @@ public class WechatAutoWebController {
                 .replaceAll("APPID", wechatConfig.getAppId()).replaceAll("REDIRECT_URI", redirect_uri)
                 .replaceAll("SCOPE", "snsapi_userinfo");
 
-        return oauth2Url;
+        response.sendRedirect(oauth2Url);
     }
 
     /**
@@ -72,7 +73,7 @@ public class WechatAutoWebController {
     public WechatAuthUserEntity getWechatAuthorizedUser(
             @RequestParam(name = "code") String code, @RequestParam(name = "state") String state) throws IOException {
 
-        System.out.println("name=>" + code);
+        System.out.println("code=>" + code);
         System.out.println("state=>" + state);
 
         WechatConfigEntity wechatConfig = (WechatConfigEntity) wechatConfigService.getWechatConfig().get("rows");
@@ -103,7 +104,7 @@ public class WechatAutoWebController {
                 // 通过https方式请求获得用户信息响应
                 String response_user_info = HttpClientUtils.sendGet(oauth2_user_info_url, null, null);
 
-                WechatAuthUserEntity wechatAuthUserEntity = (WechatAuthUserEntity) JSONUtils.jsonToBean(response, new WechatAuthUserEntity());
+                WechatAuthUserEntity wechatAuthUserEntity = (WechatAuthUserEntity) JSONUtils.jsonToBean(response_user_info, new WechatAuthUserEntity());
                 return wechatAuthUserEntity;
             }
         }
