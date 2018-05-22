@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="include/header_css::header('微信首页')"></head>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>微信首页</title>
-</head>
 <body>
     <div id="zh-wechat" v-cloak>
         <h1>微信首页</h1>
@@ -16,14 +11,8 @@
         <p>{{oauth2Url}}</p>
     </div>
     <div th:include="include/footer_js::footer"></div>
+    <script th:src="@{/statics/js/wechat_auth.js}"></script>
     <script type="text/javascript">
-        import {addCookie, getCookie, delCookie} from '../../../statics/js/cookie.js';
-        Vue.prototype.$cookieStore = {
-            addCookie,
-            getCookie,
-            delCookie
-        }
-
         var vm = new Vue({
             el:'#zh-wechat',
             data:{
@@ -36,15 +25,10 @@
             },
             methods: {
                 redirectUrl : function () {
-                    $.ajax({
-                        type: "POST",
-                        url: "../wechat/web/redirectUrl",
-                        dataType: "json",
-                        success: function(result){
-                            vm.oauth2Url = result;
-                            vm.$options.methods.auth();
-                        }
-                    });
+                    store.set('user', { name:'Marcus' })
+                    console.log(store.get('user').name == 'Marcus');
+                    console.log(store.get('user').name);
+
                 },
                 auth : function() {
                 }

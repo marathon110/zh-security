@@ -33,7 +33,7 @@ public class JwtToken {
      * 生成Token
      * @return
      */
-    public static String createToken() throws UnsupportedEncodingException {
+    public static String createToken(String openid) throws UnsupportedEncodingException {
 
         //签发事件
         Date iatDate = new Date();
@@ -48,9 +48,7 @@ public class JwtToken {
         map.put("typ", "JWT");
         String token = JWT.create()
                 .withHeader(map)//header
-                .withClaim("name", "赵正浩")//payload
-                .withClaim("age", "25")
-                .withClaim("org", "今日头条")
+                .withClaim("openid", openid)//payload
                 .withExpiresAt(expiresDate)//设置过期时间-过期时间要大于签发时间
                 .withIssuedAt(iatDate)//设置签发时间
                 .sign(Algorithm.HMAC256(SECRET));//加密

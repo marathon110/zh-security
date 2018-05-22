@@ -1,7 +1,10 @@
 package net.zhenghao.zh.wechat.service.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.Map;
 
+import net.zhenghao.zh.wechat.jwt.JwtToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,5 +61,41 @@ public class WechatUserServiceImpl implements WechatUserService {
 		int count = wechatUserManager.batchRemove(id);
 		return CommonUtils.msg(id, count);
 	}
-	
+
+	/**
+	 * 微信用户授权
+	 * 若用户之前不存在，则新增
+	 * 若用户之前存在，则更新
+	 * @param wechatUser
+	 * @return
+	 */
+	@Override
+	public R saveOrupdateWechatUserAuth(WechatUserEntity wechatUser) {
+		int count = 0;
+		WechatUserEntity user = wechatUserManager.getWechatUserByOpenid(wechatUser.getOpenid());
+		if (user == null) {
+			count = wechatUserManager.saveWechatUser(wechatUser);
+		} else {
+			wechatUser.setId(user.getId());
+			count = wechatUserManager.updateWechatUser(wechatUser);
+		}
+		return CommonUtils.msg(count);
+	}
+
+	@Override
+	public R wechatLogin(String openid) {
+		WechatUserEntity user = wechatUserManager.getWechatUserByOpenid(openid);
+		if (user == null) {
+			return R.error(500, "openid未找到该用户，请重新授权");
+		} else {
+			String token = "";
+			try {
+				token = JwtToken.createToken(openid);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			return R.ok((Map<String, Object>) new HashMap<String, Object>().put("token", token));
+		}
+	}
+
 }

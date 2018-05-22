@@ -26,5 +26,7 @@ import net.zhenghao.zh.wechat.entity.WechatUserEntity;
 	int updateWechatUser(WechatUserEntity wechatUser);
 	
 	int batchRemove(Long[] id);
+
+	WechatUserEntity getWechatUserByOpenid(String openid);
 	
  }

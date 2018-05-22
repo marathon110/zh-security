@@ -27,7 +27,6 @@
 	
 	<insert id="save">
 		INSERT INTO wechat_user (
-			`id`, 
 			`openid`, 
 			`mobile`, 
 			`realname`, 
@@ -39,11 +38,9 @@
 			`headimgurl`, 
 			`unionid`, 
 			`language`, 
-			`gmt_create`, 
-			`gmt_modified`
+			`gmt_create`
 		)
 		VALUES (
-			#{id}, 
 			#{openid}, 
 			#{mobile}, 
 			#{realname}, 
@@ -55,8 +52,7 @@
 			#{headimgurl}, 
 			#{unionid}, 
 			#{language}, 
-			#{gmtCreate}, 
-			#{gmtModified}
+			NOW()
 		)
 	</insert>
 	
@@ -96,8 +92,7 @@
 			<if test="headimgurl != null">`headimgurl` = #{headimgurl}, </if>
 			<if test="unionid != null">`unionid` = #{unionid}, </if>
 			<if test="language != null">`language` = #{language}, </if>
-			<if test="gmtCreate != null">`gmt_create` = #{gmtCreate}, </if>
-			<if test="gmtModified != null">`gmt_modified` = #{gmtModified}</if>
+			gmt_modified = NOW()
 		</set>
 		WHERE
 			id = #{id}
@@ -113,6 +108,28 @@
 			#{id}
 		</foreach>
 	</delete>
+
+	<select id="getObjectByOpenid" resultType="WechatUserEntity">
+		SELECT
+		`id`,
+		`openid`,
+		`mobile`,
+		`realname`,
+		`nickname`,
+		`sex`,
+		`city`,
+		`country`,
+		`province`,
+		`headimgurl`,
+		`unionid`,
+		`language`,
+		`gmt_create`,
+		`gmt_modified`
+		FROM
+		wechat_user
+		WHERE
+		openid = #{openid}
+	</select>
 	
 	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
 	

@@ -25,5 +25,23 @@ public interface WechatUserService {
 	R updateWechatUser(WechatUserEntity wechatUser);
 	
 	R batchRemove(Long[] id);
-	
+
+	/**
+	 * 微信用户授权
+	 * 若用户之前不存在，则新增
+	 * 若用户之前存在，则更新
+	 * @param wechatUser
+	 * @return
+	 */
+	R saveOrupdateWechatUserAuth(WechatUserEntity wechatUser);
+
+
+	/**
+	 * 微信用户授权
+	 * 若openid在数据库中则生成token
+	 * 若openid不在数据库中则返回错误，让前端跳转授权
+	 * @param openid
+	 * @return
+	 */
+	R wechatLogin(String openid);
 }

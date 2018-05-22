@@ -15,5 +15,6 @@ import net.zhenghao.zh.wechat.entity.WechatUserEntity;
  */
 @MapperScan
 public interface WechatUserMapper extends BaseMapper<WechatUserEntity> {
-	
+
+    WechatUserEntity getObjectByOpenid(String openid);
 }

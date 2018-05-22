@@ -1,5 +1,6 @@
 package net.zhenghao.zh.wechat.controller;
 
+import net.zhenghao.zh.common.entity.R;
 import net.zhenghao.zh.common.utils.HttpClientUtils;
 import net.zhenghao.zh.common.utils.JSONUtils;
 import net.zhenghao.zh.wechat.constant.WechatConstant;
@@ -7,6 +8,7 @@ import net.zhenghao.zh.wechat.entity.WechatAuthWebEntity;
 import net.zhenghao.zh.wechat.entity.WechatConfigEntity;
 import net.zhenghao.zh.wechat.entity.WechatUserEntity;
 import net.zhenghao.zh.wechat.service.WechatConfigService;
+import net.zhenghao.zh.wechat.service.WechatUserService;
 import net.zhenghao.zh.wechat.utils.WebAuthUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,9 @@ public class WechatAuthWebController {
     @Autowired
     private WechatConfigService wechatConfigService;
 
+    @Autowired
+    private WechatUserService wechatUserService;
+
     @RequestMapping("/redirectUrl")
     public void authorizedLoginUrl(HttpServletResponse response) throws IOException {
         WechatConfigEntity wechatConfig = (WechatConfigEntity) wechatConfigService.getWechatConfig().get("rows");
@@ -56,15 +61,23 @@ public class WechatAuthWebController {
      * @return 授权用户信息
      */
     @GetMapping("/userInfo")
-    @ResponseBody
-    public void getWechatAuthorizedUser(
+    public ModelAndView getWechatAuthorizedUser(
             HttpServletResponse response,
             @RequestParam(name = "code") String code,
             @RequestParam(name = "state") String state) throws IOException {
         WechatConfigEntity wechatConfig = (WechatConfigEntity) wechatConfigService.getWechatConfig().get("rows");
         WechatUserEntity wechatUser = WebAuthUtils.getUserInfo(wechatConfig, code);
-        System.out.println(wechatUser);
-        //重定向到微信首页
-        //response.sendRedirect("");
+        wechatUserService.saveOrupdateWechatUserAuth(wechatUser);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("openid", wechatUser.getOpenid());
+        mv.setViewName("/wechat_web/auth.html");
+        return mv;
+    }
+
+
+    @RequestMapping("/login")
+    public R login(@RequestParam(name = "openid") String openid) {
+        System.out.println("hahahahahahaha");
+        return wechatUserService.wechatLogin(openid);
     }
 }

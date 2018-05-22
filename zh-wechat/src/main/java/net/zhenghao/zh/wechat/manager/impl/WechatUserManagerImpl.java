@@ -51,5 +51,11 @@ public class WechatUserManagerImpl implements WechatUserManager {
 		int count = wechatUserMapper.batchRemove(id);
 		return count;
 	}
-	
+
+	@Override
+	public WechatUserEntity getWechatUserByOpenid(String openid) {
+		WechatUserEntity wechatUser = wechatUserMapper.getObjectByOpenid(openid);
+		return wechatUser;
+	}
+
 }
