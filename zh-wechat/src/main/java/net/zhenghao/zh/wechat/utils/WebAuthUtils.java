@@ -33,7 +33,7 @@ public class WebAuthUtils {
     public static String getRedirectUrl(WechatConfigEntity wechatConfig) throws UnsupportedEncodingException {
         String redirect_uri = "";
         if (StringUtils.isNotBlank(wechatConfig.getRedirectUri())) {
-            String backUrl = wechatConfig.getRedirectUri() + "/wechat/web/userInfo";  //拼接微信回调地址
+            String backUrl = wechatConfig.getRedirectUri() + "/wechat/auth/userInfo";  //拼接微信回调地址
             redirect_uri = java.net.URLEncoder.encode(backUrl, "utf-8");
             String oauth2Url = WechatConstant.AUTHORIZE_URL
                     .replaceAll("APPID", wechatConfig.getAppId()).replaceAll("REDIRECT_URI", redirect_uri)

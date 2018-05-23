@@ -55,6 +55,18 @@
     	<artifactId>zh-file</artifactId>
     	<version>${zh-version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>net.zhenghao.zh</groupId>
+      <artifactId>zh-tools</artifactId>
+      <version>${zh-version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>net.zhenghao.zh</groupId>
+      <artifactId>zh-wechat</artifactId>
+      <version>${zh-version}</version>
+    </dependency>
   
   </dependencies>
   <build>

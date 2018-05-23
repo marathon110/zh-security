@@ -35,7 +35,7 @@ import java.net.URLEncoder;
  * WechatAutoWebController.java
  */
 @Controller
-@RequestMapping("/wechat/web")
+@RequestMapping("/wechat/auth")
 public class WechatAuthWebController {
 
     @Autowired
@@ -76,8 +76,8 @@ public class WechatAuthWebController {
 
 
     @RequestMapping("/login")
+    @ResponseBody
     public R login(@RequestParam(name = "openid") String openid) {
-        System.out.println("hahahahahahaha");
         return wechatUserService.wechatLogin(openid);
     }
 }

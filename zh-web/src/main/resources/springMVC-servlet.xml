@@ -47,8 +47,17 @@
     		</bean>
     	</mvc:message-converters>
     </mvc:annotation-driven>
-    
-   	<!-- Thymeleaf视图解析器 默认视图 -->
+
+	<!-- 拦截器 -->
+	<mvc:interceptors>
+		<!-- 多个拦截器，顺序执行 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/wechat/web/**"/>
+			<bean class="net.zhenghao.zh.wechat.interceptor.TokenInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- Thymeleaf视图解析器 默认视图 -->
 	<bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
 		<property name="order" value="0"/>
 		<property name="prefix" value="/WEB-INF/view/"/>

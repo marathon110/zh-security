@@ -94,7 +94,9 @@ public class WechatUserServiceImpl implements WechatUserService {
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
-			return R.ok((Map<String, Object>) new HashMap<String, Object>().put("token", token));
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("token", token);
+			return R.ok(map);
 		}
 	}
 

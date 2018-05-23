@@ -57,6 +57,7 @@
 	        	/login.html=anon
 	        	/sys/login=anon
 	        	/sys/captcha.jpg=anon
+				/wechat/auth/**=anon
 				/wechat/web/**=anon
 				/wechat/core=anon
 				/wechat_web/**=anon

@@ -65,6 +65,7 @@
         <httpclient-version>4.5.5</httpclient-version>
         <zxing-version>3.3.0</zxing-version>
 	  	<xstream-version>1.4.10</xstream-version>
+	  	<jwt-version>3.3.0</jwt-version>
   </properties>
   
   <!-- 阿里云maven仓库 -->
@@ -356,6 +357,14 @@
 			<artifactId>xstream</artifactId>
 			<version>${xstream-version}</version>
 		</dependency>
+
+		<!-- jwt -->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>${jwt-version}</version>
+		</dependency>
+
 	</dependencies>
 	
 	<build>
