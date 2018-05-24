@@ -36,7 +36,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         System.out.println("token=>" + token);
         Map<String, Claim> claimMap = JwtToken.verifyToken(token);
         if(StringUtils.isBlank(token) || claimMap == null) {
-            response.sendRedirect("/wechat_web/auth.html");
+            response.sendRedirect(request.getContextPath() + "/wechat_web/auth.html");
         }
         String openid = claimMap.get("openid").asString();
         System.out.println("openid=>" + openid);

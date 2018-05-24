@@ -5,6 +5,9 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
@@ -23,6 +26,8 @@ import java.util.Map;
  * JwtToken.java
  */
 public class JwtToken {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(JwtToken.class);
 
     /**
      * 公用密匙-保存在服务器端，客户端不会知道密匙，以防被攻击
@@ -61,12 +66,16 @@ public class JwtToken {
      * @return
      */
     public static Map<String, Claim> verifyToken(String token) throws UnsupportedEncodingException {
+        if(StringUtils.isBlank(token)) {
+            return null;
+        }
         JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
         DecodedJWT jwt = null;
         try {
             jwt = verifier.verify(token);
         } catch (Exception e) {
-            throw new RuntimeException("登录凭证已过期，请重新登录");
+            LOGGER.error("登录凭证已过期，请重新登录", e);
+            return null;
         }
         return jwt.getClaims();
     }
