@@ -14,7 +14,7 @@
             var local_openid = store.get('openid');//获取本地redirect_url
             if(isNullOrEmpty(openid) && isNullOrEmpty(local_openid)) {
                 //如果没有获取到openid就去重新授权
-                indow.location.href = path_auth;
+                window.location.href = path_auth;
             }
             if(isNullOrEmpty(openid) && isNotNullOrEmpty(local_openid)) {
                 openid = local_openid;
