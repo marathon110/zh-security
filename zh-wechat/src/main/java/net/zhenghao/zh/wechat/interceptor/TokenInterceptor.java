@@ -33,7 +33,7 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("token");
-        //System.out.println("token=>" + token);
+        System.out.println("token=>" + token);
         Map<String, Claim> claimMap = JwtToken.verifyToken(token);
         if(StringUtils.isBlank(token) || claimMap == null) {
             response.sendRedirect(request.getContextPath() + "/wechat_web/auth.html");

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="include/header_css::header('授权跳转页')"></head>
+<head th:include="include/header_css::header('授权页')"></head>
 <body>
     <div th:include="include/footer_js::footer"></div>
     <script th:inline="javascript">
 
         $(function(){
+            dialogMsg("正在授权", "info");
             var path_login = /*[[@{/wechat/auth/login}]]*/;//登录地址
             var path_index = /*[[@{/wechat_web/index.html}]]*/;//首页地址
             var path_auth = /*[[@{/wechat/auth/redirectUrl}]]*/;//授权地址
