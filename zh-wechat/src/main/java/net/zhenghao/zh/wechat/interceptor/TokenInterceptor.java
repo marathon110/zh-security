@@ -36,13 +36,25 @@ public class TokenInterceptor implements HandlerInterceptor {
         System.out.println("token=>" + token);
         Map<String, Claim> claimMap = JwtToken.verifyToken(token);
         if(StringUtils.isBlank(token) || claimMap == null) {
-            response.sendRedirect(request.getContextPath() + "/wechat_web/auth.html");
-            return false;
+            //如果request.getHeader("X-Requested-With") 返回的是"XMLHttpRequest"说明就是ajax请求，需要特殊处理 否则直接重定向就可以了
+            if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
+                //告诉ajax我是重定向
+                response.setHeader("REDIRECT", "REDIRECT");
+                //告诉ajax我重定向的路径
+                response.setHeader("CONTENTPATH", request.getContextPath() +"/wechat_web/auth.html");
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                return false;
+            }else{
+                response.sendRedirect(request.getContextPath() + "/wechat_web/auth.html");
+                return false;
+            }
+
         }
+
         String openid = claimMap.get("openid").asString();
         System.out.println("openid=>" + openid);
         request.setAttribute("openid", openid);
-        return false;
+        return true;
     }
 
     /**

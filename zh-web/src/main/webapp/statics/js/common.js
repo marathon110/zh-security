@@ -33,6 +33,20 @@ $.ajaxSetup({
 	dataType: "json",
 	cache: false,
 	complete:function(XMLHttpRequest,textStatus){
+        //拦截器实现超时跳转到登录页面
+        // 通过xhr取得响应头
+        var REDIRECT = XMLHttpRequest.getResponseHeader("REDIRECT");
+        //如果响应头中包含 REDIRECT 则说明是拦截器返回的
+        if (REDIRECT == "REDIRECT")
+        {
+            var win = window;
+            while (win != win.top)
+            {
+                win = win.top;
+            }
+            //重新跳转到 login.html
+            win.location.href = XMLHttpRequest.getResponseHeader("CONTENTPATH");
+        }
 		if(textStatus=="parsererror"){
             top.layer.open({
 			  title: '系统提示',
@@ -45,11 +59,11 @@ $.ajaxSetup({
 			  btn: ['立即退出'],
 			  btnAlign: 'c',
 			  yes: function(){
-				  toUrl('../../sys/logout?_' + $.now());
+				  toUrl('../sys/logout?_' + $.now());
 			  }
 			});
 			setTimeout(function(){
-				toUrl('../../sys/logout?_' + $.now());
+				toUrl('../sys/logout?_' + $.now());
 			}, 2000);
         } else if(textStatus=="error"){
            dialogMsg("请求超时，请稍候重试...", "error");

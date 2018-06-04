@@ -1,43 +1,148 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="include/header_css::header('微信首页')"></head>
+<head>
+<title th:text="ZH微信"></title>
+    <meta charset="UTF-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"></meta>
+    <link rel="stylesheet" th:href="@{/statics/css/nprogress.css}"/>
+    <link rel="stylesheet" th:href="@{/statics/plugins/wechat/css/default.css}"/>
+    <link rel="stylesheet" th:href="@{/statics/plugins/wechat/css/normalize.css}"/>
+    <link rel="stylesheet" th:href="@{/statics/plugins/wechat/css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{https://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css}"/>
+    <link rel="stylesheet" th:href="@{/statics/plugins/wechat/css/style.css}"/>
+</head>
 <body>
     <div id="zh-wechat" v-cloak>
-        <h1>微信首页</h1>
-        <hr>
-        <p>{{code}}</p>
-        <p>{{state}}</p>
-        <p>{{token}}</p>
-        <p>{{oauth2Url}}</p>
+        <div class="demo">
+            <div class="demo__close-menu"></div>
+            <div class="demo__section demo__section-1" data-section="1">
+                <div class="demo__menu-btn"></div>
+                <h2 class="demo__section-heading">Contact</h2>
+            </div>
+            <div class="demo__section demo__section-2 active" data-section="2">
+                <div class="demo__menu-btn"></div>
+                <h2 class="demo__section-heading">个人中心</h2>
+                <div class="container">
+                    <header>
+                        <div class="bio">
+                            <img th:src="@{/statics/plugins/wechat/images/up.jpg}" alt="background" class="bg">
+                            <div class="desc">
+                                <h3>@Richer</h3>
+                                <p>你所拥有的一切都是你吸引而来的。我们都活在过去的行为和想法造就的世界里。</p>
+                            </div>
+                        </div>
+                        <div class="avatarcontainer">
+                            <img th:src="@{/statics/plugins/wechat/images/photo.jpg}" alt="avatar" class="avatar">
+                            <div class="hover">
+                                <div class="icon-twitter"></div>
+                            </div>
+                        </div>
+                    </header>
+                    <div class="content">
+                        <div class="data">
+                            <ul>
+                                <li>
+                                    2,931
+                                    <span>帖子</span>
+                                </li>
+                                <li>
+                                    1,118
+                                    <span>粉丝</span>
+                                </li>
+                                <li>
+                                    531
+                                    <span>关注</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="follow"> <div class="icon-twitter"></div> {{user.nickname}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="demo__section demo__section-3 inactive" data-section="3">
+                <div class="demo__menu-btn"></div>
+                <h2 class="demo__section-heading">Team</h2>
+            </div>
+            <div class="demo__section demo__section-4 inactive" data-section="4">
+                <div class="demo__menu-btn"></div>
+                <h2 class="demo__section-heading">Projects</h2>
+            </div>
+        </div>
     </div>
     <div th:include="include/footer_js::footer"></div>
+    <script th:src="@{/statics/plugins/wechat/js/stopExecutionOnTimeout.js?t=1}"></script>
     <script th:src="@{/statics/js/wechat_auth.js}"></script>
     <script type="text/javascript">
+        var let_this;
         var vm = new Vue({
-            el:'#zh-wechat',
-            data:{
-                code : '',
-                state : '',
-                token : '',
-                oauth2Url : '',
+            el : '#zh-wechat',
+            data : {
+                user : {
+                    id : 0,
+                    nickname : '',
+                    sexString : '',
+                    country : '',
+                    province : '',
+                    city : '',
+                    headimgurl : '',
+                }
             },
             beforeCreate: function(){
             },
             methods: {
-                redirectUrl : function () {
-                    store.set('user', { name:'Marcus' })
-                    console.log(store.get('user').name == 'Marcus');
-                    console.log(store.get('user').name);
-
-                },
-                auth : function() {
+                userInfo : function () {
+                    var token = store.get('token');//获取本地jwt
+                    $.ajax({
+                        type : "POST",
+                        url : "../wechat/web/user/info",
+                        cache: false,
+                        async: false,  // 与js同步
+                        dataType:"json",
+                        contentType : 'application/json',
+                        beforeSend: function(request) {
+                            request.setRequestHeader("token", token);
+                        },
+                        success:function(response){
+                            if (response.code == 0) {
+                                let_this.user = response.rows;
+                            }
+                        }
+                    });
                 }
-
             },
             created : function() {
-                this.redirectUrl();
+                let_this = this;
+                this.userInfo();
             }
         });
+
+        $(document).ready(function () {
+            var $demo = $('.demo');
+            var numOfSections = $('.demo__section').length;
+            $(document).on('click', '.demo__menu-btn', function () {
+                $demo.addClass('menu-active');
+            });
+            $(document).on('click', '.demo__close-menu', function () {
+                $demo.removeClass('menu-active');
+            });
+            $(document).on('click', '.demo.menu-active .demo__section', function () {
+                var $section = $(this);
+                var index = +$section.data('section');
+                $('.demo__section.active').removeClass('active');
+                $('.demo__section.inactive').removeClass('inactive');
+                $section.addClass('active');
+                $demo.removeClass('menu-active');
+                for (var i = index + 1; i <= numOfSections; i++) {
+                    if (window.CP.shouldStopExecution(1)) {
+                        break;
+                    }
+                    $('.demo__section[data-section=' + i + ']').addClass('inactive');
+                }
+                window.CP.exitedLoop(1);
+            });
+        });
+
     </script>
 </body>
 </html>

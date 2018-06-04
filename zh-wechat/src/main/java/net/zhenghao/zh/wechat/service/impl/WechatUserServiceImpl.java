@@ -100,4 +100,10 @@ public class WechatUserServiceImpl implements WechatUserService {
 		}
 	}
 
+	@Override
+	public R getWechatUserByOpenId(String openid) {
+		WechatUserEntity user = wechatUserManager.getWechatUserByOpenid(openid);
+		return CommonUtils.msg(user);
+	}
+
 }

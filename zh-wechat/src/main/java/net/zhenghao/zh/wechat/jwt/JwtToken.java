@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,10 +74,10 @@ public class JwtToken {
         DecodedJWT jwt = null;
         try {
             jwt = verifier.verify(token);
+            return jwt.getClaims();
         } catch (Exception e) {
-            LOGGER.error("登录凭证已过期，请重新登录", e);
+            LOGGER.error("登录凭证已过期，请重新登录");
             return null;
         }
-        return jwt.getClaims();
     }
 }

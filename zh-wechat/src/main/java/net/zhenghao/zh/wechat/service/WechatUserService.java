@@ -44,4 +44,6 @@ public interface WechatUserService {
 	 * @return
 	 */
 	R wechatLogin(String openid);
+
+	R getWechatUserByOpenId(String openid);
 }
