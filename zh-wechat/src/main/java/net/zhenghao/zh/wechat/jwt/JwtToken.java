@@ -46,7 +46,7 @@ public class JwtToken {
 
         //过期事件-1分钟过期
         Calendar nowTime = Calendar.getInstance();
-        nowTime.add(Calendar.MINUTE, 1);
+        nowTime.add(Calendar.DATE, 1);
         Date expiresDate = nowTime.getTime();
 
         Map<String, Object> map = new HashMap<String, Object>();

@@ -4,11 +4,14 @@ import net.zhenghao.zh.common.entity.R;
 import net.zhenghao.zh.common.utils.HttpClientUtils;
 import net.zhenghao.zh.common.utils.JSONUtils;
 import net.zhenghao.zh.wechat.constant.WechatConstant;
+import net.zhenghao.zh.wechat.entity.JsapiTicketEntity;
 import net.zhenghao.zh.wechat.entity.WechatAuthWebEntity;
 import net.zhenghao.zh.wechat.entity.WechatConfigEntity;
 import net.zhenghao.zh.wechat.entity.WechatUserEntity;
 import net.zhenghao.zh.wechat.service.WechatConfigService;
 import net.zhenghao.zh.wechat.service.WechatUserService;
+import net.zhenghao.zh.wechat.utils.JsapiTicketUtils;
+import net.zhenghao.zh.wechat.utils.SignUtils;
 import net.zhenghao.zh.wechat.utils.WebAuthUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 🙃
@@ -37,6 +42,8 @@ import java.net.URLEncoder;
 @Controller
 @RequestMapping("/wechat/auth")
 public class WechatAuthWebController {
+
+    private static final String js_noncestr = "zhaozhenghao";//jssdk随机字符串
 
     @Autowired
     private WechatConfigService wechatConfigService;
@@ -79,5 +86,23 @@ public class WechatAuthWebController {
     @ResponseBody
     public R login(@RequestParam(name = "openid") String openid) {
         return wechatUserService.wechatLogin(openid);
+    }
+
+    @RequestMapping("/jssdk")
+    @ResponseBody
+    public Map<String, String> jssdk(@RequestParam(name = "url") String url) {
+        JsapiTicketEntity jsapiTicketEntity = JsapiTicketUtils.getJsapiTicket();
+        Map<String ,String> params = new HashMap<>(4);
+        params.put("noncestr", js_noncestr);
+        params.put("jsapi_ticket", jsapiTicketEntity.getTicket());
+        params.put("timestamp", System.currentTimeMillis() + "");
+        params.put("url", url);
+        String signature = SignUtils.getJssdkSignature(params);
+        params.remove("jsapi_ticket");
+        params.remove("url");
+        params.put("signature", signature);
+        WechatConfigEntity wechatConfig = (WechatConfigEntity) wechatConfigService.getWechatConfig().get("rows");
+        params.put("appId", wechatConfig.getAppId());
+        return params;
     }
 }

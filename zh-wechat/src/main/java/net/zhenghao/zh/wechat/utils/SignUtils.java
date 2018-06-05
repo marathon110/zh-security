@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Map;
 
 /**
  * 🙃
@@ -43,13 +44,49 @@ public class SignUtils {
             content.append(arr[i]);
         }
         MessageDigest md = null;
-        String tmpStr = null;
+        String tmpStr = getMessageDigest(content.toString(), "SHA-1");
+        content = null;
+        return tmpStr.equals(signature.toUpperCase());
+    }
 
+    /**
+     * 获取Jssdk 的签名
+     * @param params
+     * @return
+     */
+    public static String getJssdkSignature(Map<String, String> params) {
+        String[] arr = new String[] { "noncestr", "jsapi_ticket", "timestamp", "url" };
+        // noncestr、jsapi_ticket、timestamp、url四个字段名进行字典序排序
+        Arrays.sort(arr);
+        StringBuilder content = new StringBuilder();
+        for (int i = 0; i < arr.length; i++) {
+            content.append(arr[i]);
+            content.append("=");
+            content.append(params.get(arr[i]));
+            if (i != arr.length - 1) {
+                content.append("&");
+            }
+        }
+        String signature = getMessageDigest(content.toString(), "SHA-1");
+        content = null;
+        return signature.toLowerCase();
+    }
+
+
+    /**
+     * 对字符串进行MessageDigest加密
+     * @param str 加密内容
+     * @param Type 加密类型
+     * @return
+     */
+    public static String getMessageDigest(String str, String Type) {
+        MessageDigest md = null;
+        String result = null;
         try {
-            md = MessageDigest.getInstance("SHA-1");
+            md = MessageDigest.getInstance(Type);
             // 将三个参数字符串拼接成一个字符串进行sha1加密
-            byte[] digest = md.digest(content.toString().getBytes("utf-8"));
-            tmpStr = byteToStr(digest);
+            byte[] digest = md.digest(str.getBytes("utf-8"));
+            result = byteToStr(digest);
         } catch (NoSuchAlgorithmException e) {
             LOGGER.error(e.getMessage(), e);
             e.printStackTrace();
@@ -57,10 +94,8 @@ public class SignUtils {
             LOGGER.error(e.getMessage(), e);
             e.printStackTrace();
         }
-        content = null;
-        return tmpStr.equals(signature.toUpperCase());
+        return result;
     }
-
     /**
      * 将字节数组转换为十六进制字符串
      * @param byteArray

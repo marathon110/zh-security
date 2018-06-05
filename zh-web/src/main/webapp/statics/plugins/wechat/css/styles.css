@@ -33,7 +33,7 @@ body {
   top: 8px;
   width: 100%;
   height: 4px;
-  background: #7097B0;
+  background: #fd4c5d;
 }
 .demo__close-menu:before {
   -webkit-transform: rotate(45deg);
@@ -96,32 +96,32 @@ body {
   cursor: pointer;
 }
 .demo__section-1 {
-  background: #563761;
+  background: #efcee8;
 }
 .demo__section-1 .demo__section-heading,
 .demo__section-1 .demo__menu-btn:before {
-  color: #E57B60;
+  color: #fd4c5d;
 }
 .demo__section-2 {
-  background: #A7425C;
+  background: #ffffff;
 }
 .demo__section-2 .demo__section-heading,
 .demo__section-2 .demo__menu-btn:before {
-  color: #FFE26F;
+  color: #fd4c5d;
 }
 .demo__section-3 {
-  background: #F3825F;
+  background: #fdffdf;
 }
 .demo__section-3 .demo__section-heading,
 .demo__section-3 .demo__menu-btn:before {
-  color: #AD4A5D;
+  color: #fd4c5d;
 }
 .demo__section-4 {
-  background: #FFE26F;
+  background: #c7b3e5;
 }
 .demo__section-4 .demo__section-heading,
 .demo__section-4 .demo__menu-btn:before {
-  color: #AD4A5D;
+  color: #fd4c5d;
 }
 .demo__section-heading {
   text-transform: uppercase;
