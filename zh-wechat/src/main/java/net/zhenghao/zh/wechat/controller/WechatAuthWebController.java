@@ -25,7 +25,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -90,12 +92,13 @@ public class WechatAuthWebController {
 
     @RequestMapping("/jssdk")
     @ResponseBody
-    public Map<String, String> jssdk(@RequestParam(name = "url") String url) {
+    public Map<String, String> jssdk(@RequestParam(name = "url") String url) throws UnsupportedEncodingException {
+        url = URLDecoder.decode(url, "UTF-8");
         JsapiTicketEntity jsapiTicketEntity = JsapiTicketUtils.getJsapiTicket();
         Map<String ,String> params = new HashMap<>(4);
         params.put("noncestr", js_noncestr);
         params.put("jsapi_ticket", jsapiTicketEntity.getTicket());
-        params.put("timestamp", System.currentTimeMillis() + "");
+        params.put("timestamp", SignUtils.getSecondTimestampTwo(new Date()) + "");
         params.put("url", url);
         String signature = SignUtils.getJssdkSignature(params);
         params.remove("jsapi_ticket");

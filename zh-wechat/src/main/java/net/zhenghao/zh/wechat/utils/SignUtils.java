@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -120,5 +121,18 @@ public class SignUtils {
         tempArr[1] = digit[mByte & 0X0F];
         String str = new String(tempArr);
         return str;
+    }
+
+    /**
+     * 获取精确到秒的时间戳
+     * @param date
+     * @return
+     */
+    public static int getSecondTimestampTwo(Date date){
+        if (null == date) {
+            return 0;
+        }
+        String timestamp = String.valueOf(date.getTime()/1000);
+        return Integer.valueOf(timestamp);
     }
 }
