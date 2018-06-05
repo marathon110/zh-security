@@ -6,15 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"></meta>
     <link rel="stylesheet" th:href="@{/statics/css/nprogress.css}"/>
+    <link rel="stylesheet" th:href="@{/statics/plugins/wechat/css/animate.min.css}"/>
     <link rel="stylesheet" th:href="@{/statics/plugins/wechat/css/default.css}"/>
     <link rel="stylesheet" th:href="@{/statics/plugins/wechat/css/normalize.css}"/>
     <link rel="stylesheet" th:href="@{/statics/plugins/wechat/css/styles.css}"/>
-    <link rel="stylesheet" th:href="@{https://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css}"/>
+    <link rel="stylesheet" th:href="@{http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css}"/>
     <link rel="stylesheet" th:href="@{/statics/plugins/wechat/css/style.css}"/>
 </head>
 <body>
     <div id="zh-wechat" v-cloak>
-        <div class="demo">
+            <div id='ss_menu' style="z-index:10;">
+                <div>
+                    <i class="fa fa-qq"></i>
+                </div>
+                <div>
+                    <i class="fa fa-weibo"></i>
+                </div>
+                <div>
+                    <i class="fa fa-weixin"></i>
+                </div>
+                <div>
+                    <i class="fa fa-renren"></i>
+                </div>
+                <div class='menu'>
+                    <div class='share' id='ss_toggle' data-rot='180'>
+                        <div class='circle'></div>
+                        <div class='bar'></div>
+                    </div>
+                </div>
+            </div>
+        <div class="demo" style="z-index:5;">
             <div class="demo__close-menu"></div>
             <div class="demo__section demo__section-1" data-section="1">
                 <div class="demo__menu-btn"></div>
@@ -28,14 +49,14 @@
                         <div class="bio">
                             <img th:src="@{/statics/plugins/wechat/images/up.jpg}" alt="background" class="bg">
                             <div class="desc">
-                                <h3>@Richer</h3>
-                                <p>你所拥有的一切都是你吸引而来的。我们都活在过去的行为和想法造就的世界里。</p>
+                                <h3>{{user.nickname}}</h3>
+                                <p>ZH微信开发网页授权。</p>
                             </div>
                         </div>
                         <div class="avatarcontainer">
-                            <img th:src="@{/statics/plugins/wechat/images/photo.jpg}" alt="avatar" class="avatar">
+                            <img v-bind:src="user.headimgurl" alt="avatar" class="avatar">
                             <div class="hover">
-                                <div class="icon-twitter"></div>
+                                <div class="fa fa-weixin"></div>
                             </div>
                         </div>
                     </header>
@@ -43,20 +64,20 @@
                         <div class="data">
                             <ul>
                                 <li>
-                                    2,931
-                                    <span>帖子</span>
+                                    国家
+                                    <span>{{user.country}}</span>
                                 </li>
                                 <li>
-                                    1,118
-                                    <span>粉丝</span>
+                                    省份
+                                    <span>{{user.province}}</span>
                                 </li>
                                 <li>
-                                    531
-                                    <span>关注</span>
+                                    城市
+                                    <span>{{user.city}}</span>
                                 </li>
                             </ul>
                         </div>
-                        <div class="follow"> <div class="icon-twitter"></div> {{user.nickname}}</div>
+                        <div class="follow"><div class="fa fa-weixin"></div>   {{user.nickname}}</div>
                     </div>
                 </div>
             </div>
@@ -69,6 +90,7 @@
                 <h2 class="demo__section-heading">Projects</h2>
             </div>
         </div>
+
     </div>
     <div th:include="include/footer_js::footer"></div>
     <script th:src="@{/statics/plugins/wechat/js/stopExecutionOnTimeout.js?t=1}"></script>
@@ -140,6 +162,32 @@
                     $('.demo__section[data-section=' + i + ']').addClass('inactive');
                 }
                 window.CP.exitedLoop(1);
+            });
+        });
+
+        $(document).ready(function (ev) {
+            var toggle = $('#ss_toggle');
+            var menu = $('#ss_menu');
+            var rot;
+            $('#ss_toggle').on('click', function (ev) {
+                rot = parseInt($(this).data('rot')) - 180;
+                menu.css('transform', 'rotate(' + rot + 'deg)');
+                menu.css('webkitTransform', 'rotate(' + rot + 'deg)');
+                if (rot / 180 % 2 == 0) {
+                    toggle.parent().addClass('ss_active');
+                    toggle.addClass('close');
+                } else {
+                    toggle.parent().removeClass('ss_active');
+                    toggle.removeClass('close');
+                }
+                $(this).data('rot', rot);
+            });
+            menu.on('transitionend webkitTransitionEnd oTransitionEnd', function () {
+                if (rot / 180 % 2 == 0) {
+                    $('#ss_menu div i').addClass('ss_animate');
+                } else {
+                    $('#ss_menu div i').removeClass('ss_animate');
+                }
             });
         });
 
