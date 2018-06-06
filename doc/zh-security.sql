@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : personnal
+Source Server         : zhaozhenghao
 Source Server Version : 50519
 Source Host           : localhost:3306
 Source Database       : zh-security
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2018-04-19 15:43:22
+Date: 2018-06-06 16:00:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -166,7 +166,7 @@ CREATE TABLE `qrtz_scheduler_state` (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'LAPTOP-BDE3NRRF1517449287467', '1517449348733', '15000');
+INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'DESKTOP-FR3S3ED1528271783397', '1528271874489', '15000');
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -344,7 +344,7 @@ CREATE TABLE `sys_log` (
   `remark` varchar(500) CHARACTER SET utf8 DEFAULT NULL COMMENT '操作描述',
   `type` tinyint(255) DEFAULT NULL COMMENT '日志类型 1-登录 2-访问 3-操作 4-异常 5-授权 6-微信',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=latin1 COMMENT='系统日志';
+) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=latin1 COMMENT='系统日志';
 
 -- ----------------------------
 -- Records of sys_log
@@ -412,6 +412,7 @@ INSERT INTO `sys_log` VALUES ('232', '1', 'admin', '登录', null, 'net.zhenghao
 INSERT INTO `sys_log` VALUES ('233', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"3gb3n\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-31 14:26:07', '1', '登录成功', '1');
 INSERT INTO `sys_log` VALUES ('234', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"2xb7e\",\"password\":\"123\",\"username\":\"admin\"}', '0:0:0:0:0:0:0:1', '2018-01-31 16:09:45', '1', '登录成功', '1');
 INSERT INTO `sys_log` VALUES ('235', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"xd7ax\",\"password\":\"123\",\"username\":\"admin\"}', '127.0.0.1', '2018-01-31 16:25:42', '1', '登录成功', '1');
+INSERT INTO `sys_log` VALUES ('236', '1', 'admin', '登录', null, 'net.zhenghao.zh.shiro.controller.SysLoginController.login()', '{\"captcha\":\"8dbed\",\"password\":\"123\",\"username\":\"admin\"}', '127.0.0.1', '2018-06-06 15:57:08', '1', '登录成功', '1');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -429,7 +430,7 @@ CREATE TABLE `sys_menu` (
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1 COMMENT='系统菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1 COMMENT='系统菜单';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -497,6 +498,8 @@ INSERT INTO `sys_menu` VALUES ('60', '57', '编辑', '/wechat/menu/update', 'wec
 INSERT INTO `sys_menu` VALUES ('61', '57', '删除', '/wechat/menu/remove', 'wechat:menu:remove', '2', null, '0', '2018-04-19 15:39:21', null);
 INSERT INTO `sys_menu` VALUES ('62', '57', '提交微信菜单', '/wechat/menu/submit', 'wechat:menu:submit', '2', null, '0', '2018-04-19 15:39:51', null);
 INSERT INTO `sys_menu` VALUES ('63', '57', '删除微信菜单', '/wechat/menu/delete', 'wechat:menu:delete', '2', null, '0', '2018-04-19 15:40:15', null);
+INSERT INTO `sys_menu` VALUES ('64', '54', '微信用户刷新', '/wechat/user/list', 'wechat:user:list', '2', null, '0', '2018-06-06 15:44:33', null);
+INSERT INTO `sys_menu` VALUES ('65', '54', '微信用户统计', '/wechat/user/count', 'wechat:user:count', '2', null, '0', '2018-06-06 15:45:18', null);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -527,7 +530,7 @@ CREATE TABLE `sys_role_menu` (
   `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
   `menu_id` bigint(20) DEFAULT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1 COMMENT='角色菜单关系';
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1 COMMENT='角色菜单关系';
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -595,6 +598,8 @@ INSERT INTO `sys_role_menu` VALUES ('60', '1', '60');
 INSERT INTO `sys_role_menu` VALUES ('61', '1', '61');
 INSERT INTO `sys_role_menu` VALUES ('62', '1', '62');
 INSERT INTO `sys_role_menu` VALUES ('63', '1', '63');
+INSERT INTO `sys_role_menu` VALUES ('64', '1', '64');
+INSERT INTO `sys_role_menu` VALUES ('65', '1', '65');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -644,6 +649,7 @@ CREATE TABLE `wechat_config` (
   `appsecret` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '微信appsecret',
   `token` varchar(40) CHARACTER SET utf8 DEFAULT NULL COMMENT '令牌(Token)',
   `encoding_aes_key` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '消息加解密密钥(EncodingAESKey)',
+  `redirect_uri` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '授权回调页面域名',
   `user_id_create` bigint(20) DEFAULT NULL COMMENT '创建用户id',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
@@ -676,4 +682,30 @@ CREATE TABLE `wechat_menu` (
 
 -- ----------------------------
 -- Records of wechat_menu
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for wechat_user
+-- ----------------------------
+DROP TABLE IF EXISTS `wechat_user`;
+CREATE TABLE `wechat_user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `openid` varchar(100) CHARACTER SET utf8 NOT NULL COMMENT '微信openid',
+  `mobile` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '手机号',
+  `realname` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '真实姓名',
+  `nickname` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '用户的昵称',
+  `sex` int(10) DEFAULT NULL COMMENT '用户的性别，值为1时是男性，值为2时是女性，值为0时是未知',
+  `city` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '用户所在城市',
+  `country` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '用户所在国家',
+  `province` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '用户所在省份',
+  `headimgurl` varchar(500) CHARACTER SET utf8 DEFAULT NULL COMMENT '用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空。若用户更换头像，原有头像URL将失效。',
+  `unionid` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段',
+  `language` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '用户的语言，简体中文为zh_CN',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='微信授权页用户表';
+
+-- ----------------------------
+-- Records of wechat_user
 -- ----------------------------

@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : personnal
+Source Server         : zhaozhenghao
 Source Server Version : 50519
 Source Host           : localhost:3306
 Source Database       : test-security
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2018-06-01 09:20:28
+Date: 2018-06-06 15:59:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -166,7 +166,7 @@ CREATE TABLE `qrtz_scheduler_state` (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'LAPTOP-BDE3NRRF1527573605666', '1527579652941', '15000');
+INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'DESKTOP-FR3S3ED1528271506703', '1528271732947', '15000');
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -674,7 +674,7 @@ CREATE TABLE `sys_menu` (
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1 COMMENT='系统菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1 COMMENT='系统菜单';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -742,6 +742,8 @@ INSERT INTO `sys_menu` VALUES ('60', '57', '编辑', '/wechat/menu/update', 'wec
 INSERT INTO `sys_menu` VALUES ('61', '57', '删除', '/wechat/menu/remove', 'wechat:menu:remove', '2', null, '0', '2018-04-19 15:12:35', null);
 INSERT INTO `sys_menu` VALUES ('62', '57', '提交微信菜单', '/wechat/menu/submit', 'wechat:menu:submit', '2', null, '0', '2018-04-19 15:13:24', null);
 INSERT INTO `sys_menu` VALUES ('63', '57', '删除微信菜单', '/wechat/menu/delete', 'wechat:menu:delete', '2', null, '0', '2018-04-19 15:13:52', null);
+INSERT INTO `sys_menu` VALUES ('64', '54', '微信用户刷新', '/wechat/user/list', 'wechat:user:list', '2', null, '0', '2018-06-06 15:50:39', null);
+INSERT INTO `sys_menu` VALUES ('65', '54', '微信用户统计', '/wechat/user/count', 'wechat:user:count', '2', null, '0', '2018-06-06 15:51:03', null);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -772,7 +774,7 @@ CREATE TABLE `sys_role_menu` (
   `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
   `menu_id` bigint(20) DEFAULT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=latin1 COMMENT='角色菜单关系';
+) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=latin1 COMMENT='角色菜单关系';
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -840,6 +842,8 @@ INSERT INTO `sys_role_menu` VALUES ('102', '1', '60');
 INSERT INTO `sys_role_menu` VALUES ('103', '1', '61');
 INSERT INTO `sys_role_menu` VALUES ('104', '1', '62');
 INSERT INTO `sys_role_menu` VALUES ('105', '1', '63');
+INSERT INTO `sys_role_menu` VALUES ('106', '1', '64');
+INSERT INTO `sys_role_menu` VALUES ('107', '1', '65');
 
 -- ----------------------------
 -- Table structure for sys_user
