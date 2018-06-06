@@ -46,4 +46,6 @@ public interface WechatUserService {
 	R wechatLogin(String openid);
 
 	R getWechatUserByOpenId(String openid);
+
+	R wechatUserCount();
 }

@@ -21,8 +21,17 @@
 			`gmt_modified`
 		FROM
 			wechat_user
+		<where>
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				AND DATE_FORMAT( gmt_create, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+			</if>
+			<if test="name != null and name.trim() != ''">
+				AND realname LIKE concat('%',#{name},'%')
+				OR nickname LIKE concat('%',#{name},'%')
+			</if>
+		</where>
 		ORDER BY
-			id DESC
+			gmt_create DESC
 	</select>
 	
 	<insert id="save">
@@ -129,6 +138,27 @@
 		wechat_user
 		WHERE
 		openid = #{openid}
+	</select>
+
+	<select id="wechatUserCount" resultType="Map">
+		SELECT
+			*
+		FROM
+			(
+				SELECT
+					COUNT(1) AS alluser
+				FROM
+					wechat_user
+			) A
+		INNER JOIN (
+			SELECT
+				COUNT(1) AS newuser
+			FROM
+				wechat_user
+			WHERE
+				gmt_create BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+			AND CURDATE()
+		) B
 	</select>
 	
 	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>

@@ -1,6 +1,7 @@
 package net.zhenghao.zh.wechat.manager;
 
 import java.util.List;
+import java.util.Map;
 
 import net.zhenghao.zh.common.entity.Page;
 import net.zhenghao.zh.common.entity.Query;
@@ -28,5 +29,7 @@ import net.zhenghao.zh.wechat.entity.WechatUserEntity;
 	int batchRemove(Long[] id);
 
 	WechatUserEntity getWechatUserByOpenid(String openid);
+
+	List<Map<String, Object>> wechatUserCount();
 	
  }

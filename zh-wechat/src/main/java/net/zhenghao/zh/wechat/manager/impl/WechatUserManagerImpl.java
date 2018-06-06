@@ -1,6 +1,7 @@
 package net.zhenghao.zh.wechat.manager.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -56,6 +57,11 @@ public class WechatUserManagerImpl implements WechatUserManager {
 	public WechatUserEntity getWechatUserByOpenid(String openid) {
 		WechatUserEntity wechatUser = wechatUserMapper.getObjectByOpenid(openid);
 		return wechatUser;
+	}
+
+	@Override
+	public List<Map<String, Object>> wechatUserCount() {
+		return wechatUserMapper.wechatUserCount();
 	}
 
 }

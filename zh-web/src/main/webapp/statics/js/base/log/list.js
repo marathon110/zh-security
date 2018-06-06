@@ -135,7 +135,7 @@ var vm = new Vue({
 			});
 		}
 	},
-	created : function() {
+    mounted : function() {
 		//日期选择
 		laydate.render({
 			elem: '#dateRange',

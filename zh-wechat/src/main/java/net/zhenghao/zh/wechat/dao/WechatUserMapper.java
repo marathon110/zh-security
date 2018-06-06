@@ -5,6 +5,9 @@ import org.mybatis.spring.annotation.MapperScan;
 import net.zhenghao.zh.common.dao.BaseMapper;
 import net.zhenghao.zh.wechat.entity.WechatUserEntity;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 微信授权页用户表
  *
@@ -17,4 +20,6 @@ import net.zhenghao.zh.wechat.entity.WechatUserEntity;
 public interface WechatUserMapper extends BaseMapper<WechatUserEntity> {
 
     WechatUserEntity getObjectByOpenid(String openid);
+
+    List<Map<String, Object>> wechatUserCount();
 }

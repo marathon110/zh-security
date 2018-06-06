@@ -2,6 +2,7 @@ package net.zhenghao.zh.wechat.service.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.zhenghao.zh.wechat.jwt.JwtToken;
@@ -104,6 +105,12 @@ public class WechatUserServiceImpl implements WechatUserService {
 	public R getWechatUserByOpenId(String openid) {
 		WechatUserEntity user = wechatUserManager.getWechatUserByOpenid(openid);
 		return CommonUtils.msg(user);
+	}
+
+	@Override
+	public R wechatUserCount() {
+		List<Map<String, Object>> list = wechatUserManager.wechatUserCount();
+		return CommonUtils.msg(list);
 	}
 
 }

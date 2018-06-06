@@ -13,6 +13,8 @@ var vm = new Vue({
         },
         error : false,
         errorMsg : '',
+        alluser : 0,
+        newuser : 0
 	},
 	methods : {
         wechatInfoEdit : function() {
@@ -33,12 +35,16 @@ var vm = new Vue({
 		},
         getWechatConfig : function() {
             getConfig();
-		},
+        },
+        getWechatCount : function() {
+            getCount();
+        },
 		clear : function() {
 
 		}
 	},
 	created : function() {
+        this.getWechatCount();
         this.getWechatConfig();
 	}
 })
@@ -61,6 +67,16 @@ function getConfig() {
                 vm.error = true;
                 vm.errorMsg = '请输入微信基本配置信息';
             }
+        }
+    });
+}
+
+function getCount() {
+    $.SetForm({
+        url : '../../wechat/user/count?_' + $.now(),
+        success : function(data) {
+            vm.alluser = data[0].alluser;
+            vm.newuser = data[0].newuser;
         }
     });
 }
